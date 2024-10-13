@@ -1,13 +1,24 @@
 package br.fateczl.carometro.model.entities;
 
-import jakarta.persistence.*;
-
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapKeyColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Aluno implements Serializable {
@@ -23,7 +34,7 @@ public class Aluno implements Serializable {
     private String ra;
     private String nome;
     private String curso;
-    private LocalDate semestreConclusao;
+    private String semestreConclusao;
     private String foto;
 
     @ElementCollection
@@ -33,9 +44,11 @@ public class Aluno implements Serializable {
     private Map<String, String> links;
 
     @OneToOne(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Historico historico;
 
     @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     @MapKeyColumn(name = "tipo")
     private Map<String, Comentario> comentarios;
 
@@ -69,11 +82,12 @@ public class Aluno implements Serializable {
     }
 
     public String getSemestreConclusao() {
-        return semestreConclusao.format(ANO_MES);
+        return  semestreConclusao;
     }
 
     public void setSemestreConclusao(String semestreConclusao) {
-        this.semestreConclusao = LocalDate.parse(semestreConclusao+"/01", ANO_MES_DIA);
+
+        this.semestreConclusao = semestreConclusao;
     }
 
     public String getFoto() {

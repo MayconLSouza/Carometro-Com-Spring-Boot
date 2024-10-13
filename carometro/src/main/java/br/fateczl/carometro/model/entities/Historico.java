@@ -1,11 +1,18 @@
 package br.fateczl.carometro.model.entities;
 
-import jakarta.persistence.*;
-
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Historico implements Serializable {
@@ -17,15 +24,16 @@ public class Historico implements Serializable {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String empresa;
     private String atividade;
-    private LocalDate tempoEmpresa;
+    private String tempoEmpresa;
 
     @OneToOne
     @JoinColumn(name = "aluno_ra")
+    @JsonBackReference
     private Aluno aluno;
 
     public Historico() {
@@ -56,26 +64,16 @@ public class Historico implements Serializable {
         this.atividade = atividade;
     }
 
-    public String getTempoEmpresaFormat() {
-        return tempoEmpresa.format(ANO_MES);
-    }
-
-    public LocalDate getTempoEmpresa() {
+    public String getTempoEmpresa() {
         return tempoEmpresa;
     }
 
-    public void setTempoEmpresa(LocalDate tempoEmpresa) {
+ 
+
+    public void setTempoEmpresa(String tempoEmpresa) {
         this.tempoEmpresa = tempoEmpresa;
     }
 
-    public void setTempoEmpresa(String tempoEmpresa) {
-        String[] parts = tempoEmpresa.split(",");
-
-        String ano = parts[0].length() == 1 ? "000" + parts[0] : "00" + parts[0];
-        String mes = parts[1].length() == 1 ? "0" + parts[1] : parts[1];
-        String dia = "01";
-        this.tempoEmpresa = LocalDate.parse(ano+"-"+mes+"-"+dia);
-    }
 
     public Aluno getAluno() {
         return aluno;
@@ -88,7 +86,7 @@ public class Historico implements Serializable {
     @Override
     public String toString() {
         return "Historico [id=" + id + ", empresa=" + empresa + ", atividade=" + atividade + ", tempoEmpresa="
-                + getTempoEmpresaFormat() + "]";
+                + getTempoEmpresa() + "]";
     }
 
 }

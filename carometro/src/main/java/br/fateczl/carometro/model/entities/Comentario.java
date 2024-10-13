@@ -5,8 +5,19 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import br.fateczl.carometro.model.enums.Enum_Tipos;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Comentario implements Serializable {
@@ -17,16 +28,19 @@ public class Comentario implements Serializable {
     private final DateTimeFormatter  DIA_MES_ANO = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String descricao;
     private LocalDate data = LocalDate.now();
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo")
     private Enum_Tipos tipo;
+    
+
     @ManyToOne
     @JoinColumn(name = "aluno_ra")
+    @JsonBackReference
     private Aluno aluno;
 
     public Comentario() {}

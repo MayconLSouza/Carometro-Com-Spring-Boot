@@ -16,10 +16,12 @@ public class AlunoServiceImp implements IAlunoService {
 
     @Override
     public Aluno inserir(Aluno aluno) {
+    	System.err.println("reposytory");
         Optional<Aluno> validaAluno = repository.findById(aluno.getRa());
         if (validaAluno.isPresent()) {
             throw new IllegalArgumentException("Aluno Já Presente no Banco de Dados");
         }else{
+ 
             return repository.save(aluno);
         }
     }
