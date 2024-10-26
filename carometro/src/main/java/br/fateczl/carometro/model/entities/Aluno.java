@@ -51,6 +51,10 @@ public class Aluno implements Serializable {
     @JsonManagedReference
     @MapKeyColumn(name = "tipo")
     private Map<String, Comentario> comentarios;
+    
+    public Aluno(String ra) {
+        this.ra = ra;
+    }
 
     public Aluno() {
         links = new HashMap<String, String>();
