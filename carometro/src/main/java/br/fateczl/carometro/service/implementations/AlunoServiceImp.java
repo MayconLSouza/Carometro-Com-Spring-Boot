@@ -1,11 +1,14 @@
 package br.fateczl.carometro.service.implementations;
 
 import br.fateczl.carometro.model.entities.Aluno;
+import br.fateczl.carometro.model.entities.Comentario;
+import br.fateczl.carometro.model.entities.Historico;
 import br.fateczl.carometro.persistence.IAlunoRepository;
 import br.fateczl.carometro.service.services.IAlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -37,10 +40,45 @@ public class AlunoServiceImp implements IAlunoService {
         alunoAtualizado.setNome(aluno.getNome());
         alunoAtualizado.setCurso(aluno.getCurso());
         alunoAtualizado.setFoto(aluno.getFoto());
-        alunoAtualizado.setHistorico(aluno.getHistorico());
         alunoAtualizado.setSemestreConclusao(aluno.getSemestreConclusao());
-        alunoAtualizado.setComentarios(aluno.getComentarios());
         alunoAtualizado.setLinks(aluno.getLinks());
+        
+        // Historico
+        if (aluno.getHistorico() != null) {
+            Historico historicoAtual = alunoAtualizado.getHistorico();
+
+            if (historicoAtual != null) {
+                // Se o historico ja existe, apenas atualiza os campos
+                historicoAtual.setEmpresa(aluno.getHistorico().getEmpresa());
+                historicoAtual.setAtividade(aluno.getHistorico().getAtividade());
+                historicoAtual.setTempoEmpresa(aluno.getHistorico().getTempoEmpresa());
+            } else {
+                // Se o historico nao existe, configura o aluno e adiciona ao aluno atual
+                aluno.getHistorico().setAluno(alunoAtualizado);
+                alunoAtualizado.setHistorico(aluno.getHistorico());
+            }
+        }
+        
+        // Comentario
+        if (aluno.getComentarios() != null) {
+            Map<String, Comentario> comentariosAtualizados = alunoAtualizado.getComentarios();
+            
+            for (Map.Entry<String, Comentario> comentario : aluno.getComentarios().entrySet()) {
+                String tipoComentario = comentario.getKey();
+                Comentario novoComentario = comentario.getValue();
+
+                if (comentariosAtualizados.containsKey(tipoComentario)) {
+                    // Atualize o comentario existente
+                    Comentario comentarioExistente = comentariosAtualizados.get(tipoComentario);
+                    comentarioExistente.setDescricao(novoComentario.getDescricao());
+                    comentarioExistente.setData(novoComentario.getData());
+                } else {
+                    // Adiciona novo comentario e vincule ao aluno
+                    novoComentario.setAluno(alunoAtualizado);
+                    comentariosAtualizados.put(tipoComentario, novoComentario);
+                }
+            }
+        }
 
         return repository.save(alunoAtualizado);
     }
