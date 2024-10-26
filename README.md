@@ -8,7 +8,8 @@ Este Sistema foi concebido desde o levantamento de requisitos junto ao cliente, 
 ![MCU Carometro](https://github.com/user-attachments/assets/6e77f5cf-7781-41d2-859c-0dbcdfe18878)
 
 ### VCP - Visão de Classe Participante do Sistema
-![VCP - CARÔMETRO](https://github.com/user-attachments/assets/476809c8-8578-4169-a39c-cfe2527b3f31)
+![VCP - CARÔMETRO](https://github.com/user-attachments/assets/fabea83d-96b5-449a-8462-3f09905083ce)
+
 
 ---
 
