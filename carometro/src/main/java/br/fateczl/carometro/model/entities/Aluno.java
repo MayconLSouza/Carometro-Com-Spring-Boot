@@ -8,8 +8,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
@@ -20,8 +18,7 @@ public class Aluno implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id //primary key
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ra; 
+    private String ra; 
     private String nome;
     private String curso;
     private String semestreConclusao;
@@ -43,12 +40,12 @@ public class Aluno implements Serializable {
     }
 
     // Getters e Setters
-    public Long getRa() {
+    public String getRa() {
         return ra;
     }
 
-    public void setRa(Long ra) {
-        this.ra = ra;
+    public String setRa(String ra) {
+        return this.ra = ra;
     }
 
     public String getNome() {

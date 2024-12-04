@@ -40,34 +40,53 @@ public class Comentario implements Serializable {
     }
 
     // Getters e Setters
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public Aluno getAluno() {
+		return aluno;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
 
-    public Aluno getAluno() {
-        return aluno;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
+	public Enum_Tipos getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Enum_Tipos tipo) {
+		this.tipo = tipo;
+	}
 
 	@Override
 	public String toString() {
 		return "Comentario [id=" + id + ", aluno=" + aluno + ", descricao=" + descricao + ", data=" + data + ", tipo="
 				+ tipo + "]";
 	}
+	
+	
+
 
 }

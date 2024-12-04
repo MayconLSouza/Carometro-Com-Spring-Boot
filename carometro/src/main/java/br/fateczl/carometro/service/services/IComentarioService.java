@@ -1,13 +1,18 @@
 package br.fateczl.carometro.service.services;
 
+import java.util.List;
 
 import br.fateczl.carometro.model.entities.Comentario;
 
-
 public interface IComentarioService {
-	public Comentario inserir(Comentario comentario);
-	public Comentario buscar(Long id) throws ClassNotFoundException;
-	public Comentario atualizar(Long id, Comentario aluno) throws ClassNotFoundException;
-	public void deletar(Long id);
-	public Iterable<Comentario> buscarTodos();
+	
+	Comentario inserir(Comentario comentario) throws ClassNotFoundException;
+
+	Comentario buscar(String raDoAluno, String tipo) throws ClassNotFoundException;
+
+	Comentario atualizar(String raDoAluno, String tipo, Comentario comentarioAtualizado) throws ClassNotFoundException;
+
+	Comentario deletar(String raDoAluno, String tipo) throws ClassNotFoundException;
+
+	List<Comentario> buscarTodosPorAluno(String raDoAluno) throws ClassNotFoundException;
 }

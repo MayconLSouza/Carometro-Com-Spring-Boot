@@ -1,11 +1,14 @@
 package br.fateczl.carometro.service.implementations;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.fateczl.carometro.model.entities.Aluno;
 import br.fateczl.carometro.model.entities.Historico;
+import br.fateczl.carometro.persistence.IAlunoRepository;
 import br.fateczl.carometro.persistence.IHistoricoRepository;
 import br.fateczl.carometro.service.services.IHistoricoService;
 
@@ -13,35 +16,40 @@ import br.fateczl.carometro.service.services.IHistoricoService;
 public class HistoricoServiceImp implements IHistoricoService {
 
 	@Autowired
-	IHistoricoRepository repository;
+	IHistoricoRepository repositoryHistorico;
+
+	@Autowired
+	IAlunoRepository repositoryAluno;
 
 	@Override
 	public Historico inserir(Historico historico) {
-
-		return repository.save(historico);
+		return repositoryHistorico.save(historico);
 
 	}
 
 	@Override
-	public Historico buscar(Long id) throws ClassNotFoundException {
-		return repository.findById(id).orElseThrow(ClassNotFoundException::new);
+	public Historico buscar(String ra, Long id) throws ClassNotFoundException {
+		return repositoryHistorico.findByAlunoRaAndIdHistorico(ra, id)
+				.orElseThrow(() -> new ClassNotFoundException("Histórico Inexistente"));
 	}
 
 	@Override
-	public Historico atualizar(Long id, Historico historico) throws ClassNotFoundException {
-		Historico historicoAtualizado = repository.findById(id)
+	public Historico atualizar(String ra, Long id, Historico historico) throws ClassNotFoundException {
+		Historico historicoAtualizado = repositoryHistorico.findByAlunoRaAndIdHistorico(ra, id)
 				.orElseThrow(() -> new ClassNotFoundException("Historico Inexistente"));
 		historicoAtualizado.setAtividade(historico.getAtividade());
 		historicoAtualizado.setEmpresa(historico.getEmpresa());
-		historicoAtualizado.setTempoEmpresa(historico.getTempoEmpresa());
-		return repository.save(historicoAtualizado);
+		historicoAtualizado.setTempoEmpresaEmAnos(historico.getTempoEmpresaEmAnos());
+		return repositoryHistorico.save(historicoAtualizado);
 	}
 
 	@Override
-	public void deletar(Long id) {
-		Optional<Historico> validaHistorico = repository.findById(id);
+	public Historico deletar(String ra, Long id) {
+		Optional<Historico> validaHistorico = repositoryHistorico.findByAlunoRaAndIdHistorico(ra, id);
 		if (validaHistorico.isPresent()) {
-			repository.deleteById(id);
+			repositoryHistorico.delete(validaHistorico.get());
+			return validaHistorico.get();
+
 		} else {
 			throw new IllegalArgumentException("Aluno Inexistente no Banco de Dados");
 		}
@@ -49,8 +57,14 @@ public class HistoricoServiceImp implements IHistoricoService {
 	}
 
 	@Override
-	public Iterable<Historico> buscarTodos() {
-		return repository.findAll();
+	public List<Historico> buscarTodosPorAluno(String ra) throws ClassNotFoundException {
+		Aluno aluno = repositoryAluno.findById(ra).orElseThrow(() -> new ClassNotFoundException("Aluno Inexistente"));
+		if(!aluno.getHistoricos().isEmpty()) {			
+			return repositoryHistorico.findAll();
+		}else {
+			throw new ClassNotFoundException("Não existem históricos neste Aluno");
+		}
+		
 	}
 
 }
