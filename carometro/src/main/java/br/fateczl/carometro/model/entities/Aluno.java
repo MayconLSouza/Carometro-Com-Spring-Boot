@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Aluno implements Serializable {
@@ -20,10 +21,12 @@ public class Aluno implements Serializable {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Id // primary key
+	@Id
 	private String ra;
 	private String nome;
-	private String curso;
+	
+	@OneToOne
+	private Curso curso;
 	private String semestreConclusao;
 	// TODO: Acrescentar Atributo imagem; Include The Image Attribute for Student
 	private List<String> links;
@@ -65,11 +68,11 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getCurso() {
+	public Curso getCurso() {
 		return curso;
 	}
 
-	public void setCurso(String curso) {
+	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
 

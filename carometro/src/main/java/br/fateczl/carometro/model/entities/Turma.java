@@ -5,10 +5,13 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import br.fateczl.carometro.model.enums.Enum_TurnosCursos;
 import br.fateczl.carometro.model.primarykeysclass.TurmaId;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -19,17 +22,21 @@ public class Turma implements Serializable{
 	@EmbeddedId
 	private TurmaId turmId;
 
-	private String turno;
+	private Enum_TurnosCursos turno;
 
 	@OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private List<Aluno> alunos;
+	
+	@ManyToOne
+	@JoinColumn(name = "curso_codigo", referencedColumnName = "codigo", nullable = false)
+	private Curso curso;
 
 	public TurmaId getTurmId() {
 		return turmId;
 	}
 
-	public String getTurno() {
+	public Enum_TurnosCursos getTurno() {
 		return turno;
 	}
 
@@ -37,7 +44,7 @@ public class Turma implements Serializable{
 		this.turmId = turmId;
 	}
 
-	public void setTurno(String turno) {
+	public void setTurno(Enum_TurnosCursos turno) {
 		this.turno = turno;
 	}
 
@@ -47,6 +54,14 @@ public class Turma implements Serializable{
 
 	public void setAlunos(List<Aluno> aluno) {
 		this.alunos = aluno;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+	
+	public void setCurso(Curso curso) {
+		this.curso = curso;
 	}
 
 	@Override
