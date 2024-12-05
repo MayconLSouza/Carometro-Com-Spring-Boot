@@ -1,5 +1,7 @@
 package br.fateczl.carometro.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +26,7 @@ public class ComentarioRestController {
 	IComentarioService comentarioService;
 
 	@GetMapping("/{raAluno}")
-	public ResponseEntity<Iterable<Comentario>> buscarTodosOsComentariosDoAluno(@PathVariable String raAluno)
-			throws ClassNotFoundException {
+	public ResponseEntity<List<Comentario>> buscarTodosOsComentariosDoAluno(@PathVariable String raAluno)throws ClassNotFoundException {
 		return ResponseEntity.ok(comentarioService.buscarTodosPorAluno(raAluno));
 	}
 

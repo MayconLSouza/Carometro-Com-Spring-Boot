@@ -5,8 +5,6 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import br.fateczl.carometro.model.primarykeysclass.HistoricoId;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -46,6 +44,16 @@ public class Historico implements Serializable {
 		this.historicoId = historicoId;
 	}
 */
+	
+	public Long getIdHistorico() {
+		return idHistorico;
+	}
+
+	public void setIdHistorico(Long idHistorico) {
+		this.idHistorico = idHistorico;
+	}
+
+
 	public Aluno getAluno() {
 		return aluno;
 	}
