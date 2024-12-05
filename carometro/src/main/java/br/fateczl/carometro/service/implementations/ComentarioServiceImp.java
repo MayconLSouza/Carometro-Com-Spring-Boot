@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.fateczl.carometro.model.entities.Aluno;
 import br.fateczl.carometro.model.entities.Comentario;
+import br.fateczl.carometro.model.enums.Enum_Tipos;
 import br.fateczl.carometro.persistence.IAlunoRepository;
 import br.fateczl.carometro.persistence.IComentarioRepository;
 import br.fateczl.carometro.service.services.IComentarioService;
@@ -27,12 +28,12 @@ public class ComentarioServiceImp implements IComentarioService {
 	}
  
 	@Override
-	public Comentario buscar(String ra, String tipo) throws ClassNotFoundException {
+	public Comentario buscar(String ra, Enum_Tipos tipo) throws ClassNotFoundException {
 		 return repositoryComentario.findByAlunoRaAndTipo(ra, tipo).orElseThrow(() -> new ClassNotFoundException("Comentário Inexistente"));
 	}
 
 	@Override
-	public Comentario atualizar(String ra, String tipo, Comentario comentario) throws ClassNotFoundException {
+	public Comentario atualizar(String ra, Enum_Tipos tipo, Comentario comentario) throws ClassNotFoundException {
 		Comentario comentarioAtualizado = repositoryComentario.findByAlunoRaAndTipo(ra, tipo).orElseThrow(()-> new ClassNotFoundException("Comentario Inexistente"));
 		Aluno aluno = repositoryAluno.findById(ra).orElseThrow(() -> new ClassNotFoundException("Aluno Inexistente"));
 		comentarioAtualizado.setAluno(aluno);
@@ -44,7 +45,7 @@ public class ComentarioServiceImp implements IComentarioService {
 	}
  
 	@Override
-	public Comentario deletar(String ra, String tipo) {
+	public Comentario deletar(String ra, Enum_Tipos tipo) {
 		Optional<Comentario> validaComentario = repositoryComentario.findByAlunoRaAndTipo(ra, tipo);
         if (validaComentario.isPresent()) {
             repositoryComentario.delete(validaComentario.get());
@@ -65,5 +66,6 @@ public class ComentarioServiceImp implements IComentarioService {
 			throw new ClassNotFoundException("Não existem comentários neste Aluno");
 		}
 	}
+
 
 }
