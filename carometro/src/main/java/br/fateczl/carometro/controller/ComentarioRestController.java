@@ -1,4 +1,4 @@
-/*package br.fateczl.carometro.controller;
+package br.fateczl.carometro.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.fateczl.carometro.model.entities.Aluno;
 import br.fateczl.carometro.model.entities.Comentario;
+import br.fateczl.carometro.model.enums.Enum_Tipos;
 import br.fateczl.carometro.service.services.IComentarioService;
 
 @RestController
@@ -23,34 +23,29 @@ public class ComentarioRestController {
 	@Autowired
 	IComentarioService comentarioService;
 
-	@GetMapping
-	public ResponseEntity<Iterable<Comentario>> buscarTodosOsComentariosDoAluno() {
-		return ResponseEntity.ok(comentarioService.buscarTodos());
-	}
-
 	@GetMapping("/{raAluno}")
-	public ResponseEntity<Comentario> buscarPorId(@PathVariable String raAluno) throws ClassNotFoundException {
-		return ResponseEntity.ok(comentarioService.buscar(null));
+	public ResponseEntity<Iterable<Comentario>> buscarTodosOsComentariosDoAluno(@PathVariable String raAluno)
+			throws ClassNotFoundException {
+		return ResponseEntity.ok(comentarioService.buscarTodosPorAluno(raAluno));
 	}
 
 	@PostMapping
 	public ResponseEntity<Comentario> inserirAluno(@RequestBody Comentario comentario) throws ClassNotFoundException {
+		
 		Comentario novoComentario = comentarioService.inserir(comentario);
 		return ResponseEntity.status(HttpStatus.CREATED).body(novoComentario);
 	}
 
-	@PutMapping("/{ra}")
-	public ResponseEntity<Comentario> atualizarAluno(@PathVariable String ra, @RequestBody Comentario novosDados)
-			throws ClassNotFoundException {
-		Comentario comentarioAtualizado = comentarioService.atualizar(ra, novosDados);
+	@PutMapping("/{ra}/{tipo}")
+	public ResponseEntity<Comentario> atualizarAluno(@PathVariable String ra, @PathVariable String tipo, @RequestBody Comentario novosDados)throws ClassNotFoundException {
+		Comentario comentarioAtualizado = comentarioService.atualizar(ra, Enum_Tipos.valueOf(tipo), novosDados);
 		return ResponseEntity.ok(comentarioAtualizado);
 	}
 
-	@DeleteMapping("/{name}")
-	public ResponseEntity<Comentario> deletarAluno(@PathVariable String RA) throws ClassNotFoundException {
-		comentarioService.deletar(RA);
-		return ResponseEntity.ok().build();
+	@DeleteMapping("/{ra}/{tipo}")
+	public ResponseEntity<Comentario> deletarAluno(@PathVariable String ra, @PathVariable String tipo) throws ClassNotFoundException {
+		Comentario comentario = comentarioService.deletar(ra, Enum_Tipos.valueOf(tipo));
+		return ResponseEntity.ok(comentario);
 	}
 
 }
-*/
