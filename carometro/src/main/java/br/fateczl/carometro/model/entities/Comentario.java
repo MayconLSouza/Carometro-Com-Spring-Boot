@@ -32,6 +32,7 @@ public class Comentario implements Serializable {
     
     private String descricao;
     private LocalDate data;
+    
     @Column(name = "tipo")
     private Enum_Tipos tipo;
     

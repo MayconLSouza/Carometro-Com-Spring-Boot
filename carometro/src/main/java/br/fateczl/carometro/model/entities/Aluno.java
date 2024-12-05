@@ -9,6 +9,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -25,7 +28,13 @@ public class Aluno implements Serializable {
 	// TODO: Acrescentar Atributo imagem; Include The Image Attribute for Student
 	private List<String> links;
 
-	// TODO: Acrescentar Classe Turma; Include Attribute Turma Class in Student
+	@ManyToOne
+	@JoinColumns({
+	    @JoinColumn(name = "codigo_curso", referencedColumnName = "codigoCurso"),
+	    @JoinColumn(name = "ano", referencedColumnName = "ano"),
+	    @JoinColumn(name = "semestre", referencedColumnName = "semestre")
+	})
+	private Turma turma;
 
 	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference // for serializable the Owner of relationship
@@ -78,6 +87,14 @@ public class Aluno implements Serializable {
 
 	public void setLinks(List<String> links) {
 		this.links = links;
+	}
+
+	public Turma getTurma() {
+		return turma;
+	}
+	
+	public void setTurma(Turma turma) {
+		this.turma = turma;
 	}
 
 	public List<Historico> getHistoricos() {
