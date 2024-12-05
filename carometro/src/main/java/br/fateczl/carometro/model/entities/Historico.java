@@ -1,51 +1,50 @@
 package br.fateczl.carometro.model.entities;
 
-import java.io.Serial;
 import java.io.Serializable;
-import java.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import br.fateczl.carometro.model.primarykeysclass.HistoricoId;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Transient;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 
 @Entity
 public class Historico implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-    @Transient
-    private final DateTimeFormatter ANO_MES = DateTimeFormatter.ofPattern("yy,MM");
+	private static final long serialVersionUID = 1L;
 
+	@EmbeddedId
+    private HistoricoId historicoId;
 
-    @Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String empresa;
-    private String atividade;
-    private String tempoEmpresa;
-
-    @OneToOne
-    @JoinColumn(name = "aluno_ra")
+    @ManyToOne
+    @MapsId("alunoRa") // Mapeia "alunoRa" de HistoricoId diretamente no relacionamento
     @JsonBackReference
     private Aluno aluno;
 
+    private String empresa;
+    private String atividade;
+    private int tempoEmpresaEmAnos;
+
     public Historico() {
-        // TODO Auto-generated constructor stub
+        super();
     }
 
-    public Long getId() {
-        return id;
+    public HistoricoId getHistoricoId() {
+        return historicoId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setHistoricoId(HistoricoId historicoId) {
+        this.historicoId = historicoId;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
     public String getEmpresa() {
@@ -64,30 +63,17 @@ public class Historico implements Serializable {
         this.atividade = atividade;
     }
 
-    public String getTempoEmpresa() {
-        return tempoEmpresa;
+    public int getTempoEmpresaEmAnos() {
+        return tempoEmpresaEmAnos;
     }
 
- 
-
-    public void setTempoEmpresa(String tempoEmpresa) {
-        this.tempoEmpresa = tempoEmpresa;
-    }
-
-
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+    public void setTempoEmpresaEmAnos(int tempoEmpresaEmAnos) {
+        this.tempoEmpresaEmAnos = tempoEmpresaEmAnos;
     }
 
     @Override
     public String toString() {
-        return "Historico [id=" + id + ", empresa=" + empresa + ", atividade=" + atividade + ", tempoEmpresa="
-                + getTempoEmpresa() + "]";
+        return "Historico [historicoId=" + historicoId + ", aluno=" + aluno + ", empresa=" + empresa
+                + ", atividade=" + atividade + ", tempoEmpresaEmAnos=" + tempoEmpresaEmAnos + "]";
     }
-
 }
-

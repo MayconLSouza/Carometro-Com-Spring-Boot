@@ -22,12 +22,6 @@ public class AlunoRestController {
 	@Autowired
 	private AlunoServiceImp alunoService;
 
-	/*
-	 * @Autowired private HistoricoServiceImp historicoService;
-	 * 
-	 * @Autowired private ComentarioServiceImp comentarioService;
-	 */
-
 	@GetMapping
 	public ResponseEntity<Iterable<Aluno>> buscarTodosOsAlunos() {
 		return ResponseEntity.ok(alunoService.buscarTodos());
@@ -42,24 +36,7 @@ public class AlunoRestController {
 	public ResponseEntity<Aluno> inserirAluno(@RequestBody Aluno aluno) throws ClassNotFoundException {
 
 		Aluno novoAluno = alunoService.inserir(aluno);
-		/*
-		 * 
-		 * if (aluno.getComentarios() != null) { for (String comentario :
-		 * aluno.getComentarios().keySet()) {
-		 * System.err.println(aluno.getComentarios().get(comentario));
-		 * 
-		 * 
-		 * comentarioService.inserir(aluno.getComentarios().get(comentario)); } }
-		 * 
-		 * // Inserir históricos, se existirem if (aluno.getHistorico() != null) {
-		 * 
-		 * historicoService.inserir(aluno.getHistorico());
-		 * 
-		 * }
-		 */
-
 		return ResponseEntity.status(HttpStatus.CREATED).body(novoAluno);
-
 	}
 
 	@PutMapping("/{ra}")
