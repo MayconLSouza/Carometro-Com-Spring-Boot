@@ -59,6 +59,14 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.2.0</version>
 		</dependency>
+		
+		<!-- Dependencia teste HistoricoId -->
+		<dependency>
+	    	<groupId>javax.xml.bind</groupId>
+	    	<artifactId>jaxb-api</artifactId>
+   	 		<version>2.3.0</version>
+		</dependency>
+
 
 
 	</dependencies>

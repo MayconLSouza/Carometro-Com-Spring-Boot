@@ -24,18 +24,17 @@ public class HistoricoServiceImp implements IHistoricoService {
 	@Override
 	public Historico inserir(Historico historico) {
 		return repositoryHistorico.save(historico);
-
 	}
 
 	@Override
 	public Historico buscar(String ra, Long id) throws ClassNotFoundException {
-		return repositoryHistorico.findByAlunoRaAndIdHistorico(ra, id)
+		return repositoryHistorico.findByHistoricoIdAlunoRaAndHistoricoIdIdHistorico(ra, id)
 				.orElseThrow(() -> new ClassNotFoundException("Histórico Inexistente"));
 	}
 
 	@Override
 	public Historico atualizar(String ra, Long id, Historico historico) throws ClassNotFoundException {
-		Historico historicoAtualizado = repositoryHistorico.findByAlunoRaAndIdHistorico(ra, id)
+		Historico historicoAtualizado = repositoryHistorico.findByHistoricoIdAlunoRaAndHistoricoIdIdHistorico(ra, id)
 				.orElseThrow(() -> new ClassNotFoundException("Historico Inexistente"));
 		historicoAtualizado.setAtividade(historico.getAtividade());
 		historicoAtualizado.setEmpresa(historico.getEmpresa());
@@ -45,7 +44,7 @@ public class HistoricoServiceImp implements IHistoricoService {
 
 	@Override
 	public Historico deletar(String ra, Long id) {
-		Optional<Historico> validaHistorico = repositoryHistorico.findByAlunoRaAndIdHistorico(ra, id);
+		Optional<Historico> validaHistorico = repositoryHistorico.findByHistoricoIdAlunoRaAndHistoricoIdIdHistorico(ra, id);
 		if (validaHistorico.isPresent()) {
 			repositoryHistorico.delete(validaHistorico.get());
 			return validaHistorico.get();

@@ -44,8 +44,8 @@ public class Aluno implements Serializable {
 		return ra;
 	}
 
-	public String setRa(String ra) {
-		return this.ra = ra;
+	public void setRa(String ra) {
+		this.ra = ra;
 	}
 
 	public String getNome() {
