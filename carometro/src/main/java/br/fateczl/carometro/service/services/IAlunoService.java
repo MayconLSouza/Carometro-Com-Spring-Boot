@@ -14,5 +14,5 @@ public interface IAlunoService {
 
 	public Aluno deletar(String RA);
 
-	public List<Aluno> buscarTodos();
+	public List<Aluno> buscarTodos() throws ClassNotFoundException;
 }
