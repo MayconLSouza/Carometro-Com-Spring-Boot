@@ -37,7 +37,7 @@ public class CursoServiceImp implements ICursoService {
 		cursoAtualizado.setNome(curso.getNome());
 		cursoAtualizado.setCoordenador(curso.getCoordenador());
 		cursoAtualizado.setAtivo(curso.isAtivo());
-		cursoAtualizado.setTurmas(curso.getTurmas());
+//		cursoAtualizado.setTurmas(curso.getTurmas()); Nao pode atualizar as turmas diretamente na entidade curso
 		return repository.save(cursoAtualizado);
 	}
 
