@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.fateczl.carometro.model.entities.Turma;
 import br.fateczl.carometro.model.primarykeysclass.TurmaId;
 import br.fateczl.carometro.persistence.ITurmaRepository;
 import br.fateczl.carometro.service.services.ITurmaService;
 
+@Service
 public class TurmaServiceImp implements ITurmaService{
 
 	@Autowired

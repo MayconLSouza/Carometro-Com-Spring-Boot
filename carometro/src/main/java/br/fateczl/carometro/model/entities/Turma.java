@@ -1,5 +1,6 @@
 package br.fateczl.carometro.model.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import jakarta.persistence.OneToMany;
 @Entity
 public class Turma implements Serializable{
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId

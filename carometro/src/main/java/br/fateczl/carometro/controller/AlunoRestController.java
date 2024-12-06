@@ -48,8 +48,8 @@ public class AlunoRestController {
 
 	@DeleteMapping("/{name}")
 	public ResponseEntity<Aluno> deletarAluno(@PathVariable String name) throws ClassNotFoundException {
-		alunoService.deletar(name);
-		return ResponseEntity.ok().build();
+		Aluno aluno = alunoService.deletar(name);
+		return ResponseEntity.ok(aluno);
 	}
 
 }
