@@ -39,47 +39,6 @@ public class AlunoServiceImp implements IAlunoService {
         alunoAtualizado.setSemestreConclusao(aluno.getSemestreConclusao());
         //TODO: Acrescentar o Atributo imagem após inserí-lo na classe Aluno
         alunoAtualizado.setLinks(aluno.getLinks());
-       
-        /* Iremos Passar essa responsabilidade para o ServiceHistoricoImp
-        // Historico
-        if (aluno.getHistoricos() != null) {
-            List<Historico> historicoAtual = alunoAtualizado.getHistoricos();
-
-            if (!historicoAtual.isEmpty()) {
-                // Se o historico ja existe, apenas atualiza os campos
-                historicoAtual.setEmpresa(aluno.getHistorico().getEmpresa());
-                historicoAtual.setAtividade(aluno.getHistorico().getAtividade());
-                historicoAtual.setTempoEmpresa(aluno.getHistorico().getTempoEmpresa());
-            } else {
-                // Se o historico nao existe, configura o aluno e adiciona ao aluno atual
-                aluno.getHistorico().setAluno(alunoAtualizado);
-                alunoAtualizado.setHistorico(aluno.getHistorico());
-            }
-        }
-        */
-        
-        /* Iremos Passar essa responsabilidade para o ServiceComentarioImp
-        // Comentario
-        if (aluno.getComentarios() != null) {
-            Map<String, Comentario> comentariosAtualizados = alunoAtualizado.getComentarios();
-            
-            for (Map.Entry<String, Comentario> comentario : aluno.getComentarios().entrySet()) {
-                String tipoComentario = comentario.getKey();
-                Comentario novoComentario = comentario.getValue();
-
-                if (comentariosAtualizados.containsKey(tipoComentario)) {
-                    // Atualize o comentario existente
-                    Comentario comentarioExistente = comentariosAtualizados.get(tipoComentario);
-                    comentarioExistente.setDescricao(novoComentario.getDescricao());
-                    comentarioExistente.setData(novoComentario.getData());
-                } else {
-                    // Adiciona novo comentario e vincule ao aluno
-                    novoComentario.setAluno(alunoAtualizado);
-                    comentariosAtualizados.put(tipoComentario, novoComentario);
-                }
-            }
-        }
-        */
 
         return repository.save(alunoAtualizado);
     }

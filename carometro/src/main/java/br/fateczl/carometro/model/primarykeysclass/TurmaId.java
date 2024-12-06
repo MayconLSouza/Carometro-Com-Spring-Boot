@@ -9,6 +9,14 @@ public class TurmaId {
 	private Integer ano;
 	private Integer semestre;
 
+	public TurmaId() {
+		super();
+	}
+	
+	public TurmaId(String codigoCurso, Integer ano, Integer semestre) {
+		super();
+	}
+
 	//Getters e Setters
 	public String getCodigoCurso() {
 		return codigoCurso;

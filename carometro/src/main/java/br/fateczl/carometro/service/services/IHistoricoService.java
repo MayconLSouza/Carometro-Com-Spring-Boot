@@ -6,14 +6,14 @@ import br.fateczl.carometro.model.entities.Historico;
 
 public interface IHistoricoService {
 
-	Historico inserir(Historico historico);
+	public Historico inserir(Historico historico);
 
-	Historico buscar(String raDoAluno, Long id) throws ClassNotFoundException;
+	public Historico buscar(String raDoAluno, Long id) throws ClassNotFoundException;
 
-	Historico atualizar(String raDoAluno, Long id, Historico aluno) throws ClassNotFoundException;
+	public Historico atualizar(String raDoAluno, Long id, Historico aluno) throws ClassNotFoundException;
 
-	Historico deletar(String raDoAluno, Long id) throws ClassNotFoundException;
+	public Historico deletar(String raDoAluno, Long id) throws ClassNotFoundException;
 
-	List<Historico> buscarTodosPorAluno(String raDoAluno) throws ClassNotFoundException;
+	public List<Historico> buscarTodosPorAluno(String raDoAluno) throws ClassNotFoundException;
 
 }

@@ -7,13 +7,13 @@ import br.fateczl.carometro.model.enums.Enum_Tipos;
 
 public interface IComentarioService {
 	
-	Comentario inserir(Comentario comentario) throws ClassNotFoundException;
+	public Comentario inserir(Comentario comentario) throws ClassNotFoundException;
 
-	Comentario buscar(String raDoAluno, Enum_Tipos tipo) throws ClassNotFoundException;
+	public Comentario buscar(String raDoAluno, Enum_Tipos tipo) throws ClassNotFoundException;
 
-	Comentario atualizar(String raDoAluno, Enum_Tipos tipo, Comentario comentarioAtualizado) throws ClassNotFoundException;
+	public Comentario atualizar(String raDoAluno, Enum_Tipos tipo, Comentario comentarioAtualizado) throws ClassNotFoundException;
 
-	Comentario deletar(String raDoAluno, Enum_Tipos tipo) throws ClassNotFoundException;
+	public Comentario deletar(String raDoAluno, Enum_Tipos tipo) throws ClassNotFoundException;
 
-	List<Comentario> buscarTodosPorAluno(String raDoAluno) throws ClassNotFoundException;
+	public List<Comentario> buscarTodosPorAluno(String raDoAluno) throws ClassNotFoundException;
 }
