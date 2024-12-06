@@ -11,6 +11,6 @@ import br.fateczl.carometro.model.primarykeysclass.TurmaId;
 @Repository
 public interface ITurmaRepository extends JpaRepository<Turma, TurmaId>{
 	
-	Optional<Turma> findByTurmIdCodigoCursoAndTurmIdAnoAndTurmIdSemestre(String codigoCurso, Integer ano, Integer semestre);
+	Optional<Turma> findByTurmaIdCodigoCursoAndTurmaIdAnoAndTurmaIdSemestre(String codigoCurso, Integer ano, Integer semestre);
 
 }

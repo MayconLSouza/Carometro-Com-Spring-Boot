@@ -24,8 +24,9 @@ public class Curso implements Serializable {
 	private boolean ativo;
 	
 	@OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
+	@JsonManagedReference("curso-turmas") // Nome único para a referência
 	private List<Turma> turmas;
+
 
 	public Curso() {
 		super();

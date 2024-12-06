@@ -4,6 +4,8 @@ import java.io.Serial;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.fateczl.carometro.model.primarykeysclass.HistoricoId;
 import jakarta.persistence.EmbeddedId;
@@ -22,8 +24,9 @@ public class Historico implements Serializable {
 
     @ManyToOne
     @MapsId("alunoRa") // Mapeia "alunoRa" de HistoricoId diretamente no relacionamento
-    @JsonBackReference
+    @JsonBackReference("historico-aluno")
     private Aluno aluno;
+
 
     private String empresa;
     private String atividade;

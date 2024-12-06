@@ -2,18 +2,20 @@ package br.fateczl.carometro.model.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Aluno implements Serializable {
@@ -25,9 +27,13 @@ public class Aluno implements Serializable {
 	private String ra;
 	private String nome;
 	
-	@OneToOne
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_curso_aluno", referencedColumnName = "codigo", nullable = false)
+	
+	@JsonBackReference("aluno-curso")
 	private Curso curso;
-	private String semestreConclusao;
+
+	private LocalDate semestreConclusao;
 	// TODO: Acrescentar Atributo imagem; Include The Image Attribute for Student
 	private List<String> links;
 
@@ -37,15 +43,20 @@ public class Aluno implements Serializable {
 	    @JoinColumn(name = "ano", referencedColumnName = "ano"),
 	    @JoinColumn(name = "semestre", referencedColumnName = "semestre")
 	})
+	@JsonBackReference("turma-alunos")
 	private Turma turma;
 
-	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference // for serializable the Owner of relationship
-	private List<Historico> historicos;
 
 	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference // for serializable the Owner of relationship
-	private List<Comentario> comentarios; // Um aluno pode ter muitos comentários
+	@JsonManagedReference("historico-aluno")
+	private List<Historico> historicos;
+
+
+
+	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference("comentario-aluno")
+	private List<Comentario> comentarios;
+
 
 	public Aluno() {
 		super();
@@ -76,11 +87,11 @@ public class Aluno implements Serializable {
 		this.curso = curso;
 	}
 
-	public String getSemestreConclusao() {
+	public LocalDate getSemestreConclusao() {
 		return semestreConclusao;
 	}
 
-	public void setSemestreConclusao(String semestreConclusao) {
+	public void setSemestreConclusao(LocalDate semestreConclusao) {
 		this.semestreConclusao = semestreConclusao;
 	}
 

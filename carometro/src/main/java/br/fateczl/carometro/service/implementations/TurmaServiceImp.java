@@ -24,13 +24,13 @@ public class TurmaServiceImp implements ITurmaService{
 
 	@Override
 	public Turma buscar(String codigoCurso, Integer ano, Integer semestre) throws ClassNotFoundException {
-		return repositoryTurma.findByTurmIdCodigoCursoAndTurmIdAnoAndTurmIdSemestre(codigoCurso, ano, semestre).orElseThrow(() -> new ClassNotFoundException("Turma Inexistente"));
+		return repositoryTurma.findByTurmaIdCodigoCursoAndTurmaIdAnoAndTurmaIdSemestre(codigoCurso, ano, semestre).orElseThrow(() -> new ClassNotFoundException("Turma Inexistente"));
 	}
 
 	@Override
 	public Turma atualizar(String codigoCurso, Integer ano, Integer semestre, Turma turma) throws ClassNotFoundException {
-		Turma turmaAtualizada = repositoryTurma.findByTurmIdCodigoCursoAndTurmIdAnoAndTurmIdSemestre(codigoCurso, ano, semestre).orElseThrow(() -> new ClassNotFoundException("Turma Inexistente"));
-		turmaAtualizada.setTurmId(new TurmaId(codigoCurso, ano, semestre));
+		Turma turmaAtualizada = repositoryTurma.findByTurmaIdCodigoCursoAndTurmaIdAnoAndTurmaIdSemestre(codigoCurso, ano, semestre).orElseThrow(() -> new ClassNotFoundException("Turma Inexistente"));
+		turmaAtualizada.setTurmaId(new TurmaId(codigoCurso, ano, semestre));
 		turmaAtualizada.setTurno(turma.getTurno());
 		turmaAtualizada.setAlunos(turma.getAlunos());
 		
@@ -39,7 +39,7 @@ public class TurmaServiceImp implements ITurmaService{
 
 	@Override
 	public Turma deletar(String codigoCurso, Integer ano, Integer semestre) throws ClassNotFoundException {
-		Optional<Turma> validaTurma = repositoryTurma.findByTurmIdCodigoCursoAndTurmIdAnoAndTurmIdSemestre(codigoCurso, ano, semestre);
+		Optional<Turma> validaTurma = repositoryTurma.findByTurmaIdCodigoCursoAndTurmaIdAnoAndTurmaIdSemestre(codigoCurso, ano, semestre);
 		if(validaTurma.isPresent()) {
 			repositoryTurma.delete(validaTurma.get());
 			return validaTurma.get();
