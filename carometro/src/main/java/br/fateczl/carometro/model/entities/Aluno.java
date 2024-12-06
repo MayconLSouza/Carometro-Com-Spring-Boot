@@ -3,7 +3,7 @@ package br.fateczl.carometro.model.entities;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
-
+import br.fateczl.carometro.model.entities.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
