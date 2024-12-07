@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.fateczl.carometro.model.entities.Turma;
+import br.fateczl.carometro.model.enums.Enum_TurnosCursos;
 import br.fateczl.carometro.service.services.ITurmaService;
 
 @RestController
@@ -24,14 +24,14 @@ public class TurmaRestController {
 	@Autowired
 	ITurmaService turmaService;
 
-	@GetMapping()
+	@GetMapping
 	public ResponseEntity<List<Turma>> buscarTodasAsTurmas() throws ClassNotFoundException {
 		return ResponseEntity.ok(turmaService.buscarTodasAsTurmasExistentes());
 	}
 
-	@GetMapping("/{codigoCurso}/{ano}/{semestre}")
-	public ResponseEntity<Turma> buscarTurma(@PathVariable String codigoCurso, @PathVariable int ano, @PathVariable int semestre) throws ClassNotFoundException {
-		return ResponseEntity.ok(turmaService.buscar(codigoCurso, ano, semestre));
+	@GetMapping("/{codigoCurso}/{ano}/{semestre}/{turno}")
+	public ResponseEntity<Turma> buscarTurma(@PathVariable String codigoCurso, @PathVariable int ano, @PathVariable int semestre, @PathVariable Enum_TurnosCursos turno) throws ClassNotFoundException {
+		return ResponseEntity.ok(turmaService.buscar(codigoCurso, ano, semestre, turno));
 	}
 
 	@PostMapping
@@ -40,15 +40,9 @@ public class TurmaRestController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(novaTurma);
 	}
 
-	@PutMapping("/{codigoCurso}/{ano}/{semestre}")
-	public ResponseEntity<Turma> atualizarTurma(@PathVariable String codigoCurso, @PathVariable Integer ano, @PathVariable Integer semestre, @RequestBody Turma novosDados) throws ClassNotFoundException {
-		Turma turmaAtualizada = turmaService.atualizar(codigoCurso, ano, semestre, novosDados);
-		return ResponseEntity.ok(turmaAtualizada);
-	}
-
-	@DeleteMapping("/{codigoCurso}/{ano}/{semestre}")
-	public ResponseEntity<Turma> deletarTurma(@PathVariable String codigoCurso, @PathVariable Integer ano, @PathVariable Integer semestre) throws ClassNotFoundException {
-		Turma turma = turmaService.deletar(codigoCurso, ano, semestre);
+	@DeleteMapping("/{codigoCurso}/{ano}/{semestre}/{turno}")
+	public ResponseEntity<Turma> deletarTurma(@PathVariable String codigoCurso, @PathVariable Integer ano, @PathVariable Integer semestre, @PathVariable Enum_TurnosCursos turno) throws ClassNotFoundException {
+		Turma turma = turmaService.deletar(codigoCurso, ano, semestre, turno);
 		return ResponseEntity.ok(turma);
 	}
 

@@ -22,8 +22,9 @@ public class Historico implements Serializable {
 
     @ManyToOne
     @MapsId("alunoRa") // Mapeia "alunoRa" de HistoricoId diretamente no relacionamento
-    @JsonBackReference
+    @JsonBackReference("historico-aluno")
     private Aluno aluno;
+
 
     private String empresa;
     private String atividade;

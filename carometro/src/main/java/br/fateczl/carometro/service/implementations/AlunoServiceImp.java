@@ -55,7 +55,12 @@ public class AlunoServiceImp implements IAlunoService {
     }
 
     @Override
-    public List<Aluno> buscarTodos() {
-        return repository.findAll();
+    public List<Aluno> buscarTodos() throws ClassNotFoundException {
+    	List<Aluno> alunos = repository.findAll();
+    	if(!alunos.isEmpty()) {
+    		return alunos;
+    	} else {
+    		throw new ClassNotFoundException("Não existem Alunos");
+    	}
     }
 }

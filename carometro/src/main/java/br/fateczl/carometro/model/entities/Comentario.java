@@ -27,8 +27,9 @@ public class Comentario implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "aluno_ra", referencedColumnName = "ra", nullable = false) // foreign key
-    @JsonBackReference // Evita loop infinito na serialização JSON
+    @JsonBackReference("comentario-aluno")
     private Aluno aluno;
+
     
     private String descricao;
     private LocalDate data;

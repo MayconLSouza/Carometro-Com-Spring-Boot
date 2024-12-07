@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.fateczl.carometro.model.entities.Turma;
-import br.fateczl.carometro.model.primarykeysclass.TurmaId;
+import br.fateczl.carometro.model.enums.Enum_TurnosCursos;
 import br.fateczl.carometro.persistence.ITurmaRepository;
 import br.fateczl.carometro.service.services.ITurmaService;
 
@@ -23,23 +23,13 @@ public class TurmaServiceImp implements ITurmaService{
 	}
 
 	@Override
-	public Turma buscar(String codigoCurso, Integer ano, Integer semestre) throws ClassNotFoundException {
-		return repositoryTurma.findByTurmIdCodigoCursoAndTurmIdAnoAndTurmIdSemestre(codigoCurso, ano, semestre).orElseThrow(() -> new ClassNotFoundException("Turma Inexistente"));
+	public Turma buscar(String codigoCurso, Integer ano, Integer semestre, Enum_TurnosCursos turno) throws ClassNotFoundException {
+		return repositoryTurma.findByTurmaIdCodigoCursoAndTurmaIdAnoAndTurmaIdSemestreAndTurmaIdTurno(codigoCurso, ano, semestre, turno).orElseThrow(() -> new ClassNotFoundException("Turma Inexistente"));
 	}
 
 	@Override
-	public Turma atualizar(String codigoCurso, Integer ano, Integer semestre, Turma turma) throws ClassNotFoundException {
-		Turma turmaAtualizada = repositoryTurma.findByTurmIdCodigoCursoAndTurmIdAnoAndTurmIdSemestre(codigoCurso, ano, semestre).orElseThrow(() -> new ClassNotFoundException("Turma Inexistente"));
-		turmaAtualizada.setTurmId(new TurmaId(codigoCurso, ano, semestre));
-		turmaAtualizada.setTurno(turma.getTurno());
-		turmaAtualizada.setAlunos(turma.getAlunos());
-		
-		return repositoryTurma.save(turmaAtualizada);
-	}
-
-	@Override
-	public Turma deletar(String codigoCurso, Integer ano, Integer semestre) throws ClassNotFoundException {
-		Optional<Turma> validaTurma = repositoryTurma.findByTurmIdCodigoCursoAndTurmIdAnoAndTurmIdSemestre(codigoCurso, ano, semestre);
+	public Turma deletar(String codigoCurso, Integer ano, Integer semestre, Enum_TurnosCursos turno) throws ClassNotFoundException {
+		Optional<Turma> validaTurma = repositoryTurma.findByTurmaIdCodigoCursoAndTurmaIdAnoAndTurmaIdSemestreAndTurmaIdTurno(codigoCurso, ano, semestre, turno);
 		if(validaTurma.isPresent()) {
 			repositoryTurma.delete(validaTurma.get());
 			return validaTurma.get();
