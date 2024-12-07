@@ -5,10 +5,31 @@
 </head>
 <body>
     <div align="center">
-		<h1>Insira o RA do aluno</h1>
-		<form action="#" th:action="@{/alunoPost}" th:object="${aluno}" method="post">
-		<input type="text" th:field="*{ra}" id="ra"/><br/>
-		<button type="submit" name="consulta">Consultar</button>
+		<h1>Segue as informações do aluno</h1>
+		<table style="width:80%" border="1">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>RA</th>
+					<th>Curso</th>
+					<th>Semestre de Conclusão</th>
+					<th>Links</th>
+					<th>Periodo</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${aluno.nome}"></td>
+					<td th:text="${aluno.ra}"></td>
+					<td th:text="${aluno.curso.codigo}"></td>
+					<td th:text="${aluno.semestreConclusao}"></td>
+					<tr th:each="link: ${aluno.links}">
+						<td th:text="${link}"></td>
+					</tr>
+					<td th:text="${aluno.turma.periodo}"></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>
