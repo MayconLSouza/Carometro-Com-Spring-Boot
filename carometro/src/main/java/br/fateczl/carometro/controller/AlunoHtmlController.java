@@ -92,6 +92,7 @@ public class AlunoHtmlController {
 
 	@PostMapping("/alunoDelete")
 	public String deletarAlunoPorRa(@RequestParam String ra, Model model) {
+		@SuppressWarnings("unused")
 		Aluno aluno = new Aluno();
 		aluno = alunoService.deletar(ra);
 		model.addAttribute("message", "Deletado");
@@ -101,6 +102,7 @@ public class AlunoHtmlController {
 	// PUT COMMANDS
 	@GetMapping("/alunoPut")
 	public String alunoPut(Model model) {
+		@SuppressWarnings("unused")
 		Aluno aluno = new Aluno();
 		model.addAttribute("aluno", new Aluno());
 		try {
@@ -141,6 +143,7 @@ public class AlunoHtmlController {
 	// LIST ALL
 	@GetMapping("/alunoList")
 	public String listarTodosOsAluno(Model model) {
+		@SuppressWarnings("unused")
 		Aluno aluno = new Aluno();
 		List<Aluno> alunos = new ArrayList<>();
 		try {

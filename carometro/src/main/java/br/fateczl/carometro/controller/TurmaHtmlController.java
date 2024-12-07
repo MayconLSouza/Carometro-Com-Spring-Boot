@@ -28,6 +28,7 @@ public class TurmaHtmlController {
 	@Autowired
 	private CursoServiceImp cursoService;
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private AlunoServiceImp alunoService;
 	

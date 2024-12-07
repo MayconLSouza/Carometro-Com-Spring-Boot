@@ -17,7 +17,7 @@ import br.fateczl.carometro.service.implementations.AlunoServiceImp;
 import br.fateczl.carometro.service.implementations.HistoricoServiceImp;
 
 @Controller
-public class HistoricoHTMLController {
+public class HistoricoHtmlController {
 
 	@Autowired
 	private HistoricoServiceImp historicoService;
