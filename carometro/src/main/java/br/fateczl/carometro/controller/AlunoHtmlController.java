@@ -1,5 +1,8 @@
 package br.fateczl.carometro.controller;
 
+import java.util.ArrayList;
+
+import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import br.fateczl.carometro.model.entities.Aluno;
+import br.fateczl.carometro.model.entities.Turma;
 import br.fateczl.carometro.service.implementations.AlunoServiceImp;
 import br.fateczl.carometro.service.implementations.TurmaServiceImp;
 import jakarta.validation.Valid;
@@ -18,6 +22,7 @@ public class AlunoHtmlController {
 
     @Autowired
     private AlunoServiceImp alunoService;
+    private TurmaServiceImp turmaService;
 
     @GetMapping("/alunoGet/{ra}")
     public String alunoGet(@ModelAttribute("ra") String ra, Model model) {
@@ -34,6 +39,13 @@ public class AlunoHtmlController {
     public String alunoPost(Model model) {
     	Aluno aluno = new Aluno();
         model.addAttribute("aluno", aluno);
+        try {
+			java.util.List<Turma> listTurma = turmaService.buscarTodasAsTurmasExistentes();
+			model.addAttribute("listTurma", listTurma);
+		} catch (ClassNotFoundException e) {
+			System.err.println(e);
+		}
+        
         return "alunoPost";
     }
     

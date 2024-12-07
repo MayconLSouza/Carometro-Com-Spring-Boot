@@ -33,9 +33,9 @@
 			<input type="text" th:field="*{links}" id="ra" /><br />
 
 			<label>Turma:</label>
-			<select th:field="*{turmas}">
+			<select th:field="*{turma}">
 				<option th:each="t : ${listTurma}" th:value="${p}" th:text="${p}"></option>
-			</select>
+			</select><br/>
 
 			<label>Históricos</label>
 			<input type="text" th:field="*{historicos}" id="ra" /><br />
