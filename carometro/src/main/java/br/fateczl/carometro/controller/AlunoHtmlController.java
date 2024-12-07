@@ -1,6 +1,7 @@
 package br.fateczl.carometro.controller;
  
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,9 +31,6 @@ public class AlunoHtmlController {
 	private CursoServiceImp cursoService;
 
 	private ArrayList<String> links = new ArrayList<>();
-	
-	private java.util.List<Aluno> alunos = new ArrayList<>();
-
 	
 	//GET COMMANDS
 	@GetMapping("/alunoGet")
@@ -104,6 +102,7 @@ public class AlunoHtmlController {
 	@GetMapping("/alunoList")
 	public String listarTodosOsAluno(Model model){
 		Aluno aluno = new Aluno();
+		List<Aluno> alunos = new ArrayList<>();
 		try {
 			alunos = alunoService.buscarTodos();
 		} catch (ClassNotFoundException e) {
