@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -55,17 +54,16 @@ public class CursoHTMLController {
 		return "cursoPut";
 	}
 
-	@PostMapping("/cursoPut/{codigo}")
-	public String cursoPut(@PathVariable("codigo") String codigo, @ModelAttribute("curso") Curso curso) {
-	    try {
-	        cursoService.atualizar(codigo, curso);
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	        return "redirect:/cursoGet?error=CursoNaoEncontrado";
-	    }
-	    return "redirect:/cursoGet";
+	@PostMapping("/cursoPut")
+	public String cursoPut(@RequestParam("codigo") String codigo, @ModelAttribute("curso") Curso curso) {
+		try {
+			cursoService.atualizar(codigo, curso);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return "redirect:/cursoGet?error=CursoNaoEncontrado";
+		}
+		return "curso_home";
 	}
-
 
 	// **DELETE**: Remove um curso pelo codigo
 	@GetMapping("/cursoDelete")
