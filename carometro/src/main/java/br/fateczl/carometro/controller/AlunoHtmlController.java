@@ -23,33 +23,42 @@ import jakarta.validation.Valid;
 @Controller
 public class AlunoHtmlController {
 
-    @Autowired
-    private AlunoServiceImp alunoService;
-    
-    @Autowired
-    private TurmaServiceImp turmaService;
-    
-    @Autowired
-    private CursoServiceImp cursoService;
+	@Autowired
+	private AlunoServiceImp alunoService;
 
-    @GetMapping("/alunoGet/{ra}")
-    public String alunoGet(@ModelAttribute("ra") String ra, Model model) {
-        try {
-            Aluno aluno = alunoService.buscar(ra);
-            model.addAttribute("a", aluno);
-        } catch (ClassNotFoundException e) {
-            System.err.println(e.getMessage());
-        }
-        return "alunoGet";
-    }
-    
-    @GetMapping("/alunoPost")
-    public String alunoPost(Model model) {
-    	Aluno aluno = new Aluno();
-    	ArrayList<String> links = new ArrayList<String>();
-        model.addAttribute("aluno", aluno);
-        model.addAttribute("links", links);
-        try {
+	@Autowired
+	private TurmaServiceImp turmaService;
+
+	@Autowired
+	private CursoServiceImp cursoService;
+
+	private ArrayList<String> links = new ArrayList<>();
+
+	@GetMapping("/alunoGet")
+	public String alunoGet(Model model) {
+		Aluno aluno = new Aluno();
+		model.addAttribute(aluno);
+		return "alunoGet";
+	}
+	
+	/*@GetMapping("/alunoGet")
+	public String alunoPost(@RequestParam String ra, Model model){
+		Aluno aluno = new Aluno();
+		try {
+			aluno = alunoService.buscar(ra);
+		} catch (ClassNotFoundException e) {
+			System.err.println(e);
+		}
+		model.addAttribute("aluno", aluno);
+		return "aluno_consulta";
+	}*/
+
+	@GetMapping("/alunoPost")
+	public String alunoPost(Model model) {
+		Aluno aluno = new Aluno();
+		model.addAttribute("aluno", aluno);
+		model.addAttribute("links", links);
+		try {
 			java.util.List<Turma> listTurma = turmaService.buscarTodasAsTurmasExistentes();
 			model.addAttribute("listTurma", listTurma);
 			java.util.List<Curso> listCurso = cursoService.buscarTodos();
@@ -57,22 +66,26 @@ public class AlunoHtmlController {
 		} catch (ClassNotFoundException e) {
 			System.err.println(e);
 		}
-        
-        return "alunoPost";
-    }
-    
-    @PostMapping("/alunoPost")
-    public String alunoPost(@ModelAttribute("aluno") @RequestParam String link1, @RequestParam String link2, @RequestParam String link3, Aluno aluno) {
-    	alunoService.inserir(aluno);
-    	return "aluno_inserido";
-    }
-    
-    @GetMapping("/home")
-    public String home(Model model) {
-    	model.addAttribute("message", "Isso é um Teste");
+
+		return "alunoPost";
+	}
+
+	@PostMapping("/alunoPost")
+	public String alunoPost(@ModelAttribute("aluno") @RequestParam String link1, @RequestParam String link2,
+			@RequestParam String link3, Aluno aluno) {
+		links.add(link1);
+		links.add(link2);
+		links.add(link3);
+		aluno.setLinks(links);
+		alunoService.inserir(aluno);
+		return "aluno_inserido";
+	}
+
+	@GetMapping("/home")
+	public String home(Model model) {
+		model.addAttribute("message", "Isso é um Teste");
 		return "home";
-    	
-    }
-    
-    
+
+	}
+
 }
