@@ -4,6 +4,22 @@
     <title>Informações do Aluno</title>
 </head>
 <body>
-    <h1 th:text="${message}"></h1>
+	<h1>"Insira os dados do Aluno"</h1>
+    <form action="#" th:action="@{/alunoPost}" th:object="${aluno}" method="post">
+	<label for="nome">Nome</label>
+    <input type="text" th:field="*{nome}" id="name" placeholder="Nome"><br/>
+    <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+    
+    <label for="ra">RA</label>
+    <input type="text" th:field="*{ra}" id="ra" placeholder="ra">
+    <span th:if="${#fields.hasErrors('ra')}" th:errors="*{ra}"></span><br/>
+    
+    <input type="submit" value="Salvar Aluno">  
+</form>
+
+<div>
+	
+</div>
+
 </body>
 </html>
