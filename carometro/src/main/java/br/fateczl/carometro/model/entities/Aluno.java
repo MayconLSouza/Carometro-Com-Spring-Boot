@@ -131,4 +131,8 @@ public class Aluno implements Serializable {
 	public String toString() {
 		return "Aluno [ra=" + ra + ", nome=" + nome + ", curso=" + curso + "]";
 	}
+	
+	public String getTurmaAttributes() {
+		return turma.getTurmaId().getTurno().toString();
+	}
 }
