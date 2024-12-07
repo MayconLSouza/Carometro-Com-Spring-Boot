@@ -15,7 +15,8 @@ Este Sistema foi concebido desde o levantamento de requisitos junto ao cliente, 
 
 ## Implementação:
 Seguindos os Princípios da Programação Orientada a Objetos(POO) e as Boas Práticas de Desenvolvimento de Software (Clean Architecture) foi desenvolvida uma
-APIRESTful que realiza operações de CRUD(`Create, Read, Update, Delete`) na entidade Aluno com suas composições Histórico e Comentário.
+APIRESTful que realiza operações de CRUD(`Create, Read, Update, Delete`) nas entidades Curso, Turma, Aluno, Histórico e Comentário.
+Todas as entidades Possuem seu front-end em Thymeleaf e seu backend e manipulação de banco em Spring Boot, com JPA e suas dependências.
 
 ---
 
