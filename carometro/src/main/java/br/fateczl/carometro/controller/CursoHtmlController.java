@@ -14,8 +14,7 @@ import br.fateczl.carometro.model.entities.Curso;
 import br.fateczl.carometro.service.services.ICursoService;
 
 @Controller
-//@RequestMapping("/curso_home")
-public class CursoHTMLController {
+public class CursoHtmlController {
 
 	@Autowired
 	ICursoService cursoService;
@@ -36,8 +35,6 @@ public class CursoHTMLController {
 		model.addAttribute("curso", new Curso());
 		return "cursoPost";
 	}
-
-	// TODO: POC-GPT
 
 	// **GET**: Lista todos os cursos
 	@GetMapping("/cursoGet")
