@@ -27,7 +27,6 @@
 
 <body>
 	<div align="center">
-		<h1>"A seguinte turma foi deletada!"</h1>
 		<table>
 			<thead>
 				<tr>
@@ -46,7 +45,37 @@
 				</tr>
 			</tbody>
 		</table>
+	</div>
+	<div align="center">
+		<h1>Segue as informações do aluno</h1>
+		<table style="width:80%" border="1">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>RA</th>
+					<th>Curso</th>
+					<th>Semestre de Conclusão</th>
+					<th>Links</th>
+					<th>Periodo</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="aluno: ${alunos}">
+					<td th:text="${aluno.nome}"></td>
+					<td th:text="${aluno.ra}"></td>
+					<td th:text="${aluno.curso.codigo}"></td>
+					<td th:text="${aluno.semestreConclusao}"></td>
+					<td>
+						<li th:each="link : ${aluno.links}" th:text="${link}"></li>
+					</td>
+					<td th:text="${aluno.getTurmaAttributes}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div align="center">
 		<a th:href="@{/turmaHome}" class="botao">Voltar</a>
 	</div>
 </body>
+
 </html>
