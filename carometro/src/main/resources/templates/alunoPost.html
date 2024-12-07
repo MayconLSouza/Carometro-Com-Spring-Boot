@@ -31,14 +31,24 @@
 			<label>Semestre de Conclusão (yyyy-mm-dd):</label>
 			<input type="text" th:field="*{semestreConclusao}" id="semestreConclusao" /><br />
 
-			<label>Links:</label>
-			<input type="text" th:field="*{links}" id="ra" /><br />
-
-			<label>Comentário Livre</label>
-			<input type="text" th:field="*{comentarios.comentario}" id="comentarioLivre" /><br />
 			
-			<label>Comentário Fatec</label>
-			<input type="text" th:field="*{comentarios.comentario}" id="comentarioFatec" /><br /-->
+			<label for="link1">Link 1:</label>
+			<input type="text" id="link1" name="link1" placeholder="Adicionar o primeiro link"/>
+			<br />
+			
+			<label for="link2">Link 2:</label>
+			<input type="text" id="link2" name="link2" placeholder="Adicionar o segundo link"/>
+			<br />
+			
+			<label for="link3">Link 3:</label>
+			<input type="text" id="link3" name="link3" placeholder="Adicionar o terceiro link"/>
+			<br />
+
+			<label>Turma:</label>
+			<select th:field="*{turma}">
+				<option th:each="t : ${listTurma}" th:value="${t.turmaId.getFormattedId}"
+					th:text="${t.turmaId.semestre}"></option>
+			</select><br />
 
 			<button type="submit">Inserir</button>
 		</form>

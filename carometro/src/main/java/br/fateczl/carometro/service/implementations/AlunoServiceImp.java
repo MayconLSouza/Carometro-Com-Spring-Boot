@@ -34,11 +34,27 @@ public class AlunoServiceImp implements IAlunoService {
     @Override
     public Aluno atualizar(String ra, Aluno aluno) throws ClassNotFoundException {
         Aluno alunoAtualizado = repository.findById(ra).orElseThrow(() -> new ClassNotFoundException("Aluno Inexistente"));
-        alunoAtualizado.setNome(aluno.getNome());
-        alunoAtualizado.setCurso(aluno.getCurso());
-        alunoAtualizado.setSemestreConclusao(aluno.getSemestreConclusao());
+        if(!aluno.getNome().isBlank()) {
+        	alunoAtualizado.setNome(aluno.getNome());
+        }
+        try {
+        	if(!aluno.getCurso().getCodigo().isBlank()) {
+                alunoAtualizado.setCurso(aluno.getCurso());
+            }
+        }catch (Exception e) {
+			aluno.setCurso(alunoAtualizado.getCurso());// TODO: handle exception
+		}
+        try {
+        	if(!aluno.getSemestreConclusao().toString().isBlank()) {
+                alunoAtualizado.setSemestreConclusao(aluno.getSemestreConclusao());
+            }
+        }catch (Exception e) {
+			aluno.setSemestreConclusao(alunoAtualizado.getSemestreConclusao());// TODO: handle exception
+		}
         //TODO: Acrescentar o Atributo imagem após inserí-lo na classe Aluno
-        alunoAtualizado.setLinks(aluno.getLinks());
+        if(!aluno.getLinks().isEmpty()) {
+            alunoAtualizado.setLinks(aluno.getLinks());
+        }
 
         return repository.save(alunoAtualizado);
     }

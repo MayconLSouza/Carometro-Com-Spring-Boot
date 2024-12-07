@@ -1,5 +1,5 @@
 package br.fateczl.carometro.controller;
- 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ import br.fateczl.carometro.model.entities.Turma;
 import br.fateczl.carometro.service.implementations.AlunoServiceImp;
 import br.fateczl.carometro.service.implementations.CursoServiceImp;
 import br.fateczl.carometro.service.implementations.TurmaServiceImp;
- 
+
 @Controller
 public class AlunoHtmlController {
 
@@ -31,17 +31,17 @@ public class AlunoHtmlController {
 	private CursoServiceImp cursoService;
 
 	private ArrayList<String> links = new ArrayList<>();
-	
-	//GET COMMANDS
+
+	// GET COMMANDS
 	@GetMapping("/alunoGet")
 	public String consultarAluno(Model model) {
 		Aluno aluno = new Aluno();
 		model.addAttribute(aluno);
 		return "alunoGet";
 	}
-	
+
 	@GetMapping("/aluno_consulta")
-	public String consultarAlunoPorRa(@RequestParam String ra, Model model){
+	public String consultarAlunoPorRa(@RequestParam String ra, Model model) {
 		Aluno aluno = new Aluno();
 		try {
 			aluno = alunoService.buscar(ra);
@@ -52,7 +52,7 @@ public class AlunoHtmlController {
 		return "aluno_consulta";
 	}
 
-	//POST COMMANDS
+	// POST COMMANDS
 	@GetMapping("/alunoPost")
 	public String inserirAluno(Model model) {
 		Aluno aluno = new Aluno();
@@ -82,25 +82,65 @@ public class AlunoHtmlController {
 		return "aluno_inserido";
 	}
 
-	//DELETE COMMANDS
+	// DELETE COMMANDS
 	@GetMapping("/alunoDelete")
 	public String deletarAluno(Model model) {
 		Aluno aluno = new Aluno();
 		model.addAttribute(aluno);
 		return "alunoDelete";
 	}
-	
+
 	@PostMapping("/alunoDelete")
-	public String deletarAlunoPorRa(@RequestParam String ra, Model model){
+	public String deletarAlunoPorRa(@RequestParam String ra, Model model) {
 		Aluno aluno = new Aluno();
 		aluno = alunoService.deletar(ra);
-		model.addAttribute("message","Deletado");
+		model.addAttribute("message", "Deletado");
 		return "alunoDelete";
 	}
-	
-	//LIST ALL
+
+	// PUT COMMANDS
+	@GetMapping("/alunoPut")
+	public String alunoPut(Model model) {
+		Aluno aluno = new Aluno();
+		model.addAttribute("aluno", new Aluno());
+		try {
+			java.util.List<Turma> listTurma = turmaService.buscarTodasAsTurmasExistentes();
+			model.addAttribute("listTurma", listTurma);
+			java.util.List<Curso> listCurso = cursoService.buscarTodos();
+			model.addAttribute("listCurso", listCurso);
+		} catch (ClassNotFoundException e) {
+			System.err.println(e);
+		}
+		return "alunoPut";
+	}
+
+	@PostMapping("/alunoPut")
+	public String alunoPut(@RequestParam("ra") String ra, @ModelAttribute("aluno") Aluno aluno,
+			@RequestParam String link1, @RequestParam String link2, @RequestParam String link3) {
+		if(!link1.isBlank()) {
+			links.add(link1);
+		}
+		if(!link2.isBlank()) {
+			links.add(link2);
+		}
+		if(!link3.isBlank()) {
+			links.add(link3);
+		}
+		aluno.setLinks(links);
+		try {
+			alunoService.atualizar(ra, aluno);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return "redirect:/alunoGet?error=alunoNaoEncontrado";
+		}catch (NullPointerException e) {
+			System.err.println(e.getMessage());
+		}
+		return "alunoHome";
+	}
+
+	// LIST ALL
 	@GetMapping("/alunoList")
-	public String listarTodosOsAluno(Model model){
+	public String listarTodosOsAluno(Model model) {
 		Aluno aluno = new Aluno();
 		List<Aluno> alunos = new ArrayList<>();
 		try {
@@ -108,11 +148,18 @@ public class AlunoHtmlController {
 		} catch (ClassNotFoundException e) {
 			System.err.println(e);
 		}
-		model.addAttribute("alunos",alunos);
+		model.addAttribute("alunos", alunos);
 		model.addAttribute("links", links);
 		return "alunoList";
 	}
-	
+
+	@GetMapping("/alunoHome")
+	public String alunoHome(Model model) {
+		model.addAttribute("message", "Isso é um Teste");
+		return "alunoHome";
+
+	}
+
 	@GetMapping("/home")
 	public String home(Model model) {
 		model.addAttribute("message", "Isso é um Teste");
@@ -121,4 +168,3 @@ public class AlunoHtmlController {
 	}
 
 }
-
