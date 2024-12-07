@@ -36,7 +36,7 @@ public class Aluno implements Serializable {
 	// TODO: Acrescentar Atributo imagem; Include The Image Attribute for Student
 	private List<String> links;
 
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.PERSIST)
 	@JoinColumns({
 	    @JoinColumn(name = "codigo_curso", referencedColumnName = "codigoCurso"),
 	    @JoinColumn(name = "ano", referencedColumnName = "ano"),
@@ -130,5 +130,9 @@ public class Aluno implements Serializable {
 	@Override
 	public String toString() {
 		return "Aluno [ra=" + ra + ", nome=" + nome + ", curso=" + curso + "]";
+	}
+	
+	public String getTurmaAttributes() {
+		return turma.getTurmaId().getTurno().toString();
 	}
 }
