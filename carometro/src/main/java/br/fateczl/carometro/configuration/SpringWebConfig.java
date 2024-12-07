@@ -20,9 +20,11 @@ public class SpringWebConfig implements ApplicationContextAware, WebMvcConfigure
 
 	private ApplicationContext applicationContext;
 	private final TurmaConverter turmaConverter;
+	private final TurmaIdConverter turmaIdConverter;
 	
-	public SpringWebConfig(TurmaConverter turmaConverter) {
+	public SpringWebConfig(TurmaConverter turmaConverter, TurmaIdConverter turmaIdConverter) {
 		this.turmaConverter = turmaConverter;
+		this.turmaIdConverter = turmaIdConverter;
 	}
 
 	@Override
@@ -33,6 +35,7 @@ public class SpringWebConfig implements ApplicationContextAware, WebMvcConfigure
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(turmaConverter);
+		registry.addConverter(turmaIdConverter);
 	}
 
 }
