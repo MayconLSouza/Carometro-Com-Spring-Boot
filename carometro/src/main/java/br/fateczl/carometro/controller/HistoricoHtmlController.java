@@ -70,6 +70,9 @@ public class HistoricoHtmlController {
 			return "historico_inserido";
 		}
 		
+		
+		
+		//HOME
 		@GetMapping("/historicoHome")
 		public String alunoHome(Model model) {
 			model.addAttribute("message", "Isso é um Teste");
