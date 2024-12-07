@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Informações de Turma</title>
+</head>
+<body>
+<div align="center">
+	<h1>"A turma foi inserida!"</h1>
+<table>
+	<thead>
+		<tr>
+			<th>Curso</th><br/>
+			<th>Ano</th><br/>
+			<th>Semestre de Conclusão</th><br/>
+			<th>Turno</th><br/>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td th:text="${turmaId.codigoCurso}"></td><br/>
+			<td th:text="${turmaId.ano}"></td><br/>
+			<td th:text="${turmaId.semestre}"></td><br/>
+			<td th:text="${turmaId.turno}"></td><br/>
+		</tr>
+	</tbody>
+</table>
+</div>
+</body>
+</html>
