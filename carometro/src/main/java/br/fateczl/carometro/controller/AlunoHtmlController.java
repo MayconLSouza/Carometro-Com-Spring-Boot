@@ -10,10 +10,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.fateczl.carometro.model.entities.Aluno;
+import br.fateczl.carometro.model.entities.Curso;
 import br.fateczl.carometro.model.entities.Turma;
 import br.fateczl.carometro.service.implementations.AlunoServiceImp;
+import br.fateczl.carometro.service.implementations.CursoServiceImp;
 import br.fateczl.carometro.service.implementations.TurmaServiceImp;
 import jakarta.validation.Valid;
 
@@ -22,7 +25,12 @@ public class AlunoHtmlController {
 
     @Autowired
     private AlunoServiceImp alunoService;
+    
+    @Autowired
     private TurmaServiceImp turmaService;
+    
+    @Autowired
+    private CursoServiceImp cursoService;
 
     @GetMapping("/alunoGet/{ra}")
     public String alunoGet(@ModelAttribute("ra") String ra, Model model) {
@@ -38,10 +46,14 @@ public class AlunoHtmlController {
     @GetMapping("/alunoPost")
     public String alunoPost(Model model) {
     	Aluno aluno = new Aluno();
+    	ArrayList<String> links = new ArrayList<String>();
         model.addAttribute("aluno", aluno);
+        model.addAttribute("links", links);
         try {
 			java.util.List<Turma> listTurma = turmaService.buscarTodasAsTurmasExistentes();
 			model.addAttribute("listTurma", listTurma);
+			java.util.List<Curso> listCurso = cursoService.buscarTodos();
+			model.addAttribute("listCurso", listCurso);
 		} catch (ClassNotFoundException e) {
 			System.err.println(e);
 		}
@@ -50,7 +62,7 @@ public class AlunoHtmlController {
     }
     
     @PostMapping("/alunoPost")
-    public String alunoPost(@ModelAttribute("aluno") Aluno aluno) {
+    public String alunoPost(@ModelAttribute("aluno") @RequestParam String link1, @RequestParam String link2, @RequestParam String link3, Aluno aluno) {
     	alunoService.inserir(aluno);
     	return "aluno_inserido";
     }
