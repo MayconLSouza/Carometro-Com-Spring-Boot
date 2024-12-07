@@ -15,7 +15,6 @@ public class TurmaIdConverter implements Converter<String, TurmaId> {
 
 	public TurmaId convert(String source) {
 
-		System.out.println("Source: " + source);
 		String[] parts = source.split(",");
 		TurmaId turmaId = new TurmaId();
 		turmaId.setCodigoCurso(parts[0]);

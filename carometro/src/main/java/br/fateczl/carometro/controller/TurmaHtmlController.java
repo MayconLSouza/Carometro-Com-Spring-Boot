@@ -29,11 +29,13 @@ public class TurmaHtmlController {
 	@Autowired
 	private AlunoServiceImp alunoService;
 
+	// HOME
 	@GetMapping("/turmaHome")
 	public String home() {
 		return "turmaHome";
 	}
 
+	// POST
 	@GetMapping("/turmaPost")
 	public String turmaPost(Model model) throws ClassNotFoundException {
 		TurmaId turmaId = new TurmaId();
@@ -49,7 +51,6 @@ public class TurmaHtmlController {
 
 	@PostMapping("/turmaPost")
 	public String turmaPost(@ModelAttribute("turmaId") TurmaId turmaId) throws ClassNotFoundException {
-//		System.out.println("Codigo curso: " + turmaId.getCodigoCurso());
 		System.out.println(turmaId.toString());
 		Curso curso = cursoService.buscar(turmaId.getCodigoCurso());
 		Turma turma = new Turma();
@@ -57,6 +58,27 @@ public class TurmaHtmlController {
 		turma.setCurso(curso);
 		turmaService.inserir(turma);
 		return "turma_inserida";
+	}
+	
+	// DELETE
+	@GetMapping("/turmaDelete")
+	public String deletarTurma(Model model) throws ClassNotFoundException {
+		TurmaId turmaId = new TurmaId();
+		model.addAttribute("turmaId", turmaId);
+
+		List<Curso> cursos = cursoService.buscarTodos(); 
+	    model.addAttribute("cursos", cursos);
+	    
+	    model.addAttribute("turnos", Enum_TurnosCursos.values());
+	    
+		return "turmaDelete";
+	}
+	
+	@PostMapping("/turmaDelete")
+	public String deletarTurma(@ModelAttribute("turmaId") TurmaId turmaId, Model model) throws ClassNotFoundException {
+		turmaService.deletar(turmaId.getCodigoCurso(), turmaId.getAno(), turmaId.getSemestre(), turmaId.getTurno());
+		model.addAttribute("message","Deletada");
+		return "turma_deletada";
 	}
 
 }

@@ -8,15 +8,26 @@
 			display: inline-block;
 			width: 200px;
 			margin: 5px;
+			align-items: center;
+			justify-content: center;
 			text-align: left;
+		}
+		
+		a {
+			text-decoration: none;
+			color: black;
+			font-size: 16px;
+		}
+
+		i {
+			margin-right: 4px;
 		}
 	</style>
 </head>
 
 <body>
-
 	<div align="center">
-		<form action="#" th:action="@{/turmaPost}" th:object="${turmaId}" method="post">
+		<form action="#" th:action="@{/turmaGet}" th:object="${turmaId}" method="post">
 
 			<label for="codigoCurso">Curso:</label>
 			<select id="codigoCurso" th:field="*{codigoCurso}" required>
@@ -36,8 +47,12 @@
 				<option th:each="turno : ${turnos}" th:value="${turno}" th:text="${turno}"></option>
 			</select>
 
-			<button type="submit">Inserir</button>
+			<button type="submit" th:value="buscar">Buscar</button>
+
+			<a th:href="@{/turmaHome}" class="botao">Voltar</a>
+
 		</form>
+
 	</div>
 </body>
 
