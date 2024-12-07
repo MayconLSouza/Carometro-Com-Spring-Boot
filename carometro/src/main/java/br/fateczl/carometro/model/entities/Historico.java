@@ -1,5 +1,6 @@
 package br.fateczl.carometro.model.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -13,6 +14,7 @@ import jakarta.persistence.MapsId;
 @Entity
 public class Historico implements Serializable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
@@ -20,8 +22,9 @@ public class Historico implements Serializable {
 
     @ManyToOne
     @MapsId("alunoRa") // Mapeia "alunoRa" de HistoricoId diretamente no relacionamento
-    @JsonBackReference
+    @JsonBackReference("historico-aluno")
     private Aluno aluno;
+
 
     private String empresa;
     private String atividade;

@@ -16,14 +16,14 @@ import br.fateczl.carometro.model.entities.Aluno;
 import br.fateczl.carometro.service.implementations.AlunoServiceImp;
 
 @RestController
-@RequestMapping("/alunos")
+@RequestMapping("/aluno")
 public class AlunoRestController {
 
 	@Autowired
 	private AlunoServiceImp alunoService;
 
 	@GetMapping
-	public ResponseEntity<Iterable<Aluno>> buscarTodosOsAlunos() {
+	public ResponseEntity<Iterable<Aluno>> buscarTodosOsAlunos() throws ClassNotFoundException {
 		return ResponseEntity.ok(alunoService.buscarTodos());
 	}
 
@@ -46,10 +46,10 @@ public class AlunoRestController {
 		return ResponseEntity.ok(alunoAtualizado);
 	}
 
-	@DeleteMapping("/{name}")
-	public ResponseEntity<Aluno> deletarAluno(@PathVariable String name) throws ClassNotFoundException {
-		alunoService.deletar(name);
-		return ResponseEntity.ok().build();
+	@DeleteMapping("/{ra}")
+	public ResponseEntity<Aluno> deletarAluno(@PathVariable String ra) throws ClassNotFoundException {
+		Aluno alunoDeletado = alunoService.deletar(ra);
+		return ResponseEntity.ok(alunoDeletado);
 	}
 
 }

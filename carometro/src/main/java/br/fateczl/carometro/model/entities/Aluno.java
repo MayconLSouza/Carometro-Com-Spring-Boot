@@ -2,13 +2,19 @@ package br.fateczl.carometro.model.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -17,23 +23,40 @@ public class Aluno implements Serializable {
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	@Id // primary key
+	@Id
 	private String ra;
 	private String nome;
-	private String curso;
-	private String semestreConclusao;
+	
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "codigo_curso_aluno", referencedColumnName = "codigo", nullable = false)
+	@JsonBackReference("aluno-curso")
+	private Curso curso;
+
+	private LocalDate semestreConclusao;
 	// TODO: Acrescentar Atributo imagem; Include The Image Attribute for Student
 	private List<String> links;
 
-	// TODO: Acrescentar Classe Turma; Include Attribute Turma Class in Student
+	@ManyToOne
+	@JoinColumns({
+	    @JoinColumn(name = "codigo_curso", referencedColumnName = "codigoCurso"),
+	    @JoinColumn(name = "ano", referencedColumnName = "ano"),
+	    @JoinColumn(name = "semestre", referencedColumnName = "semestre"),
+	    @JoinColumn(name = "turno", referencedColumnName = "turno")
+	})
+	@JsonBackReference("turma-alunos")
+	private Turma turma;
+
 
 	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference // for serializable the Owner of relationship
+	@JsonManagedReference("historico-aluno")
 	private List<Historico> historicos;
 
+
+
 	@OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference // for serializable the Owner of relationship
-	private List<Comentario> comentarios; // Um aluno pode ter muitos comentários
+	@JsonManagedReference("comentario-aluno")
+	private List<Comentario> comentarios;
+
 
 	public Aluno() {
 		super();
@@ -56,19 +79,19 @@ public class Aluno implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getCurso() {
+	public Curso getCurso() {
 		return curso;
 	}
 
-	public void setCurso(String curso) {
+	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
 
-	public String getSemestreConclusao() {
+	public LocalDate getSemestreConclusao() {
 		return semestreConclusao;
 	}
 
-	public void setSemestreConclusao(String semestreConclusao) {
+	public void setSemestreConclusao(LocalDate semestreConclusao) {
 		this.semestreConclusao = semestreConclusao;
 	}
 
@@ -78,6 +101,14 @@ public class Aluno implements Serializable {
 
 	public void setLinks(List<String> links) {
 		this.links = links;
+	}
+
+	public Turma getTurma() {
+		return turma;
+	}
+	
+	public void setTurma(Turma turma) {
+		this.turma = turma;
 	}
 
 	public List<Historico> getHistoricos() {
