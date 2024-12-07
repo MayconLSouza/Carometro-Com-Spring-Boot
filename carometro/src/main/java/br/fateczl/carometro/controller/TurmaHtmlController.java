@@ -114,6 +114,9 @@ public class TurmaHtmlController {
 	@GetMapping("/turmaList")
 	public String listarTodasAsTurmas(Model model) throws ClassNotFoundException {
 		List<Turma> turmas = turmaService.buscarTodasAsTurmasExistentes();
+		for(Turma turma: turmas) {
+			System.out.println("**********************" + turma.toString());
+		}
 		List<TurmaId> turmasId = new ArrayList<>();
 		for(Turma turma : turmas) {
 			turmasId.add(turma.getTurmaId());

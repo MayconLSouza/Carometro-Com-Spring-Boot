@@ -137,7 +137,7 @@ public class AlunoHtmlController {
 		}catch (NullPointerException e) {
 			System.err.println(e.getMessage());
 		}
-		return "alunoHome";
+		return "aluno_home";
 	}
 
 	// LIST ALL
@@ -156,10 +156,10 @@ public class AlunoHtmlController {
 		return "alunoList";
 	}
 
-	@GetMapping("/alunoHome")
+	@GetMapping("/aluno_home")
 	public String alunoHome(Model model) {
 		model.addAttribute("message", "Isso é um Teste");
-		return "alunoHome";
+		return "aluno_home";
 
 	}
 

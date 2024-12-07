@@ -47,7 +47,7 @@
 			<label>Turma:</label>
 			<select th:field="*{turma}">
 				<option th:each="t : ${listTurma}" th:value="${t.turmaId.getFormattedId}"
-					th:text="${t.turmaId.semestre}"></option>
+					th:text="${t.turmaId}"></option>
 			</select><br />
 
 			<button type="submit">Inserir</button>
