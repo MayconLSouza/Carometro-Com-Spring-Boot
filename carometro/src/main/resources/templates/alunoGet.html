@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Informações do Aluno</title>
+</head>
+<body>
+    <div align="center">
+		<table>
+			<thead>
+				<tr>
+					<th th:text="#{aluno.ra}">"Nome do Aluno"</th>
+					<th th:text="#{aluno.nome}">RA do Aluno"</th>
+					<th th:text="#{aluno.curso}">"Curso do Aluno"</th>
+					<th th:text="#{aluno.semestreConclusao}">"Semestre de Conclusão"</th>
+					<th th:text="#{aluno.links}">"Links"</th>
+					<th th:text="#{aluno.histórico}">"Histórico do Aluno"</th>
+					<th th:text="#{aluno.comentarios}">"Comentário do Aluno"</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${aluno.ra}">1110482223048</td>
+					<td th:text="${aluno.nome}">Geovanni Veloso Ferreira</td>
+					<td>
+						<table>
+							<tbody>
+								<tr>
+									<td th:text="${curso.nome}">Análise e Desenvolvimento de Sistemas</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+					<td th:text="${aluno.semestreConclusao}">2024-12-06</td>
+					<td>
+						<table>
+							<tbody>
+								<tr th:each="link, links : {aluno.links}">
+									<td th:text="${link}">https://github.com/GeovanniVeloso</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tbody>
+								<tr th:each="historico, historicos : {aluno.historicos}">
+									<td th:text="${historico.empresa}"></td>
+									<td th:text="${historico.atividade}"></td>
+									<td th:text="${historico.tempoEmpresaEmAnos}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tbody>
+								<tr th:each="comentario, comentarios : {aluno.comentarios}">
+									<td th:text="${comentario.descricao}"></td>
+									<td th:text="${comentario.data}">2024-12-06</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
