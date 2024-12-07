@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Informações de Historico</title>
+	<style type="text/css">
+		label {
+			display: inline-block;
+			width: 200px;
+			margin: 5px;
+			text-align: left;
+		}
+	</style>
+</head>
+
+
+		<h1>Segue as informações do aluno</h1>
+		<table style="width:80%" border="1">
+			<thead>
+				<tr>
+					<th>RA</th>
+					<th>Identificador</th>
+					<th>Empresa</th>
+					<th>Atividade</th>
+					<th>Tempo de Empresa</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${historico.toRa}"></td>
+					<td th:text="${historico.toId}"></td>
+					<td th:text="${historico.empresa}"></td>
+					<td th:text="${historico.atividade}"></td>
+					<td th:text="${historico.tempoDeEmpresa}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+</html>

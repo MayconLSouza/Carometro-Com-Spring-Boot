@@ -27,7 +27,6 @@
 
 <body>
 	<div align="center">
-		<h1>"A seguinte turma foi deletada!"</h1>
 		<table>
 			<thead>
 				<tr>
@@ -38,7 +37,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<tr th:each="turmaId: ${turmasId}">
 					<td th:text="${turmaId.codigoCurso}"></td><br />
 					<td th:text="${turmaId.ano}"></td><br />
 					<td th:text="${turmaId.semestre}"></td><br />
@@ -46,7 +45,10 @@
 				</tr>
 			</tbody>
 		</table>
+	</div>
+	<div align="center">
 		<a th:href="@{/turmaHome}" class="botao">Voltar</a>
 	</div>
 </body>
+
 </html>

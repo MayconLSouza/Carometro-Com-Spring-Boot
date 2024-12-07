@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Informações do Historico</title>
+	<style type="text/css">
+		label {
+			display: inline-block;
+			width: 200px;
+			margin: 5px;
+			text-align: left;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div align="center">
+		<form action="#" th:action="@{/historicoPost}" th:object="${historico}" method="post">
+
+			<label>RA:</label>
+			<input type="text" th:field="*{historicoId.alunoRa}" id="ra" /><br />
+
+			<label>Identificador do Historico:</label>
+			<input type="number" th:field="*{historicoId.idHistorico}" id="idHistorico" /><br />
+
+			<label>Empresa</label>
+			<input type="text" th:field="*{empresa}" id="empresa" /><br />
+			
+			<label>Atividade</label>
+			<input type="text" th:field="*{atividade}" id="atividade" /><br />
+			
+			<label>Tempo de Contrado - Em anos</label>
+			<input type="number" th:field="*{tempoEmpresaEmAnos}" id="atividade" /><br />
+
+			<button type="submit">Inserir</button>
+		</form>
+	</div>
+</body>
+
+</html>
