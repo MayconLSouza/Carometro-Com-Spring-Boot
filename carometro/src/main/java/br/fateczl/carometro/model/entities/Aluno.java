@@ -29,7 +29,6 @@ public class Aluno implements Serializable {
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_curso_aluno", referencedColumnName = "codigo", nullable = false)
-	
 	@JsonBackReference("aluno-curso")
 	private Curso curso;
 
@@ -41,7 +40,8 @@ public class Aluno implements Serializable {
 	@JoinColumns({
 	    @JoinColumn(name = "codigo_curso", referencedColumnName = "codigoCurso"),
 	    @JoinColumn(name = "ano", referencedColumnName = "ano"),
-	    @JoinColumn(name = "semestre", referencedColumnName = "semestre")
+	    @JoinColumn(name = "semestre", referencedColumnName = "semestre"),
+	    @JoinColumn(name = "turno", referencedColumnName = "turno")
 	})
 	@JsonBackReference("turma-alunos")
 	private Turma turma;

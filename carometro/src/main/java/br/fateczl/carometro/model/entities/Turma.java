@@ -7,7 +7,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import br.fateczl.carometro.model.enums.Enum_TurnosCursos;
 import br.fateczl.carometro.model.primarykeysclass.TurmaId;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.EmbeddedId;
@@ -25,8 +24,6 @@ public class Turma implements Serializable {
 	@EmbeddedId
 	private TurmaId turmaId;
 
-	private Enum_TurnosCursos turno;
-
 	@OneToMany(mappedBy = "turma", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference("turma-alunos")
 	private List<Aluno> alunos;
@@ -35,7 +32,10 @@ public class Turma implements Serializable {
 	@JoinColumn(name = "curso_codigo", referencedColumnName = "codigo", nullable = false)
 	@JsonBackReference("curso-turmas") // Mesmo nome usado na referência gerenciada
 	private Curso curso;
-
+	
+	public Turma() {
+		super();
+	}
 
 	public TurmaId getTurmaId() {
 		return turmaId;
@@ -43,14 +43,6 @@ public class Turma implements Serializable {
 
 	public void setTurmaId(TurmaId turmaId) {
 		this.turmaId = turmaId;
-	}
-
-	public Enum_TurnosCursos getTurno() {
-		return turno;
-	}
-
-	public void setTurno(Enum_TurnosCursos turno) {
-		this.turno = turno;
 	}
 
 	public List<Aluno> getAlunos() {
@@ -71,7 +63,7 @@ public class Turma implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Turma [turmId=" + turmaId + ", turno=" + turno + "]";
+		return "Turma [turmId=" + turmaId.toString();
 	}
 
 }

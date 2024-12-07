@@ -4,8 +4,6 @@ import java.io.Serial;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import br.fateczl.carometro.model.primarykeysclass.HistoricoId;
 import jakarta.persistence.EmbeddedId;

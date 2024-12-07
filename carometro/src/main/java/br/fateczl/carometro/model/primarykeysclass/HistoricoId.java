@@ -17,7 +17,9 @@ public class HistoricoId implements Serializable {
     @Column(name = "aluno_ra") // Nome físico da coluna no banco
     private String alunoRa;
 
-    public HistoricoId() {}
+    public HistoricoId() {
+    	super();
+    }
 
     public HistoricoId(Long idHistorico, String alunoRa) {
         this.idHistorico = idHistorico;
