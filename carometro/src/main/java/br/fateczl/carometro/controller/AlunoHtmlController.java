@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import br.fateczl.carometro.model.entities.Aluno;
 import br.fateczl.carometro.service.implementations.AlunoServiceImp;
+import br.fateczl.carometro.service.implementations.TurmaServiceImp;
 import jakarta.validation.Valid;
 
 @Controller
@@ -18,10 +19,10 @@ public class AlunoHtmlController {
     @Autowired
     private AlunoServiceImp alunoService;
 
-    @GetMapping("/alunoGet")
-    public String alunoGet(Model model) {
+    @GetMapping("/alunoGet/{ra}")
+    public String alunoGet(@ModelAttribute("ra") String ra, Model model) {
         try {
-            Aluno aluno = alunoService.buscar("1110482227778");
+            Aluno aluno = alunoService.buscar(ra);
             model.addAttribute("a", aluno);
         } catch (ClassNotFoundException e) {
             System.err.println(e.getMessage());
