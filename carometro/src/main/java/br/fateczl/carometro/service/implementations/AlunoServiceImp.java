@@ -35,7 +35,7 @@ public class AlunoServiceImp implements IAlunoService {
     public Aluno atualizar(String ra, Aluno aluno) throws ClassNotFoundException {
         Aluno alunoAtualizado = repository.findById(ra).orElseThrow(() -> new ClassNotFoundException("Aluno Inexistente"));
         alunoAtualizado.setNome(aluno.getNome());
-        alunoAtualizado.setCurso(aluno.getCurso());
+        /*alunoAtualizado.setCurso(aluno.getCurso());*/
         alunoAtualizado.setSemestreConclusao(aluno.getSemestreConclusao());
         //TODO: Acrescentar o Atributo imagem após inserí-lo na classe Aluno
         alunoAtualizado.setLinks(aluno.getLinks());

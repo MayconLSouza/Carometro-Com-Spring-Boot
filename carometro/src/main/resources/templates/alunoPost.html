@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Informações do Aluno</title>
+	<style type="text/css">
+		label {
+			display: inline-block;
+			width: 200px;
+			margin: 5px;
+			text-align: left;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div align="center">
+		<form action="#" th:action="@{/alunoPost}" th:object="${aluno}" method="post">
+			<label>RA do Aluno:</label>
+			<input type="text" th:field="*{ra}" id="ra" /><br />
+
+			<label>Nome do Aluno:</label>
+			<input type="text" th:field="*{nome}" id="nome" /><br />
+
+			<label>Curso do Aluno:</label>
+			<input type="text" th:field="*{curso}" id="ra" /><br />
+
+			<label>Semestre de Conclusão (yyyy-mm-dd):</label>
+			<input type="text" th:field="*{semestreConclusao}" id="ra" /><br />
+
+			<label>Links:</label>
+			<input type="text" th:field="*{links}" id="ra" /><br />
+
+			<label>Turma:</label>
+			<select th:field="*{turmas}">
+				<option th:each="t : ${listTurma}" th:value="${p}" th:text="${p}"></option>
+			</select>
+
+			<label>Históricos</label>
+			<input type="text" th:field="*{historicos}" id="ra" /><br />
+
+			<label>Comentários</label>
+			<input type="text" th:field="*{comentarios}" id="ra" /><br />
+
+			<button type="submit">Inserir</button>
+		</form>
+	</div>
+</body>
+
+</html>
