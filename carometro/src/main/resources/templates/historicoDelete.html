@@ -61,7 +61,7 @@
 <body>
 
 	<div align="center">
-		<form action="#" th:action="@{/historicoPost}" th:object="${historico}" method="post">
+		<form action="#" th:action="@{/historicoDelete}" th:object="${historico}" method="post">
 
 			<label>RA:</label>
 			<input type="text" th:field="*{historicoId.alunoRa}" id="ra" /><br />
@@ -69,16 +69,7 @@
 			<label>Identificador do Historico:</label>
 			<input type="number" th:field="*{historicoId.idHistorico}" id="idHistorico" /><br />
 
-			<label>Empresa</label>
-			<input type="text" th:field="*{empresa}" id="empresa" /><br />
-			
-			<label>Atividade</label>
-			<input type="text" th:field="*{atividade}" id="atividade" /><br />
-			
-			<label>Tempo de Contrado - Em anos</label>
-			<input type="text" th:field="*{tempoEmpresaEmAnos}" id="tempoEmpresaEmAnos" /><br />
-
-			<button type="submit">Inserir</button>
+			<button type="submit">Excluir</button>
 		</form>
 	</div>
 </body>
