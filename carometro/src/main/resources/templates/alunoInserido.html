@@ -35,8 +35,8 @@
 			justify-content: center;
 			text-align: left;
 		}
-		th{
-			font-size: 16px;
+		td{
+			text-align: center;
 		}
 
 		ul {
@@ -71,14 +71,29 @@
 		</nav>
 	</header>
 	<div align="center">
-		<form th:action="@{/alunoDelete}" method="post">
-			<input type="text" th:name="ra" placeholder="Insira o RA" required/></br>
-			<button class="botao" type="submit">Deletar</button>
-			<a class="botao" th:href="@{/alunoHome}">Voltar</a>
-		</form>
-
-		<span th:if="${message == 'Deletado'}">Aluno Deletado</span>
-
+		<h1>O aluno foi inserido!</h1>
+		<table>
+			<table style="width:80%" border="1">
+				<thead>
+					<tr>
+						<th>Nome</th><br />
+						<th>Ra</th><br />
+						<th>Curso</th><br />
+						<th>Semestre de Conclusão</th><br />
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td th:text="${aluno.nome}"></td><br />
+						<td th:text="${aluno.ra}"></td><br />
+						<td th:text="${aluno.curso.getNome}"></td><br />
+						<td th:text="${aluno.semestreConclusao}"></td><br />
+					</tr>
+				</tbody>
+			</table>
+			
+			<a th:href="@{/alunoHome}" class="botao">Voltar</a>
+			
 	</div>
 </body>
 

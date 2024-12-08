@@ -3,7 +3,7 @@
 
 <head>
 	<title>Informações de Comentário</title>
-	<style type="text/css">
+	<style>
 		.botao {
 			background-color: rgb(64, 128, 128);
 			/* Verde */
@@ -62,13 +62,13 @@
 			<select id="aluno" name="aluno" th:field="*{aluno.ra}" required>
 				<!-- Iterar sobre os alunos disponíveis -->
 				<option th:each="aluno : ${alunos}" th:value="${aluno.ra}" th:text="${aluno.nome}"></option>
-			</select>
+			</select><br />
 
 			<label for="id">Identificador do Comentário:</label>
 			<input type="number" name="id" th:field="*{id}" required /><br />
 
 			<label for="descricao">Descrição:</label>
-			<textarea id="descricao" name="descricao" th:field="*{descricao}" rows="4" required></textarea>
+			<textarea id="descricao" name="descricao" th:field="*{descricao}" rows="4" required></textarea><br />
 
 			<label for="data">Data (yyyy-mm-dd):</labelfor>
 				<input type="text" name="data" th:field="*{data}" id="data" /><br />
@@ -77,9 +77,10 @@
 				<select id="tipo" name="tipo" th:field="*{tipo}" required>
 					<!-- Iterar sobre os tipos disponíveis -->
 					<option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
-				</select>
+				</select><br />
 
-				<button type="submit">Atualizar</button>
+				<button class=botao type="submit">Atualizar</button>
+				<a th:href="@{/comentario_home}" class="botao">Voltar</a>
 		</form>
 	</div>
 </body>

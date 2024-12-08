@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+
 <head>
 	<title>Informações do Aluno</title>
 	<style>
@@ -35,8 +36,9 @@
 			justify-content: center;
 			text-align: left;
 		}
-		th{
-			font-size: 16px;
+
+		td {
+			text-align: center;
 		}
 
 		ul {
@@ -70,16 +72,38 @@
 			</ul>
 		</nav>
 	</header>
-	<div align="center">
-		<form th:action="@{/alunoDelete}" method="post">
-			<input type="text" th:name="ra" placeholder="Insira o RA" required/></br>
-			<button class="botao" type="submit">Deletar</button>
-			<a class="botao" th:href="@{/alunoHome}">Voltar</a>
-		</form>
 
-		<span th:if="${message == 'Deletado'}">Aluno Deletado</span>
-
-	</div>
-</body>
+	<body>
+		<div align="center">
+			<h1>Segue as informações do aluno</h1>
+			<table style="width:80%" border="1">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>RA</th>
+						<th>Curso</th>
+						<th>Semestre de Conclusão</th>
+						<th>Links</th>
+						<th>Periodo</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td th:text="${aluno.nome}"></td>
+						<td th:text="${aluno.ra}"></td>
+						<td th:text="${aluno.curso.codigo}"></td>
+						<td th:text="${aluno.semestreConclusao}"></td>
+						<td>
+							<li th:each="link : ${aluno.links}" th:text="${link}"></li>
+						</td>
+						<td th:text="${aluno.getTurmaAttributes}"></td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<a th:href="@{/alunoHome}" class="botao">Voltar</a>
+			
+		</div>
+	</body>
 
 </html>

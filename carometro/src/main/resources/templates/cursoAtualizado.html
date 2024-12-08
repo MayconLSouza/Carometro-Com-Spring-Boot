@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Informações do Aluno</title>
+	<title>Informações Atualizadas do Curso</title>
+	<meta charset="UTF-8">
 	<style>
 		* {
 			margin: 10px;
@@ -35,9 +36,6 @@
 			justify-content: center;
 			text-align: left;
 		}
-		th{
-			font-size: 16px;
-		}
 
 		ul {
 			list-style-type: none;
@@ -62,7 +60,6 @@
 </head>
 
 <body>
-
 	<header>
 		<nav>
 			<ul>
@@ -70,16 +67,33 @@
 			</ul>
 		</nav>
 	</header>
-	<div align="center">
-		<form th:action="@{/alunoDelete}" method="post">
-			<input type="text" th:name="ra" placeholder="Insira o RA" required/></br>
-			<button class="botao" type="submit">Deletar</button>
-			<a class="botao" th:href="@{/alunoHome}">Voltar</a>
-		</form>
 
-		<span th:if="${message == 'Deletado'}">Aluno Deletado</span>
+	<div align="center">
+		<h1>Segue as informações do curso</h1>
+		<table style="width:80%" border="1">
+			<thead>
+				<tr>
+					<th>Nome do Curso</th>
+					<th>Código do Curso</th>
+					<th>Coordenador</th>
+					<th>Situação</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${curso.nome}"></td>
+					<td th:text="${curso.codigo}"></td>
+					<td th:text="${curso.coordenador}"></td>
+					<td th:text="${curso.ativo} ? 'Ativo' : 'Inativo'" />
+				</tr>
+			</tbody>
+		</table>
+
+		<a th:href="@{/curso_home}" class="botao">Voltar</a>
 
 	</div>
+
+
 </body>
 
 </html>
