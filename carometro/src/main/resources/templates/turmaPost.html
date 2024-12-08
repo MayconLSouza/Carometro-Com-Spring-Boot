@@ -2,38 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Informações de Turma</title>
-	<style type="text/css">
-		label {
-			display: inline-block;
-			width: 200px;
-			margin: 5px;
-			text-align: left;
-		}
-	</style>
+<title>Informações de Turma</title>
+<style type="text/css">
+label {
+	display: inline-block;
+	width: 200px;
+	margin: 5px;
+	text-align: left;
+}
+</style>
 </head>
 
 <body>
 
+	<header>
+		<nav>
+			<ul>
+				<li><a th:href="@{/home}"><i class="fas fa-home"></i>Inicio</a></li>
+			</ul>
+		</nav>
+	</header>
 	<div align="center">
-		<form action="#" th:action="@{/turmaPost}" th:object="${turmaId}" method="post">
+		<form action="#" th:action="@{/turmaPost}" th:object="${turmaId}"
+			method="post">
 
-			<label for="codigoCurso">Curso:</label>
-			<select id="codigoCurso" th:field="*{codigoCurso}" required>
+			<label for="codigoCurso">Curso:</label> <select id="codigoCurso"
+				th:field="*{codigoCurso}" required>
 				<option value="" disabled selected>Selecione um curso</option>
-				<option th:each="curso : ${cursos}" th:value="${curso.codigo}" th:text="${curso.codigo}"></option>
-			</select>
+				<option th:each="curso : ${cursos}" th:value="${curso.codigo}"
+					th:text="${curso.codigo}"></option>
+			</select> <label>Ano de Conclusão:</label> <input type="number"
+				th:field="*{ano}" id="ano" /><br /> <label>Semestre de
+				Conclusão:</label> <input type="number" th:field="*{semestre}" id="semestre" /><br />
 
-			<label>Ano de Conclusão:</label>
-			<input type="number" th:field="*{ano}" id="ano" /><br />
-
-			<label>Semestre de Conclusão:</label>
-			<input type="number" th:field="*{semestre}" id="semestre" /><br />
-
-			<label for="turno">Turno:</label>
-			<select id="turno" th:field="*{turno}" required>
+			<label for="turno">Turno:</label> <select id="turno"
+				th:field="*{turno}" required>
 				<option value="" disabled selected>Selecione o turno</option>
-				<option th:each="turno : ${turnos}" th:value="${turno}" th:text="${turno}"></option>
+				<option th:each="turno : ${turnos}" th:value="${turno}"
+					th:text="${turno}"></option>
 			</select>
 
 			<button type="submit">Inserir</button>
