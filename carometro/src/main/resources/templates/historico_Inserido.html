@@ -2,10 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Deletar Curso</title>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<title>Informações de Historico</title>
 	<style type="text/css">
 		* {
 			margin: 10px;
@@ -61,21 +58,29 @@
 	</style>
 </head>
 
-<body>
-	<header>
-		<nav>
-			<ul>
-				<li><a th:href="@{/home}"><i class="fas fa-home"></i>Inicio</a></li>
-			</ul>
-		</nav>
-	</header>
 
-	<h1>Deletar Curso</h1>
-	<form th:action="@{/cursoDelete}" method="post">
-		<label>Código do Curso:</label> <input type="text" name="codigo" /><br />
-		<button type="submit" class="botao">Deletar</button>
-		<a th:href="@{/curso_home}" class="botao">Voltar</a>
-	</form>
-</body>
+		<h1>Segue as informações do aluno</h1>
+		<table style="width:100%" border="1">
+			<thead>
+				<tr>
+					<th>RA</th>
+					<th>Identificador</th>
+					<th>Empresa</th>
+					<th>Atividade</th>
+					<th>Tempo de Empresa</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${historico.toRa}"></td>
+					<td th:text="${historico.toId}"></td>
+					<td th:text="${historico.empresa}"></td>
+					<td th:text="${historico.atividade}"></td>
+					<td th:text="${historico.tempoEmpresaEmAnos}"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<a th:href="@{/historicoHome}" class="botao">Voltar</a>
 
 </html>

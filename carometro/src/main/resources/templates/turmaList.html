@@ -37,38 +37,11 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<tr th:each="turmaId: ${turmasId}">
 					<td th:text="${turmaId.codigoCurso}"></td><br />
 					<td th:text="${turmaId.ano}"></td><br />
 					<td th:text="${turmaId.semestre}"></td><br />
 					<td th:text="${turmaId.turno}"></td><br />
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div align="center">
-		<h1>Segue as informações do aluno</h1>
-		<table style="width:80%" border="1">
-			<thead>
-				<tr>
-					<th>Nome</th>
-					<th>RA</th>
-					<th>Curso</th>
-					<th>Semestre de Conclusão</th>
-					<th>Links</th>
-					<th>Periodo</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="aluno: ${alunos}">
-					<td th:text="${aluno.nome}"></td>
-					<td th:text="${aluno.ra}"></td>
-					<td th:text="${aluno.curso.codigo}"></td>
-					<td th:text="${aluno.semestreConclusao}"></td>
-					<td>
-						<li th:each="link : ${aluno.links}" th:text="${link}"></li>
-					</td>
-					<td th:text="${aluno.getTurmaAttributes}"></td>
 				</tr>
 			</tbody>
 		</table>

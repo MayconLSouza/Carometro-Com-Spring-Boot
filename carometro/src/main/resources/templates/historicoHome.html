@@ -23,7 +23,7 @@
     }
 
     i {
-      margin-right: 4px; 
+      margin-right: 4px; /* Espaço entre o ícone e o texto */
     }
   </style>
 
@@ -33,10 +33,12 @@
         <nav>
             <ul>
                 <li><a th:href="@{/home}"><i class="fas fa-home"></i> Inicio</a></li>
-                <li><a th:href="@{/turmaPost}">Inserir Turma</a></li>
-                <li><a th:href="@{/turmaGet}">Consultar Turma</a></li>
-                <li><a th:href="@{/turmaList}">Listar Turma</a></li>
-                <li><a th:href="@{/turmaDelete}">Deletar Turma</a></li>
+                <li><a th:href="@{/alunoHome}">Aluno</a></li>
+                <li><a th:href="@{/historicoPost}">Inserir Historico</a></li>
+                <li><a th:href="@{/historicoDelete}">Deletar Historico</a></li>
+                <li><a th:href="@{/historicoPut}">Atualizar Historico</a></li>
+                <li><a th:href="@{/historicoList}"></i>Listar Historico</a></li>
+    			<!--li><a th:href="@{/contact}"><i class="fas fa-envelope"></i> Contato</a></li-->
             </ul>
         </nav>
     </header>

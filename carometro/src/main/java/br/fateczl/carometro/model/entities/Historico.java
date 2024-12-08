@@ -79,4 +79,12 @@ public class Historico implements Serializable {
         return "Historico [historicoId=" + historicoId + ", aluno=" + aluno + ", empresa=" + empresa
                 + ", atividade=" + atividade + ", tempoEmpresaEmAnos=" + tempoEmpresaEmAnos + "]";
     }
+    
+    public String toRa() {
+    	return historicoId.getAlunoRa();
+    }
+    
+    public String toId() {
+    	return historicoId.getIdHistorico().toString();
+    }
 }

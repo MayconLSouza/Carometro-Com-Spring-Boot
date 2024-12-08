@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Informações de Turma</title>
+	<style type="text/css">
+		label {
+			display: inline-block;
+			width: 200px;
+			margin: 5px;
+			align-items: center;
+			justify-content: center;
+			text-align: left;
+		}
+		
+		a {
+			text-decoration: none;
+			color: black;
+			font-size: 16px;
+		}
+
+		i {
+			margin-right: 4px;
+		}
+	</style>
+</head>
+
+<body>
+	<div align="center">
+		<form action="#" th:action="@{/turmaDelete}" th:object="${turmaId}" method="post">
+
+			<label for="codigoCurso">Curso:</label>
+			<select id="codigoCurso" th:field="*{codigoCurso}" required>
+				<option value="" disabled selected>Selecione um curso</option>
+				<option th:each="curso : ${cursos}" th:value="${curso.codigo}" th:text="${curso.codigo}"></option>
+			</select>
+
+			<label>Ano de Conclusão:</label>
+			<input type="number" th:field="*{ano}" id="ano" /><br />
+
+			<label>Semestre de Conclusão:</label>
+			<input type="number" th:field="*{semestre}" id="semestre" /><br />
+
+			<label for="turno">Turno:</label>
+			<select id="turno" th:field="*{turno}" required>
+				<option value="" disabled selected>Selecione o turno</option>
+				<option th:each="turno : ${turnos}" th:value="${turno}" th:text="${turno}"></option>
+			</select>
+
+			<button type="submit" th:value="deletar">Deletar</button>
+
+			<a th:href="@{/turmaHome}" class="botao">Voltar</a>
+
+		</form>
+
+	</div>
+</body>
+
+</html>

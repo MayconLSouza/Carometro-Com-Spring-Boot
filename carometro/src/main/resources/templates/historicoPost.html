@@ -2,10 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Deletar Curso</title>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<title>Informações do Historico</title>
 	<style type="text/css">
 		* {
 			margin: 10px;
@@ -62,20 +59,28 @@
 </head>
 
 <body>
-	<header>
-		<nav>
-			<ul>
-				<li><a th:href="@{/home}"><i class="fas fa-home"></i>Inicio</a></li>
-			</ul>
-		</nav>
-	</header>
 
-	<h1>Deletar Curso</h1>
-	<form th:action="@{/cursoDelete}" method="post">
-		<label>Código do Curso:</label> <input type="text" name="codigo" /><br />
-		<button type="submit" class="botao">Deletar</button>
-		<a th:href="@{/curso_home}" class="botao">Voltar</a>
-	</form>
+	<div align="center">
+		<form action="#" th:action="@{/historicoPost}" th:object="${historico}" method="post">
+
+			<label>RA:</label>
+			<input type="text" th:field="*{historicoId.alunoRa}" id="ra" /><br />
+
+			<label>Identificador do Historico:</label>
+			<input type="number" th:field="*{historicoId.idHistorico}" id="idHistorico" /><br />
+
+			<label>Empresa</label>
+			<input type="text" th:field="*{empresa}" id="empresa" /><br />
+			
+			<label>Atividade</label>
+			<input type="text" th:field="*{atividade}" id="atividade" /><br />
+			
+			<label>Tempo de Contrado - Em anos</label>
+			<input type="text" th:field="*{tempoEmpresaEmAnos}" id="tempoEmpresaEmAnos" /><br />
+
+			<button type="submit">Inserir</button>
+		</form>
+	</div>
 </body>
 
 </html>
