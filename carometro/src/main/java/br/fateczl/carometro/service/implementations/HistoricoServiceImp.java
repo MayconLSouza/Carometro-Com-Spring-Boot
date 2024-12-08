@@ -59,7 +59,7 @@ public class HistoricoServiceImp implements IHistoricoService {
 	public List<Historico> buscarTodosPorAluno(String ra) throws ClassNotFoundException {
 		Aluno aluno = repositoryAluno.findById(ra).orElseThrow(() -> new ClassNotFoundException("Aluno Inexistente"));
 		if(!aluno.getHistoricos().isEmpty()) {			
-			return repositoryHistorico.findAll();
+			return aluno.getHistoricos();
 		}else {
 			throw new ClassNotFoundException("Não existem históricos neste Aluno");
 		}

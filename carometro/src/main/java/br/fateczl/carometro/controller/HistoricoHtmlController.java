@@ -89,7 +89,6 @@ public class HistoricoHtmlController {
 	}
 
 	// PUT COMMANDS
-	// POST COMMANDS
 	@GetMapping("/historicoPut")
 	public String atualizarHistorico(Model model) {
 		Historico historico = new Historico();
