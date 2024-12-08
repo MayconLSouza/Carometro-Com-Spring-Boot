@@ -85,30 +85,6 @@ public class TurmaHtmlController {
 		return "turma_deletada";
 	}
 	
-	// GET
-	@GetMapping("/turmaGet")
-	public String buscarTurma(Model model) throws ClassNotFoundException {
-		TurmaId turmaId = new TurmaId();
-		model.addAttribute("turmaId", turmaId);
-
-		List<Curso> cursos = cursoService.buscarTodos(); 
-	    model.addAttribute("cursos", cursos);
-	    
-	    model.addAttribute("turnos", Enum_TurnosCursos.values());
-	    
-	    return "turmaGet";
-	}
-	
-	@PostMapping("/turmaGet")
-	public String exibirTurma(@ModelAttribute("turmaId") TurmaId turmaId, Model model) throws ClassNotFoundException {
-		Turma turma = turmaService.buscar(turmaId.getCodigoCurso(), turmaId.getAno(), turmaId.getSemestre(), turmaId.getTurno());
-		model.addAttribute("turmaId", turmaId);
-		List<Aluno> alunos = turma.getAlunos();
-		model.addAttribute("links", links);
-		model.addAttribute("alunos", alunos);
-		return "turma_consulta";
-	}
-	
 	// LIST
 	@GetMapping("/turmaList")
 	public String listarTodasAsTurmas(Model model) throws ClassNotFoundException {

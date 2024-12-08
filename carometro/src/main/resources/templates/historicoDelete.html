@@ -2,7 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Informações do Historico</title>
+	<title>Histórico</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<style type="text/css">
 		* {
 			margin: 10px;
@@ -60,6 +63,13 @@
 
 <body>
 
+	<header>
+		<nav>
+			<ul>
+				<li><a th:href="@{/home}"><i class="fas fa-home"></i>Inicio</a></li>
+			</ul>
+		</nav>
+	</header>
 	<div align="center">
 		<form action="#" th:action="@{/historicoDelete}" th:object="${historico}" method="post">
 
@@ -69,7 +79,8 @@
 			<label>Identificador do Historico:</label>
 			<input type="number" th:field="*{historicoId.idHistorico}" id="idHistorico" /><br />
 
-			<button type="submit">Excluir</button>
+			<button type="submit" class="botao">Deletar</button>
+			<a th:href="@{/historicoHome}" class="botao">Voltar</a>
 		</form>
 	</div>
 </body>
