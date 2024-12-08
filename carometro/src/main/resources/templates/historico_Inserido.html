@@ -4,11 +4,56 @@
 <head>
 	<title>Informações de Historico</title>
 	<style type="text/css">
+		* {
+			margin: 10px;
+		}
+
+		.botao {
+			background-color: rgb(64, 128, 128);
+			/* Verde */
+			color: white;
+			padding: 20px;
+			border: none;
+			border-radius: 5px;
+			text-decoration: none;
+			font-size: 16px;
+			display: inline-block;
+			text-align: center;
+			cursor: pointer;
+		}
+
+		.botao:hover {
+			background-color: rgb(128, 128, 128);
+			/* Verde mais escuro */
+		}
+
 		label {
 			display: inline-block;
 			width: 200px;
 			margin: 5px;
+			align-items: center;
+			justify-content: center;
 			text-align: left;
+		}
+
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		li {
+			margin: 10px 0;
+		}
+
+		a {
+			text-decoration: none;
+			color: black;
+			font-size: 16px;
+		}
+
+		i {
+			margin-right: 4px;
+			/* Espaço entre o ícone e o texto */
 		}
 	</style>
 </head>
@@ -35,5 +80,7 @@
 				</tr>
 			</tbody>
 		</table>
+		
+		<a th:href="@{/historicoHome}" class="botao">Voltar</a>
 
 </html>
