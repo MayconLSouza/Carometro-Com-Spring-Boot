@@ -1,5 +1,8 @@
 package br.fateczl.carometro.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,12 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.fateczl.carometro.model.entities.Aluno;
-import br.fateczl.carometro.model.entities.Curso;
 import br.fateczl.carometro.model.entities.Historico;
-import br.fateczl.carometro.model.entities.Turma;
-import br.fateczl.carometro.model.primarykeysclass.HistoricoId;
-import br.fateczl.carometro.model.primarykeysclass.TurmaId;
 import br.fateczl.carometro.service.implementations.AlunoServiceImp;
 import br.fateczl.carometro.service.implementations.HistoricoServiceImp;
 
@@ -26,24 +24,12 @@ public class HistoricoHtmlController {
 	@Autowired
 	private AlunoServiceImp alunoService;
 
-	// GET COMMANDS
-	@GetMapping("/historicoGet")
-	public String consultarHistorico(Model model) {
-		Historico historico = new Historico();
-		model.addAttribute(historico);
-		return "historicoGet";
-	}
+	// HOME
+	@GetMapping("/historicoHome")
+	public String alunoHome(Model model) {
+		model.addAttribute("message", "Isso é um Teste");
+		return "historicoHome";
 
-	@GetMapping("/historicoConsulta")
-	public String consultarHistoricoPorRaeId(@RequestParam String ra, @RequestParam String Id, Model model) {
-		Historico historico = new Historico();
-		try {
-			historico = historicoService.buscar(ra, Long.parseLong(Id));
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		}
-		model.addAttribute("historico", historico);
-		return "historico_consulta";
 	}
 
 	// POST COMMANDS
@@ -56,12 +42,7 @@ public class HistoricoHtmlController {
 	}
 
 	@PostMapping("/historicoPost")
-	public String inserirAluno(
-			@ModelAttribute Historico historico/* , @RequestParam String ra, @RequestParam Long idHistorico */) {
-		/*
-		 * HistoricoId historicoId = new HistoricoId(); historicoId.setAlunoRa(ra);
-		 * historicoId.setIdHistorico(idHistorico);
-		 */
+	public String inserirAluno(@ModelAttribute Historico historico) {
 		try {
 			historico.setAluno(alunoService.buscar(historico.toRa()));
 		} catch (ClassNotFoundException e) {
@@ -71,14 +52,6 @@ public class HistoricoHtmlController {
 		return "historico_inserido";
 	}
 
-	// HOME
-	@GetMapping("/historicoHome")
-	public String alunoHome(Model model) {
-		model.addAttribute("message", "Isso é um Teste");
-		return "historicoHome";
-
-	}
-	
 	// DELETE
 	@GetMapping("/historicoDelete")
 	public String historicoDelete(Model model) {
@@ -86,13 +59,54 @@ public class HistoricoHtmlController {
 		model.addAttribute("historico", historico);
 		return "historicoDelete";
 	}
-	
+
 	@PostMapping("/historicoDelete")
 	public String historicoDelete(@ModelAttribute Historico historico, Model model) throws ClassNotFoundException {
 		historicoService.deletar(historico.getHistoricoId().getAlunoRa(), historico.getHistoricoId().getIdHistorico());
 		model.addAttribute("model", model);
 		model.addAttribute("historico", historico);
 		return "historico_deletado";
+	}
+
+	// LIST COMMANDS
+	@GetMapping("/historicoList")
+	public String consultarHistorico(Model model) {
+		Historico historico = new Historico();
+		model.addAttribute(historico);
+		return "historicoList";
+	}
+
+	@GetMapping("/historico_consulta")
+	public String consultarHistoricoPorRaeId(@RequestParam String ra, Model model) {
+		List<Historico> historicos = new ArrayList<>();
+		try {
+			historicos = historicoService.buscarTodosPorAluno(ra);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		model.addAttribute("historicos", historicos);
+		return "historico_consulta";
+	}
+
+	// PUT COMMANDS
+	// POST COMMANDS
+	@GetMapping("/historicoPut")
+	public String atualizarHistorico(Model model) {
+		Historico historico = new Historico();
+		model.addAttribute("historico", historico);
+
+		return "historicoPut";
+	}
+	
+	@PostMapping("/historico_atualizado")
+	public String historicoAtualizado(@ModelAttribute Historico historico) throws ClassNotFoundException {
+		try {
+			historico.setAluno(alunoService.buscar(historico.toRa()));
+		} catch (ClassNotFoundException e) {
+			System.err.println(e.getMessage());
+		}
+		historicoService.atualizar(historico.getHistoricoId().getAlunoRa(), historico.getHistoricoId().getIdHistorico(), historico);
+		return "historico_atualizado";
 	}
 
 }

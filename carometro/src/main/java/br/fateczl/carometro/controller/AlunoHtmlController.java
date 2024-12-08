@@ -40,7 +40,7 @@ public class AlunoHtmlController {
 		return "alunoGet";
 	}
 
-	@GetMapping("/aluno_consulta")
+	@GetMapping("/alunoConsulta")
 	public String consultarAlunoPorRa(@RequestParam String ra, Model model) {
 		Aluno aluno = new Aluno();
 		try {
@@ -49,7 +49,7 @@ public class AlunoHtmlController {
 			System.err.println(e);
 		}
 		model.addAttribute("aluno", aluno);
-		return "aluno_consulta";
+		return "alunoConsulta";
 	}
 
 	// POST COMMANDS
@@ -156,10 +156,10 @@ public class AlunoHtmlController {
 		return "alunoList";
 	}
 
-	@GetMapping("/aluno_home")
+	@GetMapping("/alunoHome")
 	public String alunoHome(Model model) {
 		model.addAttribute("message", "Isso é um Teste");
-		return "aluno_home";
+		return "alunoHome";
 
 	}
 

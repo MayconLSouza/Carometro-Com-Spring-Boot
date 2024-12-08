@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.fateczl.carometro.model.entities.Aluno;
 import br.fateczl.carometro.model.entities.Comentario;
 import br.fateczl.carometro.model.enums.Enum_Tipos;
+import br.fateczl.carometro.service.services.IAlunoService;
 import br.fateczl.carometro.service.services.IComentarioService;
 
 @Controller
@@ -18,6 +21,8 @@ public class ComentarioHtmlController {
 
 	@Autowired
 	IComentarioService serviceComentario;
+	@Autowired
+	IAlunoService serviceAluno;
 
 	// HOME
 	@GetMapping("/comentario_home")
@@ -25,7 +30,7 @@ public class ComentarioHtmlController {
 		return "comentario_home";
 	}
 
-// GET
+	// GET
 	@GetMapping("/comentarioShowGet")
 	public String comentarioShowGet(Model model) throws ClassNotFoundException {
 		model.addAttribute(new Comentario());
@@ -54,4 +59,49 @@ public class ComentarioHtmlController {
 		serviceComentario.deletar(ra, tipo);
 		return "redirect:/comentario_home"; // Redireciona para a página inicial após deletar
 	}
+	
+	// POST
+	@GetMapping("/comentarioPost")
+	public String comentarioPost(Model model) throws ClassNotFoundException {
+		Comentario comentario = new Comentario();
+		model.addAttribute("comentario", comentario);
+		
+		// Buscar lista de alunos e tipos disponíveis
+        List<Aluno> alunos = serviceAluno.buscarTodos();
+        model.addAttribute("alunos", alunos);
+        
+		model.addAttribute("tipos", Enum_Tipos.values());
+		
+		return "comentarioPost";
+	}
+	
+	@PostMapping("/comentarioPost")
+    public String comentarioPost(@ModelAttribute Comentario comentario, Model model) throws ClassNotFoundException {
+        serviceComentario.inserir(comentario);
+        model.addAttribute("comentario", comentario);
+        return "comentario_inserido";
+    }
+	
+	// PUT
+	@GetMapping("/comentarioPut")
+	public String comentarioPut(Model model) throws ClassNotFoundException {
+		Comentario comentario = new Comentario();
+		model.addAttribute("comentario", comentario);
+		
+		// Buscar lista de alunos e tipos disponíveis
+        List<Aluno> alunos = serviceAluno.buscarTodos();
+        model.addAttribute("alunos", alunos);
+        
+		model.addAttribute("tipos", Enum_Tipos.values());
+		
+		return "comentarioPut";
+	}
+	
+	@PostMapping("/comentarioPut")
+    public String comentarioPut(@ModelAttribute Comentario comentario, Model model) throws ClassNotFoundException {
+        serviceComentario.atualizar(comentario.getAluno().getRa(), comentario.getTipo(), comentario);
+        model.addAttribute("comentario", comentario);
+        return "comentario_atualizado";
+    }
+	
 }

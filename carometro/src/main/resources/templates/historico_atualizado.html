@@ -60,27 +60,29 @@
 
 <body>
 
-	<div align="center">
-		<form action="#" th:action="@{/historicoPost}" th:object="${historico}" method="post">
+	<h1>O histórico foi atualizado!</h1>
+	<table style="width:100%" border="1">
+		<thead>
+			<tr>
+				<th>RA</th>
+				<th>Identificador</th>
+				<th>Empresa</th>
+				<th>Atividade</th>
+				<th>Tempo de Empresa</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td th:text="${historico.toRa}"></td>
+				<td th:text="${historico.toId}"></td>
+				<td th:text="${historico.empresa}"></td>
+				<td th:text="${historico.atividade}"></td>
+				<td th:text="${historico.tempoEmpresaEmAnos}"></td>
+			</tr>
+		</tbody>
+	</table>
 
-			<label>RA:</label>
-			<input type="text" th:field="*{historicoId.alunoRa}" id="ra" /><br />
-
-			<label>Identificador do Historico:</label>
-			<input type="number" th:field="*{historicoId.idHistorico}" id="idHistorico" /><br />
-
-			<label>Empresa</label>
-			<input type="text" th:field="*{empresa}" id="empresa" /><br />
-			
-			<label>Atividade</label>
-			<input type="text" th:field="*{atividade}" id="atividade" /><br />
-			
-			<label>Tempo de Contrado - Em anos</label>
-			<input type="text" th:field="*{tempoEmpresaEmAnos}" id="tempoEmpresaEmAnos" /><br />
-
-			<button type="submit">Inserir</button>
-		</form>
-	</div>
+	<a th:href="@{/historicoHome}" class="botao">Voltar</a>
 </body>
 
 </html>
