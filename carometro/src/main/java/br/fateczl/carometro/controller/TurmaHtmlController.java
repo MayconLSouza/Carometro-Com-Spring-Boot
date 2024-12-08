@@ -56,7 +56,6 @@ public class TurmaHtmlController {
 
 	@PostMapping("/turmaPost")
 	public String turmaPost(@ModelAttribute("turmaId") TurmaId turmaId) throws ClassNotFoundException {
-		System.out.println(turmaId.toString());
 		Curso curso = cursoService.buscar(turmaId.getCodigoCurso());
 		Turma turma = new Turma();
 		turma.setTurmaId(turmaId);
