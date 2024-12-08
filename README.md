@@ -35,3 +35,4 @@ Todas as entidades Possuem seu front-end em Thymeleaf e seu backend e manipulaç
   - Spring Web
   - Spring JPA
   - OpenAPI/Swagger
+  - Thymeleaf
