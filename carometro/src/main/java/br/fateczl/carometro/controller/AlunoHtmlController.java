@@ -137,7 +137,7 @@ public class AlunoHtmlController {
 		}catch (NullPointerException e) {
 			System.err.println(e.getMessage());
 		}
-		return "aluno_home";
+		return "alunoHome";
 	}
 
 	// LIST ALL

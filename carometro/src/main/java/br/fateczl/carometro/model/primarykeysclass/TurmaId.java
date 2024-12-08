@@ -65,7 +65,7 @@ public class TurmaId {
 	}
 	
 	public String getViableId() {
-		return codigoCurso + " - " + ano + "/" + semestre + " - " + turno.getPeriodo();
+		return codigoCurso + " - " + ano + "/" + semestre + " - " + turno.toString();
 	}
 	
 }
