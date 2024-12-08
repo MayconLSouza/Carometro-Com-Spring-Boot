@@ -1,5 +1,6 @@
 package br.fateczl.carometro.service.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class AlunoServiceImp implements IAlunoService {
     }
 
     @Override
-    public Aluno atualizar(String ra, Aluno aluno) throws ClassNotFoundException {
+    public Aluno atualizarComLink(String ra, Aluno aluno, List<String> links) throws ClassNotFoundException {
         Aluno alunoAtualizado = repository.findById(ra).orElseThrow(() -> new ClassNotFoundException("Aluno Inexistente"));
         if(!aluno.getNome().isBlank()) {
         	alunoAtualizado.setNome(aluno.getNome());
@@ -51,7 +52,6 @@ public class AlunoServiceImp implements IAlunoService {
         }catch (Exception e) {
 			aluno.setSemestreConclusao(alunoAtualizado.getSemestreConclusao());// TODO: handle exception
 		}
-        //TODO: Acrescentar o Atributo imagem após inserí-lo na classe Aluno
         if(!aluno.getLinks().isEmpty()) {
             alunoAtualizado.setLinks(aluno.getLinks());
         }
@@ -79,4 +79,12 @@ public class AlunoServiceImp implements IAlunoService {
     		throw new ClassNotFoundException("Não existem Alunos");
     	}
     }
+    
+    @Override
+	public Aluno atualizar(String ra, Aluno novosDados) throws ClassNotFoundException {
+        Aluno alunoAtualizado = repository.findById(ra).orElseThrow(() -> new ClassNotFoundException("Aluno Inexistente"));
+        alunoAtualizado = novosDados;
+		return repository.save(alunoAtualizado);
+	}
+
 }

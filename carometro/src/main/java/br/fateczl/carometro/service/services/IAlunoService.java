@@ -15,4 +15,6 @@ public interface IAlunoService {
 	public Aluno deletar(String RA);
 
 	public List<Aluno> buscarTodos() throws ClassNotFoundException;
+
+	public Aluno atualizarComLink(String ra, Aluno aluno, List<String> links) throws ClassNotFoundException;
 }

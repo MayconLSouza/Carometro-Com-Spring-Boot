@@ -1,5 +1,6 @@
 package br.fateczl.carometro.service.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,7 +59,7 @@ public class HistoricoServiceImp implements IHistoricoService {
 	@Override
 	public List<Historico> buscarTodosPorAluno(String ra) throws ClassNotFoundException {
 		Aluno aluno = repositoryAluno.findById(ra).orElseThrow(() -> new ClassNotFoundException("Aluno Inexistente"));
-		if(!aluno.getHistoricos().isEmpty()) {			
+		if(!aluno.getHistoricos().isEmpty()) {	
 			return repositoryHistorico.findAll();
 		}else {
 			throw new ClassNotFoundException("Não existem históricos neste Aluno");

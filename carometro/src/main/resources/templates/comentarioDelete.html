@@ -3,9 +3,7 @@
 <head>
     <title>Deletar Comentário</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style type="text/css">
+    <style>
         * {
             margin: 10px;
         }
@@ -61,7 +59,7 @@
         <select id="tipo" name="tipo" required>
             <option value="" disabled selected>Selecione o tipo</option>
             <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
-        </select>
+        </select><br />
 
         <button type="submit" class="botao">Deletar</button>
         <a th:href="@{/comentario_home}" class="botao">Voltar</a>

@@ -69,13 +69,16 @@
 			</ul>
 		</nav>
 	</header>
+	<div align="center">
+		<h1>Deletar Curso</h1>
+		<form th:action="@{/cursoDelete}" method="post">
+			<label>Código do Curso:</label> <input type="text" name="codigo" /><br />
+			<button type="submit" class="botao">Deletar</button>
+			<a th:href="@{/curso_home}" class="botao">Voltar</a>
+		</form>
 
-	<h1>Deletar Curso</h1>
-	<form th:action="@{/cursoDelete}" method="post">
-		<label>Código do Curso:</label> <input type="text" name="codigo" /><br />
-		<button type="submit" class="botao">Deletar</button>
-		<a th:href="@{/curso_home}" class="botao">Voltar</a>
-	</form>
+		<span th:if="${message == 'Deletado'}">Curso Deletado</span>
+	</div>
 </body>
 
 </html>

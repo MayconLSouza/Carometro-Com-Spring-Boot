@@ -25,9 +25,10 @@ public class CursoHtmlController {
 	}
 
 	@PostMapping("/cursoPost")
-	public String cursoPost(@ModelAttribute("curso") Curso curso) {
+	public String cursoPost(@ModelAttribute("curso") Curso curso, Model model) {
 		cursoService.inserir(curso);
-		return "cursoPost";
+		model.addAttribute("curso", curso);
+		return "cursoInserido";
 	}
 
 	@GetMapping("/cursoPost")
@@ -52,14 +53,15 @@ public class CursoHtmlController {
 	}
 
 	@PostMapping("/cursoPut")
-	public String cursoPut(@RequestParam("codigo") String codigo, @ModelAttribute("curso") Curso curso) {
+	public String cursoPut(@RequestParam("codigo") String codigo, @ModelAttribute("curso") Curso curso, Model model) {
 		try {
 			cursoService.atualizar(codigo, curso);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return "redirect:/cursoGet?error=CursoNaoEncontrado";
 		}
-		return "curso_home";
+		model.addAttribute("curso", curso);
+		return "cursoAtualizado";
 	}
 
 	// **DELETE**: Remove um curso pelo codigo
@@ -70,8 +72,9 @@ public class CursoHtmlController {
 	}
 
 	@PostMapping("/cursoDelete")
-	public String cursoDelete(@RequestParam("codigo") String codigo) {
+	public String cursoDelete(@RequestParam("codigo") String codigo, Model model) {
 		cursoService.deletar(codigo);
-		return "redirect:/curso_home";
+		model.addAttribute("message", "Deletado");
+		return "cursoDelete";
 	}
 }
