@@ -1,68 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Deletar Comentário</title>
-    <meta charset="UTF-8">
-    <style>
-        * {
-            margin: 10px;
-        }
-        .botao {
-            background-color: rgb(64, 128, 128);
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .botao:hover {
-            background-color: rgb(128, 128, 128);
-        }
-        label {
-            display: block;
-            margin: 5px;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin: 10px 0;
-        }
-        a {
-            text-decoration: none;
-            color: black;
-            font-size: 16px;
-        }
-        i {
-            margin-right: 4px;
-        }
-    </style>
+	<title>Deletar Comentário</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<style>
+		* {
+			margin: 10px;
+		}
+
+		.botao {
+			background-color: rgb(64, 128, 128);
+			color: white;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			text-decoration: none;
+			font-size: 16px;
+			cursor: pointer;
+		}
+
+		.botao:hover {
+			background-color: rgb(128, 128, 128);
+		}
+
+		label {
+			display: block;
+			margin: 5px;
+		}
+
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		li {
+			margin: 10px 0;
+		}
+
+		a {
+			text-decoration: none;
+			color: black;
+			font-size: 16px;
+		}
+
+		i {
+			margin-right: 4px;
+		}
+	</style>
 </head>
+
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a th:href="@{/home}"><i class="fas fa-home"></i>Inicio</a></li>
-            </ul>
-        </nav>
-    </header>
+	<header>
+		<nav>
+			<ul>
+				<li><a th:href="@{/home}"><i class="fas fa-home"></i>Inicio</a></li>
+			</ul>
+		</nav>
+	</header>
 
-    <h1>Deletar Comentário</h1>
-    <form th:action="@{/comentarioDelete}" method="post">
-        <label for="ra">RA do Aluno:</label>
-        <input type="text" id="ra" name="ra" required>
+	<h1>Deletar Comentário</h1>
+	<form th:action="@{/comentarioDelete}" method="post">
+		<label for="ra">RA do Aluno:</label>
+		<input type="text" id="ra" name="ra" required>
 
-        <label for="tipo">Tipo:</label>
-        <select id="tipo" name="tipo" required>
-            <option value="" disabled selected>Selecione o tipo</option>
-            <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
-        </select><br />
+		<label for="tipo">Tipo:</label>
+		<select id="tipo" name="tipo" required>
+			<option value="" disabled selected>Selecione o tipo</option>
+			<option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
+		</select><br />
 
-        <button type="submit" class="botao">Deletar</button>
-        <a th:href="@{/comentario_home}" class="botao">Voltar</a>
-    </form>
+		<button type="submit" class="botao">Deletar</button>
+		<a th:href="@{/comentario_home}" class="botao">Voltar</a>
+	</form>
 </body>
+
 </html>

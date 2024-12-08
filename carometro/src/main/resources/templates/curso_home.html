@@ -1,44 +1,46 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
-  <meta charset="UTF-8">
-  <style>
-	    ul {
-	      list-style-type: none;
-	      padding: 0;
-	    }
-	
-	    li {
-	      margin: 10px 0;
-	    }
-	
-	    a {
-	      text-decoration: none;
-	      color: black;
-	      font-size: 16px;
-	    }
-	
-	    i {
-	      margin-right: 4px; /* Espaço entre o ícone e o texto */
-	    }
-  </style>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<style>
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		li {
+			margin: 10px 0;
+		}
+
+		a {
+			text-decoration: none;
+			color: black;
+			font-size: 16px;
+		}
+
+		i {
+			margin-right: 4px;
+			/* Espaço entre o ícone e o texto */
+		}
+	</style>
 </head>
 
 <body>
 	<header>
-        <nav>
-            <ul>
-                <li><a th:href="@{/home}"><i class="fas fa-home"></i> Inicio</a></li><br>
-                <li><a th:href="@{/cursoPost}">Inserir Curso</a></li>
-                <li><a th:href="@{/cursoGet}">Consultar Curso</a></li>
-                <li><a th:href="@{/cursoPut}">Atualizar Curso</a></li>                
-                <li><a th:href="@{/cursoDelete}">Deletar Curso</a></li>
-            </ul>
-        </nav>
-    </header>
-	
+		<nav>
+			<ul>
+				<li><a th:href="@{/home}"><i class="fas fa-home"></i> Inicio</a></li><br>
+				<li><a th:href="@{/cursoPost}">Inserir Curso</a></li>
+				<li><a th:href="@{/cursoGet}">Consultar Curso</a></li>
+				<li><a th:href="@{/cursoPut}">Atualizar Curso</a></li>
+				<li><a th:href="@{/cursoDelete}">Deletar Curso</a></li>
+			</ul>
+		</nav>
+	</header>
+
 </body>
 
 </html>
