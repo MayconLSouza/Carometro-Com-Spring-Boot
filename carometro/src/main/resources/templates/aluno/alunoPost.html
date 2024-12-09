@@ -71,12 +71,15 @@
 	</header>
 
 	<div align="center">
-		<form action="#" th:action="@{/aluno/alunoPost}" th:object="${aluno}" method="post">
+		<form action="#" th:action="@{/aluno/alunoPost}" enctype="multipart/form-data" th:object="${aluno}" method="post">
 			<label>RA do Aluno:</label>
 			<input type="text" th:field="*{ra}" id="ra" required /><br />
 
 			<label>Nome do Aluno:</label>
 			<input type="text" th:field="*{nome}" id="nome" /><br />
+			
+			<label>Imagem do Aluno:</label>
+			<input type="file" name="imagemAluno" /><br />
 
 			<label>Curso:</label>
 			<select th:field="*{curso}">

@@ -77,8 +77,9 @@
 		<table style="width:80%" border="1">
 			<thead>
 				<tr>
-					<th>Nome</th>
 					<th>RA</th>
+					<th>Nome</th>
+					<th>Imagem</th>											
 					<th>Curso</th>
 					<th>Semestre de Conclusão</th>
 					<th>Links</th>
@@ -87,8 +88,9 @@
 			</thead>
 			<tbody>
 				<tr th:each="aluno: ${alunos}">
-					<td th:text="${aluno.nome}"></td>
 					<td th:text="${aluno.ra}"></td>
+					<td th:text="${aluno.nome}"></td>
+					<td> <img th:src="@{/aluno/mostrarImagem/{imagem}(imagem=${aluno.caminhoFoto})}" width="100"/> </td>
 					<td th:text="${aluno.curso.codigo}"></td>
 					<td th:text="${aluno.semestreConclusao}"></td>
 					<td>

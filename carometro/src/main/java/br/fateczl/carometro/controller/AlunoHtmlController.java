@@ -1,5 +1,10 @@
 package br.fateczl.carometro.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.fateczl.carometro.model.entities.Aluno;
 import br.fateczl.carometro.model.entities.Curso;
@@ -22,6 +30,8 @@ import br.fateczl.carometro.service.implementations.TurmaServiceImp;
 @Controller
 @RequestMapping("/aluno")
 public class AlunoHtmlController {
+
+	private static String caminhoImagens = "C:\\TEMP\\imagens\\";
 
 	@Autowired
 	private AlunoServiceImp alunoService;
@@ -72,14 +82,47 @@ public class AlunoHtmlController {
 		return "aluno/alunoPost";
 	}
 
+	//Retornando a Imagem
+	@GetMapping("/mostrarImagem/{imagem}")
+	@ResponseBody
+	public byte[] retornaImagem(@PathVariable("imagem") String imagem) throws IOException {
+		File imagemArquivo = new File(caminhoImagens + imagem);
+		
+		if (imagem != null || imagem.trim().length() > 0) {
+			System.out.println("No IF");	
+			return Files.readAllBytes(imagemArquivo.toPath());
+		}
+		return null; 
+	}
+
 	@PostMapping("/alunoPost")
 	public String inserirAluno(@ModelAttribute("aluno") @RequestParam String link1, @RequestParam String link2,
-			@RequestParam String link3, Aluno aluno) {
+			@RequestParam String link3, Aluno aluno, @RequestParam("imagemAluno") MultipartFile arquivoImagem) {
 		links.add(link1);
 		links.add(link2);
 		links.add(link3);
 		aluno.setLinks(links);
+
+		// tratamento da imagem
+		if (!arquivoImagem.isEmpty()) {
+			try {
+
+				byte[] bytesDaImagem = arquivoImagem.getBytes();
+				Path caminhoDaImagem = Paths.get(caminhoImagens + aluno.getRa() + arquivoImagem.getOriginalFilename());
+				Files.write(caminhoDaImagem, bytesDaImagem);
+
+				aluno.setCaminhoFoto(caminhoImagens);
+			} catch (IOException e) {
+				System.err.println("O Erro Esta Aqui no tratamento da imagem");
+				e.printStackTrace();
+			}
+			System.out.println("Está dentro do if do POST");
+		}else {
+			System.out.println("Está dentro do else do POST");
+			aluno.setCaminhoFoto(null);
+		}
 		alunoService.inserir(aluno);
+		System.err.println("Se chegou aqui salvou a imagem na pasta");
 		links.clear();
 		return "aluno/alunoInserido";
 	}
