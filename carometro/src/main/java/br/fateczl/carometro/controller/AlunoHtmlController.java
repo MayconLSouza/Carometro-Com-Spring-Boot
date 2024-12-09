@@ -166,35 +166,65 @@ public class AlunoHtmlController {
 	}
 
 	@PostMapping("/alunoPut")
-	public String alunoPut(@RequestParam("ra") String ra, @ModelAttribute("aluno") Aluno aluno,
-			@RequestParam String link1, @RequestParam String link2, @RequestParam String link3, Model model) {
-		if (!link1.isBlank()) {
-			links.add(link1);
-		}
-		if (!link2.isBlank()) {
-			links.add(link2);
-		}
-		if (!link3.isBlank()) {
-			links.add(link3);
-		}
-		aluno.setLinks(links);
-		try {
-			alunoService.atualizarComLink(ra, aluno, links);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return "redirect:/alunoGet?error=alunoNaoEncontrado";
-		} catch (NullPointerException e) {
-			System.err.println(e.getMessage());
-		}
-		try {
-			aluno = alunoService.buscar(ra);
-		} catch (ClassNotFoundException e) {
-			System.err.println(e.getMessage());
-		}
-		model.addAttribute("aluno", aluno);
-		model.addAttribute("links", links = (ArrayList<String>) aluno.getLinks());
-		return "aluno/alunoAtualizado";
+	public String alunoPut(@RequestParam("ra") String ra, 
+	                       @ModelAttribute("aluno") Aluno aluno,
+	                       @RequestParam String link1, 
+	                       @RequestParam String link2, 
+	                       @RequestParam String link3, 
+	                       @RequestParam("imagemAluno") MultipartFile arquivoImagem,
+	                       Model model) {
+	    if (!link1.isBlank()) {
+	        links.add(link1);
+	    }
+	    if (!link2.isBlank()) {
+	        links.add(link2);
+	    }
+	    if (!link3.isBlank()) {
+	        links.add(link3);
+	    }
+	    aluno.setLinks(links);
+
+	    try {
+	        // Buscar o aluno existente no banco
+	        Aluno alunoExistente = alunoService.buscar(ra);
+
+	        // Se uma nova imagem foi enviada, tratar a atualização da imagem
+	        if (arquivoImagem != null ||  !arquivoImagem.isEmpty()) {
+	            String nomeArquivo = ra + "_" + arquivoImagem.getOriginalFilename();
+	            Path caminhoDaImagem = Paths.get(caminhoImagens + nomeArquivo);
+
+	            try {
+	                byte[] bytesDaImagem = arquivoImagem.getBytes();
+	                Files.write(caminhoDaImagem, bytesDaImagem);
+	                aluno.setCaminhoFoto(caminhoDaImagem.toString());
+	            } catch (IOException e) {
+	                System.err.println("Erro ao salvar a imagem:");
+	                e.printStackTrace();
+	            }
+	        } else {
+	            // Manter a foto atual do aluno
+	            aluno.setCaminhoFoto(alunoExistente.getCaminhoFoto());
+	        }
+
+	        alunoService.atualizarComLink(ra, aluno, links);
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	        return "redirect:/alunoGet?error=alunoNaoEncontrado";
+	    } catch (NullPointerException e) {
+	        System.err.println(e.getMessage());
+	    }
+
+	    try {
+	        aluno = alunoService.buscar(ra);
+	    } catch (ClassNotFoundException e) {
+	        System.err.println(e.getMessage());
+	    }
+
+	    model.addAttribute("aluno", aluno);
+	    model.addAttribute("links", links = (ArrayList<String>) aluno.getLinks());
+	    return "aluno/alunoAtualizado";
 	}
+
 
 	// LIST ALL
 	@GetMapping("/alunoList")

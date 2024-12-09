@@ -75,28 +75,36 @@
 	</header>
 	<div align="center">
 		<h1>O aluno foi inserido!</h1>
-		<table>
 			<table style="width:80%" border="1">
 				<thead>
 					<tr>
-						<th>Nome</th><br />
-						<th>Ra</th><br />
-						<th>Curso</th><br />
-						<th>Semestre de Conclusão</th><br />
+						<th>RA</th>
+						<th>Nome</th>
+						<th>Imagem</th>
+						<th>Curso</th>
+						<th>Semestre de Conclusão</th>
+						<th>Links</th>
+						<th>Periodo</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td th:text="${aluno.nome}"></td><br />
-						<td th:text="${aluno.ra}"></td><br />
-						<td th:text="${aluno.curso.getNome}"></td><br />
-						<td th:text="${aluno.semestreConclusao}"></td><br />
+						<td th:text="${aluno.ra}"></td>
+						<td th:text="${aluno.nome}"></td>
+						<td>
+							<img th:src="@{/aluno/mostrarImagem/{imagem}(imagem=${aluno.caminhoFoto})}" width="100" alt="Foto do Aluno" />
+						</td>
+						<td th:text="${aluno.curso.codigo}"></td>
+						<td th:text="${aluno.semestreConclusao}"></td>
+						<td>
+							<li th:each="link : ${aluno.links}" th:text="${link}"></li>
+						</td>
+						<td th:text="${aluno.getTurmaAttributes}"></td>
 					</tr>
 				</tbody>
 			</table>
 
 			<a th:href="@{/aluno/alunoHome}" class="botao">Voltar</a>
-
 	</div>
 </body>
 
