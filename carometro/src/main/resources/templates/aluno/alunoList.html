@@ -90,7 +90,9 @@
 				<tr th:each="aluno: ${alunos}">
 					<td th:text="${aluno.ra}"></td>
 					<td th:text="${aluno.nome}"></td>
-					<td> <img th:src="@{/aluno/mostrarImagem/{imagem}(imagem=${aluno.caminhoFoto})}" width="100"/> </td>
+					<td>
+					 <img th:src="@{/aluno/mostrarImagem/{imagem}(imagem=${aluno.caminhoFoto})}" width="100"/>
+					 </td>
 					<td th:text="${aluno.curso.codigo}"></td>
 					<td th:text="${aluno.semestreConclusao}"></td>
 					<td>

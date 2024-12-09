@@ -97,35 +97,39 @@ public class AlunoHtmlController {
 
 	@PostMapping("/alunoPost")
 	public String inserirAluno(@ModelAttribute("aluno") @RequestParam String link1, @RequestParam String link2,
-			@RequestParam String link3, Aluno aluno, @RequestParam("imagemAluno") MultipartFile arquivoImagem) {
-		links.add(link1);
-		links.add(link2);
-		links.add(link3);
-		aluno.setLinks(links);
+	                           @RequestParam String link3, Aluno aluno, @RequestParam("imagemAluno") MultipartFile arquivoImagem) {
+	    links.add(link1);
+	    links.add(link2);
+	    links.add(link3);
+	    aluno.setLinks(links);
 
-		// tratamento da imagem
-		if (!arquivoImagem.isEmpty()) {
-			try {
+	    // Tratamento da imagem
+	    if (!arquivoImagem.isEmpty()) {
+	        try {
+	            // Gerar caminho completo para o arquivo
+	            String nomeArquivo = aluno.getRa() + "_" + arquivoImagem.getOriginalFilename();
+	            Path caminhoDaImagem = Paths.get(caminhoImagens + nomeArquivo);
 
-				byte[] bytesDaImagem = arquivoImagem.getBytes();
-				Path caminhoDaImagem = Paths.get(caminhoImagens + aluno.getRa() + arquivoImagem.getOriginalFilename());
-				Files.write(caminhoDaImagem, bytesDaImagem);
+	            // Salvar o arquivo no disco
+	            byte[] bytesDaImagem = arquivoImagem.getBytes();
+	            Files.write(caminhoDaImagem, bytesDaImagem);
 
-				aluno.setCaminhoFoto(caminhoImagens);
-			} catch (IOException e) {
-				System.err.println("O Erro Esta Aqui no tratamento da imagem");
-				e.printStackTrace();
-			}
-			System.out.println("Está dentro do if do POST");
-		}else {
-			System.out.println("Está dentro do else do POST");
-			aluno.setCaminhoFoto(null);
-		}
-		alunoService.inserir(aluno);
-		System.err.println("Se chegou aqui salvou a imagem na pasta");
-		links.clear();
-		return "aluno/alunoInserido";
+	            // Atualizar o caminho completo no aluno
+	            aluno.setCaminhoFoto(caminhoDaImagem.toString());
+	        } catch (IOException e) {
+	            System.err.println("Erro ao salvar a imagem:");
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.out.println("Nenhuma imagem foi fornecida.");
+	        aluno.setCaminhoFoto(null);
+	    }
+
+	    alunoService.inserir(aluno);
+	    links.clear();
+	    return "aluno/alunoInserido";
 	}
+
 
 	// DELETE COMMANDS
 	@GetMapping("/alunoDelete")
