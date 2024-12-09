@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.fateczl.carometro.model.entities.Historico;
@@ -16,6 +17,7 @@ import br.fateczl.carometro.service.implementations.AlunoServiceImp;
 import br.fateczl.carometro.service.implementations.HistoricoServiceImp;
 
 @Controller
+@RequestMapping("/historico")
 public class HistoricoHtmlController {
 
 	@Autowired
@@ -28,7 +30,7 @@ public class HistoricoHtmlController {
 	@GetMapping("/historicoHome")
 	public String alunoHome(Model model) {
 		model.addAttribute("message", "Isso é um Teste");
-		return "historicoHome";
+		return "historico/historicoHome";
 
 	}
 
@@ -38,7 +40,7 @@ public class HistoricoHtmlController {
 		Historico historico = new Historico();
 		model.addAttribute("historico", historico);
 
-		return "historicoPost";
+		return "historico/historicoPost";
 	}
 
 	@PostMapping("/historicoPost")
@@ -49,7 +51,7 @@ public class HistoricoHtmlController {
 			System.err.println(e.getMessage());
 		}
 		historicoService.inserir(historico);
-		return "historico_inserido";
+		return "historico/historico_inserido";
 	}
 
 	// DELETE
@@ -57,7 +59,7 @@ public class HistoricoHtmlController {
 	public String historicoDelete(Model model) {
 		Historico historico = new Historico();
 		model.addAttribute("historico", historico);
-		return "historicoDelete";
+		return "historico/historicoDelete";
 	}
 
 	@PostMapping("/historicoDelete")
@@ -65,7 +67,7 @@ public class HistoricoHtmlController {
 		historicoService.deletar(historico.getHistoricoId().getAlunoRa(), historico.getHistoricoId().getIdHistorico());
 		model.addAttribute("model", model);
 		model.addAttribute("historico", historico);
-		return "historico_deletado";
+		return "historico/historico_deletado";
 	}
 
 	// LIST COMMANDS
@@ -73,7 +75,7 @@ public class HistoricoHtmlController {
 	public String consultarHistorico(Model model) {
 		Historico historico = new Historico();
 		model.addAttribute(historico);
-		return "historicoList";
+		return "historico/historicoList";
 	}
 
 	@GetMapping("/historico_consulta")
@@ -85,7 +87,7 @@ public class HistoricoHtmlController {
 			System.err.println(e.getMessage());
 		}
 		model.addAttribute("historicos", historicos);
-		return "historico_consulta";
+		return "historico/historico_consulta";
 	}
 
 	// PUT COMMANDS
@@ -94,7 +96,7 @@ public class HistoricoHtmlController {
 		Historico historico = new Historico();
 		model.addAttribute("historico", historico);
 
-		return "historicoPut";
+		return "historico/historicoPut";
 	}
 	
 	@PostMapping("/historico_atualizado")
@@ -105,7 +107,7 @@ public class HistoricoHtmlController {
 			System.err.println(e.getMessage());
 		}
 		historicoService.atualizar(historico.getHistoricoId().getAlunoRa(), historico.getHistoricoId().getIdHistorico(), historico);
-		return "historico_atualizado";
+		return "historico/historico_atualizado";
 	}
 
 }

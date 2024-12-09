@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Turma</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<style type="text/css">
+		* {
+			margin: 10px;
+		}
+
+		.botao {
+			background-color: rgb(64, 128, 128);
+			/* Verde */
+			color: white;
+			padding: 20px;
+			border: none;
+			border-radius: 5px;
+			text-decoration: none;
+			font-size: 16px;
+			display: inline-block;
+			text-align: center;
+			cursor: pointer;
+		}
+
+		.botao:hover {
+			background-color: rgb(128, 128, 128);
+			/* Verde mais escuro */
+		}
+
+		label {
+			display: inline-block;
+			width: 200px;
+			margin: 5px;
+			align-items: center;
+			justify-content: center;
+			text-align: left;
+		}
+
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		li {
+			margin: 10px 0;
+		}
+
+		a {
+			text-decoration: none;
+			color: black;
+			font-size: 16px;
+		}
+
+		i {
+			margin-right: 4px;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a th:href="@{/home}"><i class="fas fa-home"></i>
+						Inicio</a></li>
+			</ul>
+		</nav>
+	</header>
+	<h1 style="text-align: center;">Estas são as turmas cadastradas</h1>
+	<div align="center">
+		<table style="width:100%" border="1">
+			<thead>
+				<tr>
+					<th>Curso</th>
+					<th>Ano</th>
+					<th>Semestre de Conclusão</th>
+					<th>Turno</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="turmaId: ${turmasId}">
+					<td th:text="${turmaId.codigoCurso}"></td>
+					<td th:text="${turmaId.ano}"></td>
+					<td th:text="${turmaId.semestre}"></td>
+					<td th:text="${turmaId.turno}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div align="center">
+		<a th:href="@{/turma/turmaHome}" class="botao">Voltar</a>
+	</div>
+</body>
+
+</html>

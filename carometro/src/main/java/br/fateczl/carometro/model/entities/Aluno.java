@@ -26,6 +26,7 @@ public class Aluno implements Serializable {
 	@Id
 	private String ra;
 	private String nome;
+	private String caminhoFoto;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo_curso_aluno", referencedColumnName = "codigo", nullable = false)
@@ -77,6 +78,14 @@ public class Aluno implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getCaminhoFoto() {
+		return caminhoFoto;
+	}
+
+	public void setCaminhoFoto(String caminhoFoto) {
+		this.caminhoFoto = caminhoFoto;
 	}
 
 	public Curso getCurso() {

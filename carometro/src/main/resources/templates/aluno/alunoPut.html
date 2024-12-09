@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Atualizar Informações do Aluno</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<style>
+		* {
+			margin: 10px;
+		}
+
+		.botao {
+			background-color: rgb(64, 128, 128);
+			/* Verde */
+			color: white;
+			padding: 20px;
+			border: none;
+			border-radius: 5px;
+			text-decoration: none;
+			font-size: 16px;
+			display: inline-block;
+			text-align: center;
+			cursor: pointer;
+		}
+
+		.botao:hover {
+			background-color: rgb(128, 128, 128);
+			/* Verde mais escuro */
+		}
+
+		label {
+			display: inline-block;
+			width: 200px;
+			margin: 5px;
+			align-items: center;
+			justify-content: center;
+			text-align: left;
+		}
+
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		li {
+			margin: 10px 0;
+		}
+
+		a {
+			text-decoration: none;
+			color: black;
+			font-size: 16px;
+		}
+
+		i {
+			margin-right: 4px;
+			/* Espaço entre o ícone e o texto */
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a th:href="@{/home}"><i class="fas fa-home"></i>Inicio</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<div align="center">
+		<form action="#" th:action="@{/aluno/alunoPut}" th:object="${aluno}" method="post">
+			<label>RA do Aluno:</label>
+			<input type="text" th:field="*{ra}" id="ra" required /><br />
+
+			<label>Nome do Aluno:</label>
+			<input type="text" th:field="*{nome}" id="nome" /><br />
+
+			<label>Imagem do Aluno:</label>
+			<input type="file" name="imagemAluno" /><br />
+
+			<label>Curso:</label>
+			<select th:field="*{curso}">
+				<option th:each="c : ${listCurso}" th:value="${c.codigo}" th:text="${c.codigo}"></option>
+			</select><br />
+
+			<label>Semestre de Conclusão (yyyy-mm-dd):</label>
+			<input type="text" th:field="*{semestreConclusao}" id="semestreConclusao" /><br />
+
+
+			<label for="link1">Link 1:</label>
+			<input type="text" id="link1" name="link1" placeholder="Adicionar o primeiro link" />
+			<br />
+
+			<label for="link2">Link 2:</label>
+			<input type="text" id="link2" name="link2" placeholder="Adicionar o segundo link" />
+			<br />
+
+			<label for="link3">Link 3:</label>
+			<input type="text" id="link3" name="link3" placeholder="Adicionar o terceiro link" />
+			<br />
+
+			<label>Turma:</label>
+			<select th:field="*{turma}">
+				<option th:each="t : ${listTurma}" th:value="${t.turmaId.getFormattedId}"
+					th:text="${t.turmaId.getViableId}"></option>
+			</select><br />
+
+			<button type="submit" class="botao">Atualizar</button>
+			<a th:href="@{/aluno/alunoHome}" class="botao">Voltar</a>
+		</form>
+
+</body>
+
+</html>

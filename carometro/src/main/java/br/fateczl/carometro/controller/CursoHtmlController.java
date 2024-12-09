@@ -8,12 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.fateczl.carometro.model.entities.Curso;
 import br.fateczl.carometro.service.services.ICursoService;
 
 @Controller
+@RequestMapping("/curso")
 public class CursoHtmlController {
 
 	@Autowired
@@ -21,20 +23,20 @@ public class CursoHtmlController {
 
 	@GetMapping("/curso_home")
 	public String cursoHome() {
-		return "curso_home";
+		return "curso/curso_home";
 	}
 
 	@PostMapping("/cursoPost")
 	public String cursoPost(@ModelAttribute("curso") Curso curso, Model model) {
 		cursoService.inserir(curso);
 		model.addAttribute("curso", curso);
-		return "cursoInserido";
+		return "curso/cursoInserido";
 	}
 
 	@GetMapping("/cursoPost")
 	public String cursoPost(Model model) {
 		model.addAttribute("curso", new Curso());
-		return "cursoPost";
+		return "curso/cursoPost";
 	}
 
 	// **GET**: Lista todos os cursos
@@ -42,14 +44,14 @@ public class CursoHtmlController {
 	public String cursoGet(Model model) throws ClassNotFoundException {
 		List<Curso> cursos = cursoService.buscarTodos();
 		model.addAttribute("cursos", cursos);
-		return "cursoGet";
+		return "curso/cursoGet";
 	}
 
 	// **PUT**: Atualiza um curso existente
 	@GetMapping("/cursoPut")
 	public String cursoPut(Model model) {
 		model.addAttribute("curso", new Curso());
-		return "cursoPut";
+		return "curso/cursoPut";
 	}
 
 	@PostMapping("/cursoPut")
@@ -58,23 +60,23 @@ public class CursoHtmlController {
 			cursoService.atualizar(codigo, curso);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			return "redirect:/cursoGet?error=CursoNaoEncontrado";
+			return "redirect:/curso/cursoGet?error=CursoNaoEncontrado";
 		}
 		model.addAttribute("curso", curso);
-		return "cursoAtualizado";
+		return "curso/cursoAtualizado";
 	}
 
 	// **DELETE**: Remove um curso pelo codigo
 	@GetMapping("/cursoDelete")
 	public String cursoDeleteForm(Model model) {
 		model.addAttribute("curso", new Curso()); // Inicializa o formulário
-		return "cursoDelete";
+		return "curso/cursoDelete";
 	}
 
 	@PostMapping("/cursoDelete")
 	public String cursoDelete(@RequestParam("codigo") String codigo, Model model) {
 		cursoService.deletar(codigo);
 		model.addAttribute("message", "Deletado");
-		return "cursoDelete";
+		return "curso/cursoDelete";
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.fateczl.carometro.model.entities.Aluno;
@@ -17,6 +18,7 @@ import br.fateczl.carometro.service.services.IAlunoService;
 import br.fateczl.carometro.service.services.IComentarioService;
 
 @Controller
+@RequestMapping("/comentario")
 public class ComentarioHtmlController {
 
 	@Autowired
@@ -27,14 +29,14 @@ public class ComentarioHtmlController {
 	// HOME
 	@GetMapping("/comentario_home")
 	public String comentarioHome() {
-		return "comentario_home";
+		return "comentario/comentario_home";
 	}
 
 	// GET
 	@GetMapping("/comentarioShowGet")
 	public String comentarioShowGet(Model model) throws ClassNotFoundException {
 		model.addAttribute(new Comentario());
-		return "comentarioShowGet";
+		return "comentario/comentarioShowGet";
 	}
 
 	@GetMapping("/comentarioGet")
@@ -42,14 +44,14 @@ public class ComentarioHtmlController {
 		List<Comentario> comentarios = serviceComentario.buscarTodosPorAluno(ra);
 		model.addAttribute("comentarios", comentarios);
 
-		return "comentarioGet";
+		return "comentario/comentarioGet";
 	}
 
 	// DELETE - Formulário
 	@GetMapping("/comentarioDelete")
 	public String comentarioDeleteForm(Model model) throws ClassNotFoundException {
 		model.addAttribute("tipos", Enum_Tipos.values());
-		return "comentarioDelete";
+		return "comentario/comentarioDelete";
 	}
 
 	// DELETE - Processamento
@@ -57,7 +59,7 @@ public class ComentarioHtmlController {
 	public String comentarioDelete(@RequestParam("ra") String ra, @RequestParam("tipo") Enum_Tipos tipo, Model model)
 			throws ClassNotFoundException {
 		serviceComentario.deletar(ra, tipo);
-		return "redirect:/comentario_home"; // Redireciona para a página inicial após deletar
+		return "redirect:/comentario/comentario_home"; // Redireciona para a página inicial após deletar
 	}
 	
 	// POST
@@ -72,14 +74,14 @@ public class ComentarioHtmlController {
         
 		model.addAttribute("tipos", Enum_Tipos.values());
 		
-		return "comentarioPost";
+		return "comentario/comentarioPost";
 	}
 	
 	@PostMapping("/comentarioPost")
     public String comentarioPost(@ModelAttribute Comentario comentario, Model model) throws ClassNotFoundException {
         serviceComentario.inserir(comentario);
         model.addAttribute("comentario", comentario);
-        return "comentario_inserido";
+        return "comentario/comentario_inserido";
     }
 	
 	// PUT
@@ -94,14 +96,14 @@ public class ComentarioHtmlController {
         
 		model.addAttribute("tipos", Enum_Tipos.values());
 		
-		return "comentarioPut";
+		return "comentario/comentarioPut";
 	}
 	
 	@PostMapping("/comentarioPut")
     public String comentarioPut(@ModelAttribute Comentario comentario, Model model) throws ClassNotFoundException {
         serviceComentario.atualizar(comentario.getAluno().getRa(), comentario.getTipo(), comentario);
         model.addAttribute("comentario", comentario);
-        return "comentario_atualizado";
+        return "comentario/comentario_atualizado";
     }
 	
 }
