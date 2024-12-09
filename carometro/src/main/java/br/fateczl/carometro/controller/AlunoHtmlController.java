@@ -79,7 +79,7 @@ public class AlunoHtmlController {
 		aluno.setLinks(links);
 		alunoService.inserir(aluno);
 		links.clear();
-		return "aluno_inserido";
+		return "alunoInserido";
 	}
 
 	// DELETE COMMANDS
@@ -118,7 +118,7 @@ public class AlunoHtmlController {
 
 	@PostMapping("/alunoPut")
 	public String alunoPut(@RequestParam("ra") String ra, @ModelAttribute("aluno") Aluno aluno,
-			@RequestParam String link1, @RequestParam String link2, @RequestParam String link3) {
+			@RequestParam String link1, @RequestParam String link2, @RequestParam String link3, Model model) {
 		if(!link1.isBlank()) {
 			links.add(link1);
 		}
@@ -130,14 +130,21 @@ public class AlunoHtmlController {
 		}
 		aluno.setLinks(links);
 		try {
-			alunoService.atualizar(ra, aluno);
+			alunoService.atualizarComLink(ra, aluno, links);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return "redirect:/alunoGet?error=alunoNaoEncontrado";
 		}catch (NullPointerException e) {
 			System.err.println(e.getMessage());
 		}
-		return "aluno_home";
+		try {
+			aluno = alunoService.buscar(ra);
+		} catch (ClassNotFoundException e) {
+			System.err.println(e.getMessage());
+		}
+		model.addAttribute("aluno", aluno);
+		model.addAttribute("links", links = (ArrayList<String>) aluno.getLinks());
+		return "alunoAtualizado";
 	}
 
 	// LIST ALL

@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Lista de Comentários</title>
+	<title>Informações de Comentário</title>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-	<style type="text/css">
+	<style>
 		* {
 			margin: 10px;
 		}
@@ -69,29 +69,29 @@
 			</ul>
 		</nav>
 	</header>
+	<div align="center">
+		<h1> O seu comentário foi postado com sucesso!</h1>
 
-	<h1> O seu comentário foi postado com sucesso!</h1>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>ID Comentário</th>
+					<th>RA Aluno</th>
+					<th>Descrição</th>
+					<th>Data</th>
+					<th>Tipo</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${comentario.id}"></td>
+					<td th:text="${comentario.aluno.ra}"></td>
+					<td th:text="${comentario.descricao}"></td>
+					<td th:text="${comentario.data}"></td>
+					<td th:text="${comentario.tipo}"></td>
 
-	<table border="1">
-		<thead>
-			<tr>
-				<th>ID Comentário</th>
-				<th>RA Aluno</th>
-				<th>Descrição</th>
-				<th>Data</th>
-				<th>Tipo</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td th:text="${comentario.id}"></td>
-				<td th:text="${comentario.aluno.ra}"></td>
-				<td th:text="${comentario.descricao}"></td>
-				<td th:text="${comentario.data}"></td>
-				<td th:text="${comentario.tipo}"></td>
-
-				<a th:href="@{/comentario_home}" class="botao">Voltar</a>
-
+					<a th:href="@{/comentario_home}" class="botao">Voltar</a>
+	</div>
 </body>
 
 </html>

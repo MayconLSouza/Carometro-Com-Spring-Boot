@@ -1,51 +1,53 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<style>
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
 
-    li {
-      margin: 10px 0;
-    }
+		li {
+			margin: 10px 0;
+		}
 
-    a {
-      text-decoration: none;
-      color: black;
-      font-size: 16px;
-    }
+		a {
+			text-decoration: none;
+			color: black;
+			font-size: 16px;
+		}
 
-    i {
-      margin-right: 4px; /* Espaço entre o ícone e o texto */
-    }
-  </style>
+		i {
+			margin-right: 4px;
+			/* Espaço entre o ícone e o texto */
+		}
+	</style>
 
 </head>
+
 <body>
 	<header>
-        <nav>
-            <ul>
-                <li><a th:href="@{/home}"><i class="fas fa-home"></i> Inicio</a></li>
-                <li><a th:href="@{/alunoPost}">Inserir Aluno</a></li>
-                <li><a th:href="@{/alunoGet}">Consultar Aluno</a></li>
-                <li><a th:href="@{/alunoDelete}">Deletar Aluno</a></li>
-                <li><a th:href="@{/alunoList}">Listar Aluno</a></li>
-                <li><a th:href="@{/alunoPut}">Atualizar Aluno</a></li>
-                <li><a th:href="@{/historicoHome}"></i>Historico</a></li>
-                <li><a th:href="@{/comentario_home}"></i>Comentários</a></li>
-            </ul>
-        </nav>
-    </header>
+		<nav>
+			<ul>
+				<li><a th:href="@{/home}"><i class="fas fa-home"></i> Inicio</a></li>
+				<li><a th:href="@{/alunoPost}">Inserir Aluno</a></li>
+				<li><a th:href="@{/alunoGet}">Consultar Aluno</a></li>
+				<li><a th:href="@{/alunoDelete}">Deletar Aluno</a></li>
+				<li><a th:href="@{/alunoList}">Listar Aluno</a></li>
+				<li><a th:href="@{/alunoPut}">Atualizar Aluno</a></li>
+				<li><a th:href="@{/historicoHome}"></i>Historico</a></li>
+				<li><a th:href="@{/comentario_home}"></i>Comentários</a></li>
+			</ul>
+		</nav>
+	</header>
 
-<div layout:fragment="conteudo"></div>
+	<div layout:fragment="conteudo"></div>
 
 
 </body>
+
 </html>

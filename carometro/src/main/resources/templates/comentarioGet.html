@@ -1,63 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<title>Lista de Comentários</title>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="../static/css/estilo.css"
-	th:href="@{/css/estilo.css}">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<style type="text/css">
-* {
-	margin: 10px;
-}
+	<title>Consulta de Comentário</title>
+	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<style>
+		* {
+			margin: 10px;
+		}
 
-.botao {
-	background-color: rgb(64, 128, 128); /* Verde */
-	color: white;
-	padding: 20px;
-	border: none;
-	border-radius: 5px;
-	text-decoration: none;
-	font-size: 16px;
-	display: inline-block;
-	text-align: center;
-	cursor: pointer;
-}
+		.botao {
+			background-color: rgb(64, 128, 128);
+			/* Verde */
+			color: white;
+			padding: 20px;
+			border: none;
+			border-radius: 5px;
+			text-decoration: none;
+			font-size: 16px;
+			display: inline-block;
+			text-align: center;
+			cursor: pointer;
+		}
 
-.botao:hover {
-	background-color: rgb(128, 128, 128); /* Verde mais escuro */
-}
+		.botao:hover {
+			background-color: rgb(128, 128, 128);
+			/* Verde mais escuro */
+		}
 
-label {
-	display: inline-block;
-	width: 200px;
-	margin: 5px;
-	align-items: center;
-	justify-content: center;
-	text-align: left;
-}
+		label {
+			display: inline-block;
+			width: 200px;
+			margin: 5px;
+			align-items: center;
+			justify-content: center;
+			text-align: left;
+		}
 
-ul {
-	list-style-type: none;
-	padding: 0;
-}
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
 
-li {
-	margin: 10px 0;
-}
+		li {
+			margin: 10px 0;
+		}
 
-a {
-	text-decoration: none;
-	color: black;
-	font-size: 16px;
-}
+		a {
+			text-decoration: none;
+			color: black;
+			font-size: 16px;
+		}
 
-i {
-	margin-right: 4px; /* Espaço entre o ícone e o texto */
-}
-</style>
+		i {
+			margin-right: 4px;
+			/* Espaço entre o ícone e o texto */
+		}
+	</style>
 </head>
+
 <body>
 	<header>
 		<nav>
@@ -66,36 +68,37 @@ i {
 			</ul>
 		</nav>
 	</header>
+	<div align="center">
+		<h1> Comentários </h1>
+		<form th:action="@{/comentarioGet}" method="get">
+			<label>RA do Aluno:</label>
+			<input type="text" name="ra" /><br />
+			<button type="submit" class="botao">Consultar</button>
+		</form>
 
-	<h1> Comentários </h1>
-	<form th:action="@{/comentarioGet}" method="get">
-    	<label>RA do Aluno:</label>
-    	<input type="text" name="ra" /><br/>
-    	<button type="submit" class="botao">Consultar</button>
-	</form>
+		<table style="width:80%;" border="1">
+			<thead>
+				<tr>
+					<th>RA Aluno</th>
+					<th>Nome Aluno</th>
+					<th>Descrição</th>
+					<th>Data</th>
+					<th>Tipo</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="comentario : ${comentarios}">
+					<td th:text="${comentario.aluno.ra}"></td>
+					<td th:text="${comentario.aluno.nome}"></td>
+					<td th:text="${comentario.descricao}"></td>
+					<td th:text="${comentario.data}"></td>
+					<td th:text="${comentario.tipo}"></td>
+				</tr>
+			</tbody>
+		</table>
 
-	<table border="1">
-		<thead>
-			<tr>
-				<th>RA Aluno</th>
-				<th>Nome Aluno</th>
-				<th>Descrição</th>
-				<th>Data</th>
-				<th>Tipo</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="comentario : ${comentarios}">
-				<td th:text="${comentario.aluno.ra}"></td>
-				<td th:text="${comentario.aluno.nome}"></td>
-				<td th:text="${comentario.descricao}"></td>
-				<td th:text="${comentario.data}"></td>
-				<td th:text="${comentario.tipo}"></td>
-			</tr>
-		</tbody>
-	</table>
+		<a th:href="@{/comentario_home}" class="botao">Voltar</a>
 
-	<a th:href="@{/comentario_home}" class="botao">Voltar</a>
+	</div>
 
-</body>
 </html>

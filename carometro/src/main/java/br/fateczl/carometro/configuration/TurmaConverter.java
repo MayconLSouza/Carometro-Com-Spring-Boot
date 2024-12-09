@@ -27,10 +27,10 @@ public class TurmaConverter implements Converter <String, Turma> {
 	        idturma.setCodigoCurso(parts[0]);
 	        idturma.setAno(Integer.parseInt(parts[1]));
 	        idturma.setSemestre(Integer.parseInt(parts[2]));
-	        if(parts[3].equals("0")) {
+	        if(parts[3].equals("1")) {
 	        	idturma.setTurno(Enum_TurnosCursos.Matutino);
 	        }else {
-	        	if(parts[3].equals("1")) {
+	        	if(parts[3].equals("2")) {
 	        		idturma.setTurno(Enum_TurnosCursos.Vespertino);
 	        	}else {
 	        		idturma.setTurno(Enum_TurnosCursos.Noturno);

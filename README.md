@@ -8,14 +8,15 @@ Este Sistema foi concebido desde o levantamento de requisitos junto ao cliente, 
 ![MCU Carometro](https://github.com/user-attachments/assets/6e77f5cf-7781-41d2-859c-0dbcdfe18878)
 
 ### VCP - Visão de Classe Participante do Sistema
-![VCP - CARÔMETRO](https://github.com/user-attachments/assets/fabea83d-96b5-449a-8462-3f09905083ce)
+![VCP - CARÔMETRO](https://drive.google.com/uc?export=view&id=1i9fW8vR-Ma58dkj6ys4isy6xho3I4kes)
 
 
 ---
 
 ## Implementação:
 Seguindos os Princípios da Programação Orientada a Objetos(POO) e as Boas Práticas de Desenvolvimento de Software (Clean Architecture) foi desenvolvida uma
-APIRESTful que realiza operações de CRUD(`Create, Read, Update, Delete`) na entidade Aluno com suas composições Histórico e Comentário.
+APIRESTful que realiza operações de CRUD(`Create, Read, Update, Delete`) nas entidades Curso, Turma, Aluno, Histórico e Comentário.
+Todas as entidades Possuem seu front-end em Thymeleaf e seu backend e manipulação de banco em Spring Boot, com JPA e suas dependências.
 
 ---
 
@@ -34,3 +35,4 @@ APIRESTful que realiza operações de CRUD(`Create, Read, Update, Delete`) na en
   - Spring Web
   - Spring JPA
   - OpenAPI/Swagger
+  - Thymeleaf

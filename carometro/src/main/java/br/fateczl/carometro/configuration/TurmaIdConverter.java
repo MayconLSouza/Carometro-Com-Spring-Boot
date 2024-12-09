@@ -20,10 +20,10 @@ public class TurmaIdConverter implements Converter<String, TurmaId> {
 		turmaId.setCodigoCurso(parts[0]);
 		turmaId.setAno(Integer.parseInt(parts[1]));
 		turmaId.setSemestre(Integer.parseInt(parts[2]));
-		if (parts[3].equals("0")) {
+		if (parts[3].equals("1")) {
 			turmaId.setTurno(Enum_TurnosCursos.Matutino);
 		} else {
-			if (parts[3].equals("1")) {
+			if (parts[3].equals("2")) {
 				turmaId.setTurno(Enum_TurnosCursos.Vespertino);
 			} else {
 				turmaId.setTurno(Enum_TurnosCursos.Noturno);
