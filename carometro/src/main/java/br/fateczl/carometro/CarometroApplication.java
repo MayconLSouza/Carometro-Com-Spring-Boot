@@ -15,7 +15,7 @@ public class CarometroApplication {
 
 	// Metodo que verifica se o diretorio ja existe no computador, caso nao exista ele cria um novo
 	private static void verificarDiretorio() {
-		File diretorio = new File("C:\\PastaImagensCarometro\\");
+		File diretorio = new File("C:\\TEMP\\imagens\\");
 		if (!diretorio.exists() || !diretorio.isDirectory()) {
 			diretorio.mkdirs();
 		}

@@ -32,7 +32,7 @@ import br.fateczl.carometro.service.implementations.TurmaServiceImp;
 @RequestMapping("/aluno")
 public class AlunoHtmlController {
 
-	private static String caminhoImagens = "C:\\PastaImagensCarometro\\";
+	private static String caminhoImagens = "C:\\TEMP\\imagens\\";
 
 	@Autowired
 	private AlunoServiceImp alunoService;
@@ -220,7 +220,8 @@ public class AlunoHtmlController {
 		return "aluno/alunoAtualizado";
 	}
 
-	private void verificarArquivo(String ra, String nomeArquivo, MultipartFile arquivoImagem, Path caminhoDaImagem) throws ClassNotFoundException, IOException {
+	private void verificarArquivo(String ra, String nomeArquivo, MultipartFile arquivoImagem, Path caminhoDaImagem)
+			throws ClassNotFoundException, IOException {
 		String[] idAlunoAtualizar = nomeArquivo.split("_");
 		File folder = new File(caminhoImagens);
 		File[] files = folder.listFiles();
@@ -236,9 +237,11 @@ public class AlunoHtmlController {
 				if (file.delete()) {
 					System.out.println("Foto antiga do aluno " + idAlunoAtualizar + " apagada com sucesso.");
 					Aluno aluno = alunoService.buscar(ra);
+					// Salvar o arquivo no disco
 					byte[] bytesDaImagem = arquivoImagem.getBytes();
 					Files.write(caminhoDaImagem, bytesDaImagem);
-					aluno.setCaminhoFoto(caminhoDaImagem.toString());
+
+					aluno.setCaminhoFoto(nomeArquivo);
 				} else {
 					System.out.println("Falha ao apagar a foto antiga.");
 				}
