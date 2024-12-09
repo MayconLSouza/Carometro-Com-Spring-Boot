@@ -95,7 +95,7 @@
 						<td th:text="${aluno.ra}"></td>
 						<td th:text="${aluno.nome}"></td>
 						<td>
-							<img th:src="@{/aluno/mostrarImagem/{imagem}(imagem=${aluno.caminhoFoto})}"alt="Foto do Aluno" />
+						<img th:src="@{/aluno/mostrarImagem/{imagem}(imagem=${aluno.caminhoFoto})}" width="100" alt="Foto do Aluno" />
 						</td>
 						<td th:text="${aluno.curso.codigo}"></td>
 						<td th:text="${aluno.semestreConclusao}"></td>

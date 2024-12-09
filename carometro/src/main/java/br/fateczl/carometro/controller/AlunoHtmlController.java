@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -167,7 +168,8 @@ public class AlunoHtmlController {
 
 	@PostMapping("/alunoPut")
 	public String alunoPut(@RequestParam("ra") String ra, @ModelAttribute("aluno") Aluno aluno,
-			@RequestParam String link1, @RequestParam String link2, @RequestParam String link3, Model model) {
+			@RequestParam String link1, @RequestParam String link2, @RequestParam String link3,
+			@RequestParam("imagemAluno") MultipartFile arquivoImagem, Model model) {
 		if (!link1.isBlank()) {
 			links.add(link1);
 		}
@@ -178,7 +180,27 @@ public class AlunoHtmlController {
 			links.add(link3);
 		}
 		aluno.setLinks(links);
+
 		try {
+			// Buscar o aluno existente no banco
+			Aluno alunoExistente = alunoService.buscar(ra);
+
+			// Se uma nova imagem foi enviada, tratar a atualização da imagem
+			if (arquivoImagem != null || !arquivoImagem.isEmpty()) {
+				String nomeArquivo = ra + "_" + arquivoImagem.getOriginalFilename();
+				Path caminhoDaImagem = Paths.get(caminhoImagens + nomeArquivo);
+
+				try {
+					verificarArquivo(ra, nomeArquivo, arquivoImagem, caminhoDaImagem);
+				} catch (IOException e) {
+					System.err.println("Erro ao salvar a imagem:");
+					e.printStackTrace();
+				}
+			} else {
+				// Manter a foto atual do aluno
+				aluno.setCaminhoFoto(alunoExistente.getCaminhoFoto());
+			}
+
 			alunoService.atualizarComLink(ra, aluno, links);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -186,14 +208,46 @@ public class AlunoHtmlController {
 		} catch (NullPointerException e) {
 			System.err.println(e.getMessage());
 		}
+
 		try {
 			aluno = alunoService.buscar(ra);
 		} catch (ClassNotFoundException e) {
 			System.err.println(e.getMessage());
 		}
+
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("links", links = (ArrayList<String>) aluno.getLinks());
 		return "aluno/alunoAtualizado";
+	}
+
+	private void verificarArquivo(String ra, String nomeArquivo, MultipartFile arquivoImagem, Path caminhoDaImagem)
+			throws ClassNotFoundException, IOException {
+		String[] idAlunoAtualizar = nomeArquivo.split("_");
+		File folder = new File(caminhoImagens);
+		File[] files = folder.listFiles();
+		if (files == null) {
+			System.out.println("Nenhum arquivo encontrado.");
+			return;
+		}
+
+		for (File file : files) {
+			String fileName = file.getName();
+			String[] parts = fileName.split("_");
+			if (parts[0].equals(idAlunoAtualizar[0])) {
+				if (file.delete()) {
+					System.out.println("Foto antiga do aluno " + idAlunoAtualizar + " apagada com sucesso.");
+					Aluno aluno = alunoService.buscar(ra);
+					// Salvar o arquivo no disco
+					byte[] bytesDaImagem = arquivoImagem.getBytes();
+					Files.write(caminhoDaImagem, bytesDaImagem);
+
+					aluno.setCaminhoFoto(nomeArquivo);
+				} else {
+					System.out.println("Falha ao apagar a foto antiga.");
+				}
+				break;
+			}
+		}
 	}
 
 	// LIST ALL

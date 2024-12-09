@@ -71,7 +71,7 @@
 	</header>
 
 	<div align="center">
-		<form action="#" th:action="@{/aluno/alunoPut}" th:object="${aluno}" method="post">
+		<form action="#" th:action="@{/aluno/alunoPut}" enctype="multipart/form-data" th:object="${aluno}" method="post">
 			<label>RA do Aluno:</label>
 			<input type="text" th:field="*{ra}" id="ra" required /><br />
 
@@ -79,7 +79,7 @@
 			<input type="text" th:field="*{nome}" id="nome" /><br />
 
 			<label>Imagem do Aluno:</label>
-			<input type="file" name="imagemAluno" /><br />
+			<input type="file" name="imagemAluno"/><br />
 
 			<label>Curso:</label>
 			<select th:field="*{curso}">
@@ -111,6 +111,7 @@
 			<button type="submit" class="botao">Atualizar</button>
 			<a th:href="@{/aluno/alunoHome}" class="botao">Voltar</a>
 		</form>
+	</div>
 
 </body>
 
