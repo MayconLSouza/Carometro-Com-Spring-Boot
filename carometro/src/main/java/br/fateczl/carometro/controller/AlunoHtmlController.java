@@ -82,54 +82,54 @@ public class AlunoHtmlController {
 		return "aluno/alunoPost";
 	}
 
-	//Retornando a Imagem
+	// Retornando a Imagem
 	@GetMapping("/mostrarImagem/{imagem}")
 	@ResponseBody
 	public byte[] retornaImagem(@PathVariable("imagem") String imagem) throws IOException {
-		File imagemArquivo = new File(caminhoImagens + imagem);
-		
-		if (imagem != null || imagem.trim().length() > 0) {
-			System.out.println("No IF");	
-			return Files.readAllBytes(imagemArquivo.toPath());
+		if (imagem != null && !imagem.trim().isEmpty()) {
+			File imagemArquivo = new File(caminhoImagens + imagem);
+			if (imagemArquivo.exists()) {
+				return Files.readAllBytes(imagemArquivo.toPath());
+			}
 		}
-		return null; 
+		throw new IOException("Imagem não encontrada ou inválida.");
 	}
 
 	@PostMapping("/alunoPost")
 	public String inserirAluno(@ModelAttribute("aluno") @RequestParam String link1, @RequestParam String link2,
-	                           @RequestParam String link3, Aluno aluno, @RequestParam("imagemAluno") MultipartFile arquivoImagem) {
-	    links.add(link1);
-	    links.add(link2);
-	    links.add(link3);
-	    aluno.setLinks(links);
+			@RequestParam String link3, Aluno aluno, @RequestParam("imagemAluno") MultipartFile arquivoImagem) {
+		links.add(link1);
+		links.add(link2);
+		links.add(link3);
+		aluno.setLinks(links);
 
-	    // Tratamento da imagem
-	    if (!arquivoImagem.isEmpty()) {
-	        try {
-	            // Gerar caminho completo para o arquivo
-	            String nomeArquivo = aluno.getRa() + "_" + arquivoImagem.getOriginalFilename();
-	            Path caminhoDaImagem = Paths.get(caminhoImagens + nomeArquivo);
+		// Tratamento da imagem
+		if (!arquivoImagem.isEmpty()) {
+			try {
+				// Gerar caminho completo para o arquivo
+				String nomeArquivo = aluno.getRa() + "_" + arquivoImagem.getOriginalFilename();
+				Path caminhoDaImagem = Paths.get(caminhoImagens + nomeArquivo);
 
-	            // Salvar o arquivo no disco
-	            byte[] bytesDaImagem = arquivoImagem.getBytes();
-	            Files.write(caminhoDaImagem, bytesDaImagem);
+				// Salvar o arquivo no disco
+				byte[] bytesDaImagem = arquivoImagem.getBytes();
+				Files.write(caminhoDaImagem, bytesDaImagem);
 
-	            // Atualizar o caminho completo no aluno
-	            aluno.setCaminhoFoto(caminhoDaImagem.toString());
-	        } catch (IOException e) {
-	            System.err.println("Erro ao salvar a imagem:");
-	            e.printStackTrace();
-	        }
-	    } else {
-	        System.out.println("Nenhuma imagem foi fornecida.");
-	        aluno.setCaminhoFoto(null);
-	    }
+				// Armazena apenas o nome do arquivo
+				aluno.setCaminhoFoto(nomeArquivo);
 
-	    alunoService.inserir(aluno);
-	    links.clear();
-	    return "aluno/alunoInserido";
+			} catch (IOException e) {
+				System.err.println("Erro ao salvar a imagem:");
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("Nenhuma imagem foi fornecida.");
+			aluno.setCaminhoFoto(null);
+		}
+
+		alunoService.inserir(aluno);
+		links.clear();
+		return "aluno/alunoInserido";
 	}
-
 
 	// DELETE COMMANDS
 	@GetMapping("/alunoDelete")

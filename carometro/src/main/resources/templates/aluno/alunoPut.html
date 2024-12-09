@@ -78,6 +78,9 @@
 			<label>Nome do Aluno:</label>
 			<input type="text" th:field="*{nome}" id="nome" /><br />
 
+			<label>Imagem do Aluno:</label>
+			<input type="file" name="imagemAluno" /><br />
+
 			<label>Curso:</label>
 			<select th:field="*{curso}">
 				<option th:each="c : ${listCurso}" th:value="${c.codigo}" th:text="${c.codigo}"></option>
