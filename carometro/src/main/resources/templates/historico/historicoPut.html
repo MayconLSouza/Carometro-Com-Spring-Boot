@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Histórico</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<style type="text/css">
+		* {
+			margin: 10px;
+		}
+
+		.botao {
+			background-color: rgb(64, 128, 128);
+			/* Verde */
+			color: white;
+			padding: 20px;
+			border: none;
+			border-radius: 5px;
+			text-decoration: none;
+			font-size: 16px;
+			display: inline-block;
+			text-align: center;
+			cursor: pointer;
+		}
+
+		.botao:hover {
+			background-color: rgb(128, 128, 128);
+			/* Verde mais escuro */
+		}
+
+		label {
+			display: inline-block;
+			width: 200px;
+			margin: 5px;
+			align-items: center;
+			justify-content: center;
+			text-align: left;
+		}
+
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		li {
+			margin: 10px 0;
+		}
+
+		a {
+			text-decoration: none;
+			color: black;
+			font-size: 16px;
+		}
+
+		i {
+			margin-right: 4px;
+			/* Espaço entre o ícone e o texto */
+		}
+	</style>
+</head>
+
+<body>
+	
+	<header>
+		<nav>
+			<ul>
+				<li><a th:href="@{/home}"><i class="fas fa-home"></i>Inicio</a></li>
+			</ul>
+		</nav>
+	</header>
+	
+	<div align="center">
+		<form action="#" th:action="@{/historico/historicoPost}" th:object="${historico}" method="post">
+
+			<label>RA:</label>
+			<input type="text" th:field="*{historicoId.alunoRa}" id="ra" /><br />
+
+			<label>Identificador do Historico:</label>
+			<input type="number" th:field="*{historicoId.idHistorico}" id="idHistorico" /><br />
+
+			<label>Empresa</label>
+			<input type="text" th:field="*{empresa}" id="empresa" /><br />
+			
+			<label>Atividade</label>
+			<input type="text" th:field="*{atividade}" id="atividade" /><br />
+			
+			<label>Tempo de empresa (anos)</label>
+			<input type="number" th:field="*{tempoEmpresaEmAnos}" id="tempoEmpresaEmAnos" /><br />
+
+			<button class="botao" type="submit" th:href="@{/curso_home}">Atualizar</button>
+			<a th:href="@{/historico/historicoHome}" class="botao">Voltar</a>
+		</form>
+	</div>
+</body>
+
+</html>

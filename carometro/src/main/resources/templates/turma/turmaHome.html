@@ -2,10 +2,9 @@
 <html lang="en"
       xmlns:th="http://thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-      
 <head>
   <meta charset="UTF-8">
-   <link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+  <link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     ul {
@@ -24,7 +23,7 @@
     }
 
     i {
-      margin-right: 4px; /* Espaço entre o ícone e o texto */
+      margin-right: 4px; 
     }
   </style>
 
@@ -34,9 +33,10 @@
         <nav>
             <ul>
                 <li><a th:href="@{/home}"><i class="fas fa-home"></i> Inicio</a></li>
-				<li><a th:href="@{/aluno/alunoHome}">Alunos</a></li>
-				<li><a th:href="@{/turma/turmaHome}">Turmas</a></li>
-                <li><a th:href="@{/curso/curso_home}">Cursos</a></li>
+                <li><a th:href="@{/turma/turmaPost}">Inserir Turma</a></li>
+                <li><a th:href="@{/turma/turmaList}">Listar Turma</a></li>
+                <li><a th:href="@{/turma/turmaDelete}">Deletar Turma</a></li>
+            </ul>
         </nav>
     </header>
 

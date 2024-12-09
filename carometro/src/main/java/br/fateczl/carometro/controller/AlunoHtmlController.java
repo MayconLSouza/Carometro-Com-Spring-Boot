@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.fateczl.carometro.model.entities.Aluno;
@@ -19,6 +20,7 @@ import br.fateczl.carometro.service.implementations.CursoServiceImp;
 import br.fateczl.carometro.service.implementations.TurmaServiceImp;
 
 @Controller
+@RequestMapping("/aluno")
 public class AlunoHtmlController {
 
 	@Autowired
@@ -37,7 +39,7 @@ public class AlunoHtmlController {
 	public String consultarAluno(Model model) {
 		Aluno aluno = new Aluno();
 		model.addAttribute(aluno);
-		return "alunoGet";
+		return "aluno/alunoGet";
 	}
 
 	@GetMapping("/alunoConsulta")
@@ -49,7 +51,7 @@ public class AlunoHtmlController {
 			System.err.println(e);
 		}
 		model.addAttribute("aluno", aluno);
-		return "alunoConsulta";
+		return "aluno/alunoConsulta";
 	}
 
 	// POST COMMANDS
@@ -67,7 +69,7 @@ public class AlunoHtmlController {
 			System.err.println(e);
 		}
 
-		return "alunoPost";
+		return "aluno/alunoPost";
 	}
 
 	@PostMapping("/alunoPost")
@@ -79,7 +81,7 @@ public class AlunoHtmlController {
 		aluno.setLinks(links);
 		alunoService.inserir(aluno);
 		links.clear();
-		return "alunoInserido";
+		return "aluno/alunoInserido";
 	}
 
 	// DELETE COMMANDS
@@ -87,7 +89,7 @@ public class AlunoHtmlController {
 	public String deletarAluno(Model model) {
 		Aluno aluno = new Aluno();
 		model.addAttribute(aluno);
-		return "alunoDelete";
+		return "aluno/alunoDelete";
 	}
 
 	@PostMapping("/alunoDelete")
@@ -96,7 +98,7 @@ public class AlunoHtmlController {
 		Aluno aluno = new Aluno();
 		aluno = alunoService.deletar(ra);
 		model.addAttribute("message", "Deletado");
-		return "alunoDelete";
+		return "aluno/alunoDelete";
 	}
 
 	// PUT COMMANDS
@@ -113,19 +115,19 @@ public class AlunoHtmlController {
 		} catch (ClassNotFoundException e) {
 			System.err.println(e);
 		}
-		return "alunoPut";
+		return "aluno/alunoPut";
 	}
 
 	@PostMapping("/alunoPut")
 	public String alunoPut(@RequestParam("ra") String ra, @ModelAttribute("aluno") Aluno aluno,
 			@RequestParam String link1, @RequestParam String link2, @RequestParam String link3, Model model) {
-		if(!link1.isBlank()) {
+		if (!link1.isBlank()) {
 			links.add(link1);
 		}
-		if(!link2.isBlank()) {
+		if (!link2.isBlank()) {
 			links.add(link2);
 		}
-		if(!link3.isBlank()) {
+		if (!link3.isBlank()) {
 			links.add(link3);
 		}
 		aluno.setLinks(links);
@@ -134,7 +136,7 @@ public class AlunoHtmlController {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return "redirect:/alunoGet?error=alunoNaoEncontrado";
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			System.err.println(e.getMessage());
 		}
 		try {
@@ -144,7 +146,7 @@ public class AlunoHtmlController {
 		}
 		model.addAttribute("aluno", aluno);
 		model.addAttribute("links", links = (ArrayList<String>) aluno.getLinks());
-		return "alunoAtualizado";
+		return "aluno/alunoAtualizado";
 	}
 
 	// LIST ALL
@@ -160,20 +162,13 @@ public class AlunoHtmlController {
 		}
 		model.addAttribute("alunos", alunos);
 		model.addAttribute("links", links);
-		return "alunoList";
+		return "aluno/alunoList";
 	}
 
 	@GetMapping("/alunoHome")
 	public String alunoHome(Model model) {
 		model.addAttribute("message", "Isso é um Teste");
-		return "alunoHome";
-
-	}
-
-	@GetMapping("/home")
-	public String home(Model model) {
-		model.addAttribute("message", "Isso é um Teste");
-		return "home";
+		return "aluno/alunoHome";
 
 	}
 

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.fateczl.carometro.model.entities.Aluno;
 import br.fateczl.carometro.model.entities.Curso;
@@ -20,6 +21,7 @@ import br.fateczl.carometro.service.implementations.CursoServiceImp;
 import br.fateczl.carometro.service.implementations.TurmaServiceImp;
 
 @Controller
+@RequestMapping("/turma")
 public class TurmaHtmlController {
 
 	@Autowired
@@ -37,7 +39,7 @@ public class TurmaHtmlController {
 	// HOME
 	@GetMapping("/turmaHome")
 	public String home() {
-		return "turmaHome";
+		return "turma/turmaHome";
 	}
 
 	// POST
@@ -51,7 +53,7 @@ public class TurmaHtmlController {
 	    
 	    model.addAttribute("turnos", Enum_TurnosCursos.values());
 
-		return "turmaPost";
+		return "turma/turmaPost";
 	}
 
 	@PostMapping("/turmaPost")
@@ -61,7 +63,7 @@ public class TurmaHtmlController {
 		turma.setTurmaId(turmaId);
 		turma.setCurso(curso);
 		turmaService.inserir(turma);
-		return "turma_inserida";
+		return "turma/turma_inserida";
 	}
 	
 	// DELETE
@@ -75,14 +77,14 @@ public class TurmaHtmlController {
 	    
 	    model.addAttribute("turnos", Enum_TurnosCursos.values());
 	    
-		return "turmaDelete";
+		return "turma/turmaDelete";
 	}
 	
 	@PostMapping("/turmaDelete")
 	public String deletarTurma(@ModelAttribute("turmaId") TurmaId turmaId, Model model) throws ClassNotFoundException {
 		turmaService.deletar(turmaId.getCodigoCurso(), turmaId.getAno(), turmaId.getSemestre(), turmaId.getTurno());
 		model.addAttribute("message","Deletada");
-		return "turma_deletada";
+		return "turma/turma_deletada";
 	}
 	
 	// LIST
@@ -97,7 +99,7 @@ public class TurmaHtmlController {
 			turmasId.add(turma.getTurmaId());
 		}
 		model.addAttribute("turmasId", turmasId);
-		return "turmaList";
+		return "turma/turmaList";
 	}
 
 }
