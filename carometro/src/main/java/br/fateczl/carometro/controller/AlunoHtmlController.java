@@ -31,7 +31,7 @@ import br.fateczl.carometro.service.implementations.TurmaServiceImp;
 @RequestMapping("/aluno")
 public class AlunoHtmlController {
 
-	private static String caminhoImagens = "C:\\TEMP\\imagens\\";
+	private static String caminhoImagens = "C:\\PastaImagensCarometro\\";
 
 	@Autowired
 	private AlunoServiceImp alunoService;
